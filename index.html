@@ -717,6 +717,82 @@ hr.section-rule {
 
 .scroll-top.visible { opacity: 1; }
 .scroll-top:hover { color: var(--accent); border-color: var(--accent-dim); }
+
+/* ── Master Tab Bar ── */
+.master-tab-bar {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  right: 0;
+  height: 48px;
+  background: rgba(10, 14, 20, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  z-index: 99;
+  padding: 0 24px;
+}
+
+.master-tab {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 8px 28px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.master-tab:hover { color: var(--text); background: var(--bg-card); }
+
+.master-tab.active {
+  color: var(--text-bright);
+  background: var(--bg-card);
+  border-color: var(--border-accent);
+}
+
+.master-tab .tab-icon {
+  font-size: 14px;
+}
+
+.master-tab.active .tab-icon-water { color: var(--cold); }
+.master-tab.active .tab-icon-waste { color: var(--yellow); }
+
+.master-tab-content { display: none; }
+.master-tab-content.active { display: block; }
+
+/* Offset for second fixed bar */
+.sidebar { top: calc(var(--header-h) + 48px); height: calc(100vh - var(--header-h) - 48px); }
+.main { padding-top: calc(var(--header-h) + 48px + 32px); }
+
+/* ── DWV-specific color classes ── */
+.pipe-4 { background: #a855f7; color: #fff; }
+.pipe-3 { background: #6366f1; color: #fff; }
+.pipe-2 { background: #f59e0b; color: #000; }
+.pipe-15 { background: #10b981; color: #000; }
+.vent-color { color: #94a3b8; }
+.drain-color { color: #f59e0b; }
+.dfu-badge {
+  display: inline-block;
+  background: var(--border);
+  color: var(--accent);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: 3px;
+}
 </style>
 </head>
 <body>
@@ -733,8 +809,19 @@ hr.section-rule {
   </div>
 </header>
 
+<!-- ═══════════════════════ MASTER TAB BAR ═══════════════════════ -->
+<div class="master-tab-bar">
+  <button class="master-tab active" data-master="water" onclick="switchMasterTab('water')">
+    <span class="tab-icon tab-icon-water">💧</span> Water Supply
+  </button>
+  <button class="master-tab" data-master="waste" onclick="switchMasterTab('waste')">
+    <span class="tab-icon tab-icon-waste">🔽</span> Waste &amp; Vent
+  </button>
+</div>
+
+
 <!-- ═══════════════════════ SIDEBAR ═══════════════════════ -->
-<nav class="sidebar" id="sidebar">
+<nav class="sidebar" id="sidebar-water">
   <div class="nav-group">
     <div class="nav-group-label">Overview</div>
     <a href="#overview" class="nav-link active"><span class="nav-icon">◈</span> System Summary</a>
@@ -770,8 +857,45 @@ hr.section-rule {
   </div>
 </nav>
 
+<!-- ═══════════════════════ SIDEBAR — WASTE ═══════════════════════ -->
+<nav class="sidebar" id="sidebar-waste" style="display:none">
+  <div class="nav-group">
+    <div class="nav-group-label">Overview</div>
+    <a href="#w-overview" class="nav-link active"><span class="nav-icon">◈</span> DWV Summary</a>
+    <a href="#w-goals" class="nav-link"><span class="nav-icon">◎</span> Design Goals</a>
+    <a href="#w-dfu" class="nav-link"><span class="nav-icon">⊞</span> Fixture Unit Schedule</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">System Layout</div>
+    <a href="#w-schematic" class="nav-link"><span class="nav-icon">◇</span> DWV Schematic</a>
+    <a href="#w-building-drain" class="nav-link"><span class="nav-icon">◆</span> Building Drain</a>
+    <a href="#w-venting" class="nav-link"><span class="nav-icon">↕</span> Venting Strategy</a>
+    <a href="#w-cleanouts" class="nav-link"><span class="nav-icon">⊘</span> Cleanout Locations</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Zones</div>
+    <a href="#w-kitchen" class="nav-link"><span class="nav-icon">▪</span> Kitchen</a>
+    <a href="#w-bath1" class="nav-link"><span class="nav-icon">▪</span> Bathroom 1</a>
+    <a href="#w-bath2" class="nav-link"><span class="nav-icon">▪</span> Bathroom 2 (Primary)</a>
+    <a href="#w-laundry" class="nav-link"><span class="nav-icon">▪</span> Laundry</a>
+    <a href="#w-garage" class="nav-link"><span class="nav-icon">▪</span> Garage</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Materials</div>
+    <a href="#w-piperuns" class="nav-link"><span class="nav-icon">═</span> Pipe Runs & Lengths</a>
+    <a href="#w-pipetotals" class="nav-link"><span class="nav-icon">▰</span> Pipe Totals</a>
+    <a href="#w-fittings" class="nav-link"><span class="nav-icon">⊕</span> Fittings & BOM</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Reference</div>
+    <a href="#w-code" class="nav-link"><span class="nav-icon">⚙</span> Code & Installation</a>
+  </div>
+</nav>
+
 <!-- ═══════════════════════ MAIN CONTENT ═══════════════════════ -->
 <main class="main">
+
+<div class="master-tab-content active" id="content-water">
 
 <!-- ════ OVERVIEW ════ -->
 <section class="section" id="overview">
@@ -1846,13 +1970,856 @@ hr.section-rule {
   </div>
 </section>
 
+</div><!-- /content-water -->
+
+<div class="master-tab-content" id="content-waste">
+
+<!-- ════ W-OVERVIEW ════ -->
+<section class="section" id="w-overview">
+  <div class="section-header">
+    <span class="section-number">W1</span>
+    <h2 class="section-title">DWV System Summary</h2>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:20px">
+    <div class="stat-box">
+      <div class="stat-value">25 <span class="unit">DFU</span></div>
+      <div class="stat-label">Total Drain Fixture Units</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">~195 <span class="unit">ft</span></div>
+      <div class="stat-label">Total DWV Pipe (buy)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">2</div>
+      <div class="stat-label">Roof Vent Penetrations</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="stat-box">
+      <div class="stat-value" style="font-size:24px">PVC</div>
+      <div class="stat-label">Schedule 40 DWV</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value" style="font-size:24px">IPC</div>
+      <div class="stat-label">Mesa County Code</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value" style="font-size:24px">4"</div>
+      <div class="stat-label">Building Drain</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:20px">
+    4" PVC building drain exits through <strong>west foundation wall underneath the kitchen</strong> → runs east through crawl space collecting 3" and 2" branches → serves all fixture groups. Two 3" stacks (Bath 1 + Bath 2) vent through roof. Kitchen, laundry, and garage use <strong>AAVs</strong> (Air Admittance Valves) per IPC §918.
+  </div>
+</section>
+
+<!-- ════ W-GOALS ════ -->
+<section class="section" id="w-goals">
+  <div class="section-header">
+    <span class="section-number">W2</span>
+    <h2 class="section-title">Design Goals</h2>
+  </div>
+  <div class="card">
+    <table>
+      <tr><td style="width:24px;vertical-align:middle;color:var(--green)">✓</td><td>PVC Schedule 40 DWV throughout — solvent-weld connections</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>4" building drain for whole-house capacity and future flexibility</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>Proper slope: 1/4" per foot for pipes ≤3", 1/8" per foot for 4"</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>Crawl space routing — all horizontal drain runs hung from joists in crawl</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>Two vent stacks through roof (Bath 1 + Bath 2) — minimum required by IPC</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>AAVs for kitchen, laundry, and garage fixtures where code permits</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>Cleanouts at every direction change >45° and at building drain exit</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>P-traps on every fixture; integral trap on water closets</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ════ W-DFU ════ -->
+<section class="section" id="w-dfu">
+  <div class="section-header">
+    <span class="section-number">W3</span>
+    <h2 class="section-title">Fixture Unit Schedule</h2>
+  </div>
+
+  <p style="margin-bottom:16px">Drainage Fixture Units per <strong class="text-bright">IPC Table 709.1</strong>. Determines minimum drain, trap, and branch sizing.</p>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-accent"></span>DFU by Room</div>
+    <table>
+      <thead>
+        <tr><th>Room</th><th>Fixture</th><th>DFU</th><th>Trap Size</th><th>Drain Size</th></tr>
+      </thead>
+      <tbody>
+        <tr><td rowspan="2" class="text-bright" style="vertical-align:middle">Kitchen</td>
+            <td>Kitchen Sink</td><td class="mono">2</td><td class="mono">1-1/2"</td><td class="mono">1-1/2"</td></tr>
+        <tr><td>Dishwasher (Bosch 300)</td><td class="mono">2</td><td class="mono" style="color:var(--text-muted)">indirect*</td><td class="mono" style="color:var(--text-muted)">via sink*</td></tr>
+
+        <tr><td rowspan="4" class="text-bright" style="vertical-align:middle">Bath 1</td>
+            <td>Lavatory</td><td class="mono">1</td><td class="mono">1-1/4"</td><td class="mono">1-1/2"</td></tr>
+        <tr><td>Water Closet (1.6 GPF)</td><td class="mono">3</td><td class="mono" style="color:var(--text-muted)">integral</td><td class="mono">3"</td></tr>
+        <tr><td>Shower</td><td class="mono">2</td><td class="mono">2"</td><td class="mono">2"</td></tr>
+        <tr><td>Urinal (≤1.0 GPF)</td><td class="mono">2</td><td class="mono">2"</td><td class="mono">2"</td></tr>
+
+        <tr><td rowspan="4" class="text-bright" style="vertical-align:middle">Bath 2</td>
+            <td>Lavatory 1</td><td class="mono">1</td><td class="mono">1-1/4"</td><td class="mono">1-1/2"</td></tr>
+        <tr><td>Lavatory 2</td><td class="mono">1</td><td class="mono">1-1/4"</td><td class="mono">1-1/2"</td></tr>
+        <tr><td>Water Closet (1.6 GPF)</td><td class="mono">3</td><td class="mono" style="color:var(--text-muted)">integral</td><td class="mono">3"</td></tr>
+        <tr><td>Bathtub / Shower</td><td class="mono">2</td><td class="mono">1-1/2"</td><td class="mono">1-1/2"</td></tr>
+
+        <tr><td class="text-bright" style="vertical-align:middle">Laundry</td>
+            <td>Clothes Washer</td><td class="mono">2</td><td class="mono">2"</td><td class="mono">2"</td></tr>
+
+        <tr><td rowspan="2" class="text-bright" style="vertical-align:middle">Garage</td>
+            <td>Utility Sink</td><td class="mono">2</td><td class="mono">1-1/2"</td><td class="mono">1-1/2"</td></tr>
+        <tr><td>Pet Wash (floor drain)</td><td class="mono">2</td><td class="mono">2"</td><td class="mono">2"</td></tr>
+
+        <tr class="total-row">
+          <td colspan="2" style="text-align:right"><strong>Total DFU</strong></td>
+          <td class="mono" style="color:var(--accent);font-size:15px"><strong>25</strong></td>
+          <td colspan="2"></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout" style="margin-top:12px">
+      *Dishwasher drains indirectly into kitchen sink tailpiece or disposer via high-loop or air gap — no separate trap or DWV connection. Its 2 DFU count determines minimum branch sizing.
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-header"><span class="dot dot-yellow"></span>Branch Sizing (IPC Table 710.1)</div>
+    <table>
+      <thead><tr><th>Branch</th><th>DFU on Branch</th><th>Has WC?</th><th>Min. Size</th><th>Design Size</th></tr></thead>
+      <tbody>
+        <tr><td class="text-bright">Kitchen</td><td class="mono">4</td><td>No</td><td class="mono">2"</td><td class="mono text-bright">2"</td></tr>
+        <tr><td class="text-bright">Bathroom 1</td><td class="mono">8</td><td>Yes</td><td class="mono">3"</td><td class="mono text-bright">3"</td></tr>
+        <tr><td class="text-bright">Bathroom 2</td><td class="mono">7</td><td>Yes</td><td class="mono">3"</td><td class="mono text-bright">3"</td></tr>
+        <tr><td class="text-bright">Laundry</td><td class="mono">2</td><td>No</td><td class="mono">2"</td><td class="mono text-bright">2"</td></tr>
+        <tr><td class="text-bright">Garage</td><td class="mono">4</td><td>No</td><td class="mono">2"</td><td class="mono text-bright">2"</td></tr>
+        <tr class="total-row">
+          <td colspan="3" style="text-align:right"><strong>Building Drain</strong></td>
+          <td class="mono">3"</td>
+          <td class="mono" style="color:var(--accent)"><strong>4"</strong> (oversized)</td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout" style="margin-top:12px">
+      25 DFU requires only 3" building drain at 1/4"/ft slope (IPC limit: 36 DFU). We specify <strong class="text-bright">4" building drain</strong> for future flexibility, easier cleaning, and reduced clog risk.
+    </div>
+  </div>
+</section>
+
+<!-- ════ W-SCHEMATIC ════ -->
+<section class="section" id="w-schematic">
+  <div class="section-header">
+    <span class="section-number">W4</span>
+    <h2 class="section-title">DWV System Schematic</h2>
+  </div>
+
+  <div class="schematic">
+<pre>
+<span class="hl-dim">              ROOF</span>
+<span class="hl-dim">         ┌────┴────┐</span>
+     <span class="vent-color">3" VTR</span>     <span class="vent-color">2" VTR</span>           <span class="hl-dim">VTR = Vent Through Roof</span>
+     <span class="vent-color">Bath 2</span>     <span class="vent-color">Bath 1</span>           <span class="hl-dim">AAV = Air Admittance Valve</span>
+<span class="hl-dim">         │         │</span>
+<span class="hl-dim">    ═════╪═════════╪════════════════════════ FLOOR LEVEL ═══</span>
+<span class="hl-dim">         │         │</span>
+<span class="hl-dim">         │         │         ┌──────┐  ┌──────┐  ┌──────┐</span>
+<span class="hl-dim">         │         │         │KTCHN │  │LNDRY │  │GARGE │</span>
+<span class="hl-dim">         │         │         │</span><span class="vent-color">[AAV]</span><span class="hl-dim"> │  │</span><span class="vent-color">[AAV]</span><span class="hl-dim"> │  │</span><span class="vent-color">[AAV]</span><span class="hl-dim"> │</span>
+<span class="hl-dim">         │         │         │ 2"   │  │ 2"   │  │ 2"   │</span>
+<span class="hl-dim">         │         │         └──┬───┘  └──┬───┘  └──┬───┘</span>
+<span class="hl-dim">         │         │            │         │         │</span>
+<span class="hl-dim">  ═══════╪═════════╪════════════╪═════════╪═════════╪════ CRAWL</span>
+<span class="hl-dim">         │         │            │         │         │</span>
+<span class="hl-dim">    </span><span class="hl-label">BATH 2</span><span class="hl-dim">    </span><span class="hl-label">BATH 1</span><span class="hl-dim">      </span><span class="hl-label">KITCHEN</span><span class="hl-dim">  </span><span class="hl-label">LAUNDRY</span><span class="hl-dim">  </span><span class="hl-label">GARAGE</span>
+     <span class="drain-color">3" branch</span>  <span class="drain-color">3" branch</span>   <span class="drain-color">2" branch</span> <span class="drain-color">2" branch</span> <span class="drain-color">2" branch</span>
+<span class="hl-dim">         │         │            │         │         │</span>
+<span class="hl-dim">         │         │            │         │         │</span>
+<span class="hl-dim">         └────┬────┴────────────┴─────────┴─────────┘</span>
+<span class="hl-dim">              │</span>
+         <span class="hl-accent">4" BUILDING DRAIN</span> <span class="hl-dim">(1/8" per foot slope)</span>
+<span class="hl-dim">              │</span>
+<span class="hl-dim">         ┌────┴────┐</span>
+<span class="hl-dim">         │ 2-WAY   │</span>
+<span class="hl-dim">         │ CLEANOUT│</span>
+<span class="hl-dim">         └────┬────┘</span>
+<span class="hl-dim">              │</span>
+<span class="hl-dim">    ══════════╪═══════════════════════════════════ WEST FOUNDATION</span>
+<span class="hl-dim">              │                                    (under kitchen)</span>
+<span class="hl-dim">         TO MUNICIPAL SEWER</span>
+</pre>
+  </div>
+</section>
+
+<!-- ════ W-BUILDING-DRAIN ════ -->
+<section class="section" id="w-building-drain">
+  <div class="section-header">
+    <span class="section-number">W5</span>
+    <h2 class="section-title">Building Drain — Crawl Space Routing</h2>
+  </div>
+
+  <p>4" PVC Schedule 40 building drain exits through the <strong>west foundation wall underneath the kitchen</strong>. From the sewer connection, the drain runs east through the crawl space, collecting branches as it extends deeper into the house toward the bathrooms.</p>
+
+  <div class="schematic">
+<pre>
+<span class="hl-dim">       WEST (Kitchen / Sewer Exit)                       EAST (Bathrooms)</span>
+<span class="hl-dim">              │                                               │</span>
+<span class="hl-dim"> TO SEWER ◄───┤</span>
+<span class="hl-dim">              │</span>
+<span class="hl-accent">    4" BUILDING DRAIN</span> <span class="hl-dim">─────────────────────────────────────────►</span>
+<span class="hl-dim">              │</span>
+<span class="hl-dim">         </span><span class="hl-valve">[2-way CO]</span><span class="hl-dim">  at foundation exit</span>
+<span class="hl-dim">              │</span>
+<span class="hl-dim">    ~3' ──────┤ </span><span class="drain-color">Kitchen 2" branch</span><span class="hl-dim"> (sink + DW indirect) — closest to exit</span>
+<span class="hl-dim">              │</span>
+<span class="hl-dim">    ~8' ──────┤ </span><span class="drain-color">Laundry 2" branch</span><span class="hl-dim"> (washer standpipe — kitchen S wall)</span>
+<span class="hl-dim">              │</span>
+<span class="hl-dim">   ~11' ──────┤ </span><span class="drain-color">Garage 2" branch</span><span class="hl-dim"> (utility sink + pet wash — through rim joist)</span>
+<span class="hl-dim">              │                              </span><span class="hl-valve">[CO]</span>
+<span class="hl-dim">   ~14' ──────┤ </span><span class="drain-color">Bath 2 (M.Bath) 3" branch</span><span class="hl-dim"> (WC, tub, 2 lavs)</span>
+<span class="hl-dim">              │                              </span><span class="hl-valve">[CO]</span>
+<span class="hl-dim">   ~26' ──────┤ </span><span class="drain-color">Bath 1  3" branch</span><span class="hl-dim"> (WC, shower, lav, urinal) — farthest</span>
+<span class="hl-dim">              │                              </span><span class="hl-valve">[CO]</span>
+<span class="hl-dim">         END ─┘ </span><span class="hl-valve">[CO]</span><span class="hl-dim"> terminal cleanout</span>
+</pre>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><span class="dot dot-accent"></span>Slope Requirements</div>
+      <table>
+        <tr><td class="text-bright" style="width:160px">4" Building Drain</td><td class="mono">1/8" per foot minimum</td></tr>
+        <tr><td class="text-bright">3" Branch Drains</td><td class="mono">1/4" per foot minimum</td></tr>
+        <tr><td class="text-bright">2" Branch Drains</td><td class="mono">1/4" per foot minimum</td></tr>
+        <tr><td class="text-bright">1-1/2" Fixture Drains</td><td class="mono">1/4" per foot minimum</td></tr>
+      </table>
+      <div class="callout" style="margin-top:12px">
+        <strong>Elevation drop:</strong> 28' of 4" building drain at 1/8"/ft = <strong class="text-bright">3.5"</strong> total drop. Easily accommodated in crawl space. Hang from joists with proper-slope pipe hangers.
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="dot dot-yellow"></span>Branch Connections</div>
+      <p style="font-size:13px">All branches connect to the 4" building drain via <strong class="text-bright">sanitary wye + 1/8 bend</strong> (combo fitting). Never use sanitary tees for horizontal-to-horizontal connections.</p>
+      <p style="font-size:13px;margin-top:8px">3" branches reduce to 4" at the building drain connection. 2" branches reduce to 4" via incremental reducers (2"→3"→4") or direct wye reducers.</p>
+      <p style="font-size:13px;margin-top:8px">Crawl space provides ~18–24" of working clearance. All drain pipe hung from floor joists using clevis hangers at <strong class="text-bright">4' intervals</strong> max (per IPC Table 308.5).</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ W-VENTING ════ -->
+<section class="section" id="w-venting">
+  <div class="section-header">
+    <span class="section-number">W6</span>
+    <h2 class="section-title">Venting Strategy</h2>
+  </div>
+
+  <p>Two vent stacks through the roof (minimum one required by IPC). Kitchen, laundry, and garage use Air Admittance Valves (AAVs) per IPC §918 — reduces roof penetrations while maintaining trap seal protection.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><span class="dot dot-green"></span>Through-Roof Vents (2)</div>
+      <table>
+        <tr><td class="text-bright" style="width:140px">Stack A — Bath 2</td><td><span class="pipe-badge pipe-3">3"</span> Main vent stack. WC wet-vented by lavatory per IPC §912. Extends through M.Bath wall → attic → roof. <strong class="text-bright">Primary building vent.</strong></td></tr>
+        <tr><td class="text-bright">Stack B — Bath 1</td><td><span class="pipe-badge pipe-2">2"</span> Secondary vent. WC wet-vented by lavatory. Extends through Bath 1 wall → attic → roof. Shower and urinal connect below flood level.</td></tr>
+      </table>
+      <div class="callout" style="margin-top:12px">
+        IPC requires minimum <strong>one</strong> vent through roof that is a full-size extension of the building drain (3" minimum). Stack A at 3" satisfies this. Stack B provides additional venting capacity. Both vents terminate <strong>6" min above roof surface</strong> and <strong>10' min from any openable window/door</strong> (IPC §903.5).
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="dot dot-yellow"></span>Air Admittance Valves — AAVs (3)</div>
+      <table>
+        <tr><td class="text-bright" style="width:100px">Kitchen</td><td>Studor Mini-Vent or equiv. under sink. Protects kitchen sink P-trap. Must be <strong>4" above trap weir</strong> and accessible.</td></tr>
+        <tr><td class="text-bright">Laundry</td><td>AAV at washer standpipe or in wall behind washer box. Protects standpipe trap.</td></tr>
+        <tr><td class="text-bright">Garage</td><td>AAV under utility sink or at floor drain connection. Covers both garage fixtures.</td></tr>
+      </table>
+      <div class="callout callout-warn" style="margin-top:12px">
+        <strong>IPC §918 Rules:</strong> AAVs allowed for individual fixtures and branch vents — but <strong>not</strong> as the sole vent for the building (Stack A satisfies this). AAVs must be accessible, above flood level rim, and within 4' developed length of the trap they serve. Install per manufacturer instructions.
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-header"><span class="dot dot-accent"></span>Wet Venting (IPC §912)</div>
+    <p style="font-size:13px;margin-bottom:12px">Wet venting allows a fixture drain to serve as both drain and vent for a downstream fixture. This reduces the number of separate vent pipes needed.</p>
+    <table>
+      <thead><tr><th>Wet-Vented Fixture</th><th>Wet Vent Provided By</th><th>Min. Wet Vent Size</th><th>Max Distance</th></tr></thead>
+      <tbody>
+        <tr><td class="text-bright">Bath 2 — WC</td><td>Lavatory drain (horizontal section above WC branch)</td><td class="mono">2"</td><td class="mono">6'</td></tr>
+        <tr><td class="text-bright">Bath 1 — WC</td><td>Lavatory drain (horizontal section above WC branch)</td><td class="mono">2"</td><td class="mono">6'</td></tr>
+      </tbody>
+    </table>
+    <div class="callout" style="margin-top:12px">
+      The lav drain serves double duty — it carries lav waste AND provides air to the WC trap. The wet vent section must be minimum 2" (one pipe size larger than the lav drain) and sloped toward the stack.
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-header"><span class="dot dot-accent"></span>Max Trap-to-Vent Distance (IPC Table 906.1)</div>
+    <table>
+      <thead><tr><th>Fixture Drain Size</th><th>Max Distance: Trap to Vent</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">1-1/4" (lavs)</td><td class="mono">5 ft</td></tr>
+        <tr><td class="mono">1-1/2" (sinks, tub)</td><td class="mono">6 ft</td></tr>
+        <tr><td class="mono">2" (shower, washer, urinal)</td><td class="mono">8 ft</td></tr>
+        <tr><td class="mono">3" (WC)</td><td class="mono">12 ft</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ W-CLEANOUTS ════ -->
+<section class="section" id="w-cleanouts">
+  <div class="section-header">
+    <span class="section-number">W7</span>
+    <h2 class="section-title">Cleanout Locations</h2>
+  </div>
+
+  <p>Cleanouts provide access for drain cleaning equipment. Required per IPC §708 at specific intervals and direction changes.</p>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-accent"></span>Required Cleanouts</div>
+    <table>
+      <thead><tr><th>#</th><th>Location</th><th>Size</th><th>Type</th></tr></thead>
+      <tbody>
+        <tr><td class="mono text-bright">CO-1</td><td>Building drain exit — west foundation wall under kitchen</td><td class="mono">4"</td><td>Two-way cleanout (access from both directions)</td></tr>
+        <tr><td class="mono text-bright">CO-2</td><td>Bath 2 branch — at 3"×4" wye connection in crawl</td><td class="mono">3"</td><td>Standard cleanout plug on wye</td></tr>
+        <tr><td class="mono text-bright">CO-3</td><td>Bath 1 branch — at 3"×4" wye connection in crawl</td><td class="mono">3"</td><td>Standard cleanout plug on wye</td></tr>
+        <tr><td class="mono text-bright">CO-4</td><td>Kitchen branch — at 2"×4" wye connection in crawl</td><td class="mono">2"</td><td>Standard cleanout plug on wye</td></tr>
+        <tr><td class="mono text-bright">CO-5</td><td>Building drain terminal — end of 4" run (east end of crawl)</td><td class="mono">4"</td><td>Terminal cleanout with plug</td></tr>
+      </tbody>
+    </table>
+    <div class="callout" style="margin-top:12px">
+      All cleanouts in crawl space must have <strong>18" clearance</strong> in front for drain cleaning equipment access. CO-1 (two-way) at foundation is the <strong>primary service point</strong> — ensure it's accessible from outside or through the crawl space hatch.
+    </div>
+  </div>
+</section>
+
+<!-- ════ W-KITCHEN ════ -->
+<section class="section" id="w-kitchen">
+  <div class="section-header">
+    <span class="section-number">W8</span>
+    <h2 class="section-title">Kitchen — DWV</h2>
+  </div>
+  <div class="room-card">
+    <div class="room-card-header">
+      <span class="room-name">Kitchen — 11'-0" × 24'-0"</span>
+      <span class="room-fixtures">2 fixtures • 4 DFU • 2" Branch</span>
+    </div>
+    <div class="room-card-body">
+      <div class="fixture-list">
+        <div class="fixture-item"><span class="fixture-icon">🚰</span> Kitchen Sink <span class="dfu-badge">2 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--yellow-dim);color:var(--yellow)">1-1/2" trap</span></span></div>
+        <div class="fixture-item"><span class="fixture-icon">🍽</span> Dishwasher (Bosch 300) <span class="dfu-badge">2 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--border);color:var(--text-muted)">indirect</span></span></div>
+      </div>
+      <div class="callout">
+        <strong>Drain:</strong> 1-1/2" P-trap under kitchen sink → 1-1/2" drain arm (max 6' to vent) → drops through subfloor → 2" horizontal in crawl (~4' — <strong>closest fixture to sewer exit</strong>) → connects to 4" building drain via 2"×4" wye. <strong>Dishwasher:</strong> drain hose connects to sink tailpiece or disposer inlet via <strong>high-loop</strong> (minimum — fasten hose to underside of counter) or <strong>air gap</strong> fitting (preferred). <strong>Vent:</strong> AAV under sink, 4" above trap weir, accessible inside cabinet.
+      </div>
+      <div class="room-fittings">
+        <details>
+          <summary>▸ Recommended Fittings</summary>
+          <div class="fitting-item">1× P-trap, 1-1/2" PVC slip-joint</div>
+          <div class="fitting-item">1× AAV (Studor Mini-Vent or equiv.), 1-1/2"</div>
+          <div class="fitting-item">1× Sanitary tee, 1-1/2" (AAV connection above trap arm)</div>
+          <div class="fitting-item">1× 90° long-sweep elbow, 2" (direction change in crawl)</div>
+          <div class="fitting-item">1× Wye, 4"×4"×2" (building drain connection)</div>
+          <div class="fitting-item">1× Cleanout adapter + plug, 2" (CO-4)</div>
+          <div class="fitting-item">1× Dishwasher air gap fitting or high-loop bracket</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ W-BATH1 ════ -->
+<section class="section" id="w-bath1">
+  <div class="section-header">
+    <span class="section-number">W9</span>
+    <h2 class="section-title">Bathroom 1 — DWV</h2>
+  </div>
+  <div class="room-card">
+    <div class="room-card-header">
+      <span class="room-name">Bathroom 1 — 5'-6" × 8'-7"</span>
+      <span class="room-fixtures">4 fixtures • 8 DFU • 3" Branch • Vent Stack B (2" VTR)</span>
+    </div>
+    <div class="room-card-body">
+      <div class="fixture-list">
+        <div class="fixture-item"><span class="fixture-icon">🪥</span> Lavatory <span class="dfu-badge">1 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--yellow-dim);color:var(--yellow)">1-1/4" trap</span></span></div>
+        <div class="fixture-item"><span class="fixture-icon">🚽</span> Water Closet <span class="dfu-badge">3 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:#6366f1;color:#fff">3" drain</span></span></div>
+        <div class="fixture-item"><span class="fixture-icon">🚿</span> Shower <span class="dfu-badge">2 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--yellow-dim);color:var(--yellow)">2" trap</span></span></div>
+        <div class="fixture-item"><span class="fixture-icon">🔵</span> Urinal <span class="dfu-badge">2 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--yellow-dim);color:var(--yellow)">2" trap</span></span></div>
+      </div>
+      <div class="callout">
+        <strong>Stack B layout:</strong> Lav drain (1-1/2") runs horizontally to the 3" stack, serving as a <strong>wet vent</strong> for the WC below (IPC §912). WC connects via 3"×3" sanitary tee at stack base. Shower (2" P-trap recessed in subfloor) and urinal (2" P-trap) connect to the 3" branch in crawl space below. 2" vent rises from top of stack through wall → attic → roof. All fixture drains are within max trap-to-vent distance of the stack.
+      </div>
+      <div class="schematic" style="margin-top:12px">
+<pre>
+<span class="vent-color">    2" VTR (through roof)</span>
+<span class="hl-dim">         │</span>
+<span class="hl-dim">    ─────┤ </span><span class="hl-label">Lav</span><span class="hl-dim"> 1-1/4" trap → 1-1/2" drain →──┐</span>
+<span class="hl-dim">         │                    </span><span class="vent-color">(wet vent section, 2" min)</span>
+<span class="hl-dim">         │                                      │</span>
+<span class="hl-dim">    </span><span class="hl-accent">3" STACK</span><span class="hl-dim">◄───────────────────────────────────┘</span>
+<span class="hl-dim">         │</span>
+<span class="hl-dim">    ─────┤ </span><span class="hl-label">WC</span><span class="hl-dim">  3" ──► san. tee into stack</span>
+<span class="hl-dim">         │</span>
+<span class="hl-dim">    ═════╪══════════════════════════════════════ FLOOR</span>
+<span class="hl-dim">         │</span>
+<span class="hl-dim">    ─────┤ </span><span class="hl-label">Shower</span><span class="hl-dim"> 2" trap → 2" →──┐</span>
+<span class="hl-dim">         │                          │</span>
+<span class="hl-dim">    ─────┤ </span><span class="hl-label">Urinal</span><span class="hl-dim"> 2" trap → 2" →──┤</span>
+<span class="hl-dim">         │                          │</span>
+<span class="hl-dim">    </span><span class="drain-color">3" BRANCH</span><span class="hl-dim"> (in crawl) ◄──────────┘</span>
+<span class="hl-dim">         │</span>
+<span class="hl-dim">    ─────┴──► </span><span class="hl-accent">4" Building Drain</span><span class="hl-dim"> via wye + 1/8 bend</span>
+</pre>
+      </div>
+      <div class="room-fittings">
+        <details>
+          <summary>▸ Recommended Fittings</summary>
+          <div class="fitting-item">1× P-trap, 1-1/4" (lavatory)</div>
+          <div class="fitting-item">1× P-trap, 2" (shower — recessed in subfloor with strainer)</div>
+          <div class="fitting-item">1× P-trap, 2" (urinal)</div>
+          <div class="fitting-item">1× Closet flange, 4"×3" PVC (WC — floor mounted)</div>
+          <div class="fitting-item">1× Sanitary tee, 3"×3"×3" (WC into stack)</div>
+          <div class="fitting-item">1× Sanitary tee, 3"×3"×1-1/2" (lav wet vent into stack)</div>
+          <div class="fitting-item">2× Sanitary wye, 3"×3"×2" (shower + urinal into branch)</div>
+          <div class="fitting-item">1× Combo wye + 1/8 bend, 4"×4"×3" (branch to building drain)</div>
+          <div class="fitting-item">1× Cleanout adapter + plug, 3" (CO-3)</div>
+          <div class="fitting-item">2× Long-sweep 90° elbow, 2" (direction changes)</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ W-BATH2 ════ -->
+<section class="section" id="w-bath2">
+  <div class="section-header">
+    <span class="section-number">W10</span>
+    <h2 class="section-title">Bathroom 2 (Primary) — DWV</h2>
+  </div>
+  <div class="room-card">
+    <div class="room-card-header">
+      <span class="room-name">M. Bath — 5'-8" × 10'-1"</span>
+      <span class="room-fixtures">4 fixtures • 7 DFU • 3" Branch • Vent Stack A (3" VTR — Primary)</span>
+    </div>
+    <div class="room-card-body">
+      <div class="fixture-list">
+        <div class="fixture-item"><span class="fixture-icon">🪥</span> Lavatory 1 <span class="dfu-badge">1 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--yellow-dim);color:var(--yellow)">1-1/4" trap</span></span></div>
+        <div class="fixture-item"><span class="fixture-icon">🪥</span> Lavatory 2 <span class="dfu-badge">1 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--yellow-dim);color:var(--yellow)">1-1/4" trap</span></span></div>
+        <div class="fixture-item"><span class="fixture-icon">🚽</span> Water Closet <span class="dfu-badge">3 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:#6366f1;color:#fff">3" drain</span></span></div>
+        <div class="fixture-item"><span class="fixture-icon">🛁</span> Bathtub / Shower <span class="dfu-badge">2 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--yellow-dim);color:var(--yellow)">1-1/2" trap</span></span></div>
+      </div>
+      <div class="callout">
+        <strong>Stack A (Primary Vent):</strong> This is the main building vent. Double lavs drain into a shared 1-1/2" horizontal run → connects to 3" stack as wet vent for WC. WC connects via 3" sanitary tee. Tub (1-1/2" P-trap) connects to 3" branch below floor in crawl. 3" vent stack continues up through M.Bath wall → attic → roof as <strong>3" VTR</strong>. Shortest run to building drain exit (~8' in crawl).
+      </div>
+      <div class="schematic" style="margin-top:12px">
+<pre>
+<span class="vent-color">    3" VTR (through roof) — PRIMARY BUILDING VENT</span>
+<span class="hl-dim">         │</span>
+<span class="hl-dim">    ─────┤ </span><span class="hl-label">Lav 1</span><span class="hl-dim"> 1-1/4" trap ──┐</span>
+<span class="hl-dim">         │                       ├─ 1-1/2" shared drain ──┐</span>
+<span class="hl-dim">    ─────┤ </span><span class="hl-label">Lav 2</span><span class="hl-dim"> 1-1/4" trap ──┘   </span><span class="vent-color">(wet vent, 2" min)</span><span class="hl-dim">   │</span>
+<span class="hl-dim">         │                                              │</span>
+<span class="hl-dim">    </span><span class="hl-accent">3" STACK</span><span class="hl-dim">◄───────────────────────────────────────────┘</span>
+<span class="hl-dim">         │</span>
+<span class="hl-dim">    ─────┤ </span><span class="hl-label">WC</span><span class="hl-dim">  3" ──► san. tee into stack</span>
+<span class="hl-dim">         │</span>
+<span class="hl-dim">    ═════╪══════════════════════════════════════ FLOOR</span>
+<span class="hl-dim">         │</span>
+<span class="hl-dim">    ─────┤ </span><span class="hl-label">Tub</span><span class="hl-dim"> 1-1/2" trap → 1-1/2" → 3" branch</span>
+<span class="hl-dim">         │</span>
+<span class="hl-dim">    </span><span class="drain-color">3" BRANCH</span><span class="hl-dim"> (in crawl, ~8' to bldg drain)</span>
+<span class="hl-dim">         │</span>
+<span class="hl-dim">    ─────┴──► </span><span class="hl-accent">4" Building Drain</span><span class="hl-dim"> via wye + 1/8 bend</span>
+</pre>
+      </div>
+      <div class="room-fittings">
+        <details>
+          <summary>▸ Recommended Fittings</summary>
+          <div class="fitting-item">2× P-trap, 1-1/4" (lavatories)</div>
+          <div class="fitting-item">1× P-trap, 1-1/2" (bathtub — with overflow and waste kit)</div>
+          <div class="fitting-item">1× Closet flange, 4"×3" PVC (WC)</div>
+          <div class="fitting-item">1× Sanitary tee, 3"×3"×3" (WC into stack)</div>
+          <div class="fitting-item">1× Sanitary tee, 3"×3"×2" (lav wet vent into stack — upsize from 1-1/2")</div>
+          <div class="fitting-item">1× Double-wye or tee, 1-1/2" (shared lav drain)</div>
+          <div class="fitting-item">1× Sanitary wye, 3"×3"×1-1/2" (tub into branch)</div>
+          <div class="fitting-item">1× Combo wye + 1/8 bend, 4"×4"×3" (branch to building drain)</div>
+          <div class="fitting-item">1× Cleanout adapter + plug, 3" (CO-2)</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ W-LAUNDRY ════ -->
+<section class="section" id="w-laundry">
+  <div class="section-header">
+    <span class="section-number">W11</span>
+    <h2 class="section-title">Laundry — DWV</h2>
+  </div>
+  <div class="room-card">
+    <div class="room-card-header">
+      <span class="room-name">Laundry Closet — Kitchen S Wall</span>
+      <span class="room-fixtures">1 fixture • 2 DFU • 2" Branch</span>
+    </div>
+    <div class="room-card-body">
+      <div class="fixture-list">
+        <div class="fixture-item"><span class="fixture-icon">👕</span> Clothes Washer <span class="dfu-badge">2 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--yellow-dim);color:var(--yellow)">2" standpipe</span></span></div>
+      </div>
+      <div class="callout">
+        <strong>Standpipe:</strong> 2" PVC standpipe, 18–30" above floor (per IPC §802.4), with 2" P-trap at base. Trap connects to 2" horizontal drain → drops through subfloor → 2" horizontal in crawl (~8') → connects to 4" building drain. <strong>Vent:</strong> AAV at top of standpipe (above flood level rim of washer). <strong>Dryer condensate:</strong> Steam dryer condensate line (1/2" soft tubing) drains into washer standpipe — negligible flow, no separate DFU.
+      </div>
+      <div class="room-fittings">
+        <details>
+          <summary>▸ Recommended Fittings</summary>
+          <div class="fitting-item">1× P-trap, 2" PVC (at standpipe base)</div>
+          <div class="fitting-item">1× Standpipe, 2" PVC × 24" (integrated into washer box or wall-mounted)</div>
+          <div class="fitting-item">1× AAV, 2" (Studor Redi-Vent or equiv. at standpipe top)</div>
+          <div class="fitting-item">1× Wye, 4"×4"×2" (building drain connection in crawl)</div>
+          <div class="fitting-item">1× Long-sweep 90° elbow, 2" (direction change)</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ W-GARAGE ════ -->
+<section class="section" id="w-garage">
+  <div class="section-header">
+    <span class="section-number">W12</span>
+    <h2 class="section-title">Garage — DWV</h2>
+  </div>
+  <div class="room-card">
+    <div class="room-card-header">
+      <span class="room-name">Garage — 21'-8" × 21'-9"</span>
+      <span class="room-fixtures">2 fixtures • 4 DFU • 2" Branch</span>
+    </div>
+    <div class="room-card-body">
+      <div class="fixture-list">
+        <div class="fixture-item"><span class="fixture-icon">🚰</span> Utility Sink <span class="dfu-badge">2 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--yellow-dim);color:var(--yellow)">1-1/2" trap</span></span></div>
+        <div class="fixture-item"><span class="fixture-icon">🐾</span> Pet Wash (floor drain) <span class="dfu-badge">2 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--yellow-dim);color:var(--yellow)">2" trap</span></span></div>
+      </div>
+      <div class="callout">
+        <strong>Routing:</strong> Utility sink 1-1/2" P-trap → 1-1/2" drain arm. Pet wash 2" P-trap at floor drain with strainer. Both connect to shared 2" horizontal branch → drops through garage slab or routes through rim joist to crawl space (~5') → connects to 4" building drain near exit point. <strong>Vent:</strong> AAV under utility sink serves both fixtures. <strong>Note:</strong> If garage fixtures drain through slab, they may require a separate underslab connection to the building drain — verify slab thickness and existing plumbing access.
+      </div>
+      <div class="room-fittings">
+        <details>
+          <summary>▸ Recommended Fittings</summary>
+          <div class="fitting-item">1× P-trap, 1-1/2" (utility sink)</div>
+          <div class="fitting-item">1× P-trap, 2" with floor drain strainer (pet wash)</div>
+          <div class="fitting-item">1× AAV, 1-1/2" (under utility sink)</div>
+          <div class="fitting-item">1× Sanitary wye, 2"×2"×1-1/2" (combine utility sink into 2" branch)</div>
+          <div class="fitting-item">1× Wye, 4"×4"×2" (building drain connection)</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ W-PIPERUNS ════ -->
+<section class="section" id="w-piperuns">
+  <div class="section-header">
+    <span class="section-number">W13</span>
+    <h2 class="section-title">Pipe Runs & Calculated Lengths</h2>
+  </div>
+
+  <p style="margin-bottom:16px">Calculated from A-100 floor plan. All horizontal drain runs in crawl space. Vent runs in wall cavities and attic.</p>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-accent"></span>Building Drain (4" PVC)</div>
+    <table>
+      <thead><tr><th>Segment</th><th>Description</th><th>Length</th></tr></thead>
+      <tbody>
+        <tr><td class="text-bright">Foundation exit → Kitchen branch</td><td>From west wall exit to kitchen wye (closest)</td><td class="mono">3'</td></tr>
+        <tr><td class="text-bright">Kitchen → Laundry branch</td><td>Continue east to laundry wye (kitchen S wall)</td><td class="mono">5'</td></tr>
+        <tr><td class="text-bright">Laundry → Garage branch</td><td>Continue east to garage wye (through rim joist)</td><td class="mono">3'</td></tr>
+        <tr><td class="text-bright">Garage → Bath 2 branch</td><td>Continue east to M.Bath wye</td><td class="mono">3'</td></tr>
+        <tr><td class="text-bright">Bath 2 → Bath 1 branch</td><td>Continue east under hall to Bath 1 wye (farthest)</td><td class="mono">12'</td></tr>
+        <tr><td class="text-bright">Bath 1 to terminal end</td><td>Past last connection + terminal CO</td><td class="mono">2'</td></tr>
+        <tr class="total-row"><td colspan="2" style="text-align:right"><strong>Total 4" Building Drain</strong></td><td class="mono text-bright">28'</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-header"><span class="dot dot-hot"></span>Horizontal Branch Drains (in crawl)</div>
+    <table>
+      <thead><tr><th>Branch</th><th>Size</th><th>Route</th><th>Length</th></tr></thead>
+      <tbody>
+        <tr><td class="text-bright">Bath 2</td><td><span class="pipe-badge pipe-3">3"</span></td><td>Stack base → horizontal collector (tub joins) → 4" wye</td><td class="mono">8'</td></tr>
+        <tr><td class="text-bright">Bath 1</td><td><span class="pipe-badge pipe-3">3"</span></td><td>Stack base → horizontal collector (shower + urinal join) → 4" wye</td><td class="mono">10'</td></tr>
+        <tr><td class="text-bright">Kitchen</td><td><span class="pipe-badge pipe-2">2"</span></td><td>Sink drop through subfloor → short horizontal in crawl → 4" wye (nearest to exit)</td><td class="mono">4'</td></tr>
+        <tr><td class="text-bright">Laundry</td><td><span class="pipe-badge pipe-2">2"</span></td><td>Standpipe drop → horizontal in crawl → 4" wye</td><td class="mono">8'</td></tr>
+        <tr><td class="text-bright">Garage</td><td><span class="pipe-badge pipe-2">2"</span></td><td>Combined sink + floor drain → through rim joist → 4" wye</td><td class="mono">6'</td></tr>
+        <tr><td class="text-bright">Shower (Bath 1)</td><td><span class="pipe-badge pipe-2">2"</span></td><td>2" trap drop → horizontal to 3" branch</td><td class="mono">5'</td></tr>
+        <tr><td class="text-bright">Urinal (Bath 1)</td><td><span class="pipe-badge pipe-2">2"</span></td><td>2" trap → horizontal to 3" branch</td><td class="mono">4'</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-header"><span class="dot dot-green"></span>Vertical Drops & Fixture Drains (in walls/floor)</div>
+    <table>
+      <thead><tr><th>Fixture</th><th>Size</th><th>Description</th><th>Length</th></tr></thead>
+      <tbody>
+        <tr><td class="text-bright">Bath 2 WC</td><td class="mono">3"</td><td>Closet flange → through floor to stack base</td><td class="mono">3'</td></tr>
+        <tr><td class="text-bright">Bath 1 WC</td><td class="mono">3"</td><td>Closet flange → through floor to stack base</td><td class="mono">3'</td></tr>
+        <tr><td class="text-bright">Bath 2 Lavs (×2)</td><td class="mono">1-1/2"</td><td>Traps → shared drain arm → into stack</td><td class="mono">8'</td></tr>
+        <tr><td class="text-bright">Bath 2 Tub</td><td class="mono">1-1/2"</td><td>Tub waste + overflow → trap → through floor</td><td class="mono">5'</td></tr>
+        <tr><td class="text-bright">Bath 1 Lav</td><td class="mono">1-1/2"</td><td>Trap → drain arm → into stack</td><td class="mono">4'</td></tr>
+        <tr><td class="text-bright">Kitchen Sink</td><td class="mono">1-1/2"</td><td>Trap → drain arm → through floor</td><td class="mono">5'</td></tr>
+        <tr><td class="text-bright">Garage Utility Sink</td><td class="mono">1-1/2"</td><td>Trap → drain arm → into branch</td><td class="mono">3'</td></tr>
+        <tr><td class="text-bright">Laundry Standpipe</td><td class="mono">2"</td><td>Standpipe (24" above floor) + trap → through floor</td><td class="mono">5'</td></tr>
+        <tr><td class="text-bright">Garage Pet Wash</td><td class="mono">2"</td><td>Floor drain + trap → into branch</td><td class="mono">3'</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-header"><span class="dot dot-cold"></span>Vent Pipes</div>
+    <table>
+      <thead><tr><th>Vent</th><th>Size</th><th>Route</th><th>Length</th></tr></thead>
+      <tbody>
+        <tr><td class="text-bright">Stack A — Bath 2 (VTR)</td><td class="mono">3"</td><td>Stack above highest branch → through wall → attic → roof</td><td class="mono">14'</td></tr>
+        <tr><td class="text-bright">Stack B — Bath 1 (VTR)</td><td class="mono">2"</td><td>Stack above highest branch → through wall → attic → roof</td><td class="mono">14'</td></tr>
+        <tr><td class="text-bright">Bath 2 — Wet vent (lav section)</td><td class="mono">2"</td><td>Upsized lav drain serving as wet vent for WC</td><td class="mono">5'</td></tr>
+        <tr><td class="text-bright">Bath 1 — Wet vent (lav section)</td><td class="mono">2"</td><td>Upsized lav drain serving as wet vent for WC</td><td class="mono">4'</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ W-PIPETOTALS ════ -->
+<section class="section" id="w-pipetotals">
+  <div class="section-header">
+    <span class="section-number">W14</span>
+    <h2 class="section-title">Pipe Totals by Size</h2>
+  </div>
+
+  <div class="card" style="padding:32px">
+    <div class="pipe-bar-row">
+      <div class="pipe-bar-label" style="color:#a855f7">4" PVC</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:26%;background:#a855f7"></div></div>
+      <div class="pipe-bar-value">28 ft</div>
+    </div>
+    <div class="pipe-bar-row">
+      <div class="pipe-bar-label" style="color:#6366f1">3" PVC</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:23%;background:#6366f1"></div></div>
+      <div class="pipe-bar-value">24 ft</div>
+    </div>
+    <div class="pipe-bar-row">
+      <div class="pipe-bar-label" style="color:#f59e0b">2" PVC</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:40%;background:#f59e0b"></div></div>
+      <div class="pipe-bar-value">43 ft</div>
+    </div>
+    <div class="pipe-bar-row">
+      <div class="pipe-bar-label" style="color:#10b981">1-1/2" PVC</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:24%;background:#10b981"></div></div>
+      <div class="pipe-bar-value">25 ft</div>
+    </div>
+    <div class="pipe-bar-row">
+      <div class="pipe-bar-label" style="color:#94a3b8">3" Vent</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:13%;background:#94a3b8"></div></div>
+      <div class="pipe-bar-value">14 ft</div>
+    </div>
+    <div class="pipe-bar-row">
+      <div class="pipe-bar-label" style="color:#64748b">2" Vent</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:22%;background:#64748b"></div></div>
+      <div class="pipe-bar-value">23 ft</div>
+    </div>
+    <div class="pipe-bar-row" style="padding-top:16px;border-top:2px solid var(--border-accent);margin-top:8px">
+      <div class="pipe-bar-label text-bright" style="font-weight:700">TOTAL</div>
+      <div></div>
+      <div class="pipe-bar-value" style="font-size:18px;color:var(--accent)">157 ft</div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-header"><span class="dot dot-accent"></span>Purchase Quantities (add 15%)</div>
+    <table>
+      <thead><tr><th>Size</th><th>Type</th><th>Calculated</th><th>Buy</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pipe-badge pipe-4">4"</span></td><td>DWV Drain</td><td class="mono">28'</td><td class="mono text-bright">35'</td><td>Building drain — comes in 10' sticks</td></tr>
+        <tr><td><span class="pipe-badge pipe-3">3"</span></td><td>DWV Drain</td><td class="mono">24'</td><td class="mono text-bright">30'</td><td>WC branches + stack bases — 10' sticks</td></tr>
+        <tr><td><span class="pipe-badge pipe-2">2"</span></td><td>DWV Drain</td><td class="mono">43'</td><td class="mono text-bright">50'</td><td>Branch drains, shower, urinal, standpipe</td></tr>
+        <tr><td><span class="pipe-badge pipe-15">1-1/2"</span></td><td>DWV Drain</td><td class="mono">25'</td><td class="mono text-bright">30'</td><td>Lavs, sinks, tub fixture drains</td></tr>
+        <tr><td class="mono">3"</td><td>DWV Vent</td><td class="mono">14'</td><td class="mono text-bright">20'</td><td>Stack A through roof</td></tr>
+        <tr><td class="mono">2"</td><td>DWV Vent</td><td class="mono">23'</td><td class="mono text-bright">30'</td><td>Stack B through roof + wet vent sections</td></tr>
+        <tr class="total-row"><td colspan="2" style="text-align:right"><strong>Total</strong></td><td class="mono">157'</td><td class="mono" style="color:var(--accent)"><strong>195'</strong></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ W-FITTINGS ════ -->
+<section class="section" id="w-fittings">
+  <div class="section-header">
+    <span class="section-number">W15</span>
+    <h2 class="section-title">Fittings & Bill of Materials</h2>
+  </div>
+
+  <div class="tabs" id="wBomTabs">
+    <button class="tab active" data-tab="w-drain-fittings">Drain Fittings</button>
+    <button class="tab" data-tab="w-vent-fittings">Vent &amp; AAVs</button>
+    <button class="tab" data-tab="w-traps">Traps &amp; Flanges</button>
+    <button class="tab" data-tab="w-accessories">Accessories</button>
+  </div>
+
+  <div class="tab-panel active" id="panel-w-drain-fittings">
+    <div class="card">
+      <table>
+        <thead><tr><th>Fitting</th><th>Size</th><th>Qty</th><th>Location</th></tr></thead>
+        <tbody>
+          <tr><td>Combo Wye + 1/8 Bend</td><td class="mono">4"×4"×3"</td><td class="mono text-bright">2</td><td>Bath 1 + Bath 2 branch connections to building drain</td></tr>
+          <tr><td>Wye (reducing)</td><td class="mono">4"×4"×2"</td><td class="mono text-bright">3</td><td>Kitchen, laundry, garage connections to building drain</td></tr>
+          <tr><td>Sanitary Tee</td><td class="mono">3"×3"×3"</td><td class="mono text-bright">2</td><td>WC connections into stacks (Bath 1 + Bath 2)</td></tr>
+          <tr><td>Sanitary Tee (reducing)</td><td class="mono">3"×3"×2"</td><td class="mono text-bright">3</td><td>Wet vent into stack (Bath 2), shower + urinal into Bath 1 branch</td></tr>
+          <tr><td>Sanitary Wye (reducing)</td><td class="mono">3"×3"×1-1/2"</td><td class="mono text-bright">1</td><td>Tub drain into Bath 2 branch</td></tr>
+          <tr><td>Sanitary Wye (reducing)</td><td class="mono">2"×2"×1-1/2"</td><td class="mono text-bright">1</td><td>Garage utility sink into 2" branch</td></tr>
+          <tr><td>Long-Sweep 90° Elbow</td><td class="mono">4"</td><td class="mono text-bright">2</td><td>Building drain direction changes</td></tr>
+          <tr><td>Long-Sweep 90° Elbow</td><td class="mono">3"</td><td class="mono text-bright">2</td><td>Stack bases (vertical to horizontal transition)</td></tr>
+          <tr><td>Long-Sweep 90° Elbow</td><td class="mono">2"</td><td class="mono text-bright">6</td><td>Branch direction changes in crawl, fixture drops</td></tr>
+          <tr><td>Long-Sweep 90° Elbow</td><td class="mono">1-1/2"</td><td class="mono text-bright">4</td><td>Lav/sink drain arms, tub waste direction changes</td></tr>
+          <tr><td>45° Wye</td><td class="mono">1-1/2"</td><td class="mono text-bright">1</td><td>Bath 2 double-lav junction</td></tr>
+          <tr><td>Reducer Coupling</td><td class="mono">3"×1-1/2"</td><td class="mono text-bright">2</td><td>Lav wet-vent connections (upsize from 1-1/2" to 2" section already)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="panel-w-vent-fittings">
+    <div class="card">
+      <table>
+        <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th>Location</th></tr></thead>
+        <tbody>
+          <tr><td>Sanitary Tee (vent takeoff)</td><td class="mono">3"×3"×3"</td><td class="mono text-bright">1</td><td>Stack A — vent above highest branch connection</td></tr>
+          <tr><td>Sanitary Tee (vent takeoff)</td><td class="mono">2"×2"×2"</td><td class="mono text-bright">1</td><td>Stack B — vent above highest branch connection</td></tr>
+          <tr><td>Roof Flashing (vent terminal)</td><td class="mono">3"</td><td class="mono text-bright">1</td><td>Stack A roof penetration</td></tr>
+          <tr><td>Roof Flashing (vent terminal)</td><td class="mono">2"</td><td class="mono text-bright">1</td><td>Stack B roof penetration</td></tr>
+          <tr><td>AAV — Air Admittance Valve</td><td class="mono">1-1/2"</td><td class="mono text-bright">2</td><td>Kitchen sink, garage utility sink</td></tr>
+          <tr><td>AAV — Air Admittance Valve</td><td class="mono">2"</td><td class="mono text-bright">1</td><td>Laundry standpipe</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="panel-w-traps">
+    <div class="card">
+      <table>
+        <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th>Location</th></tr></thead>
+        <tbody>
+          <tr><td>P-Trap (slip-joint, PVC)</td><td class="mono">1-1/4"</td><td class="mono text-bright">3</td><td>Bath 1 lav, Bath 2 lav 1, Bath 2 lav 2</td></tr>
+          <tr><td>P-Trap (slip-joint, PVC)</td><td class="mono">1-1/2"</td><td class="mono text-bright">3</td><td>Kitchen sink, garage utility sink, bathtub</td></tr>
+          <tr><td>P-Trap (PVC, glue)</td><td class="mono">2"</td><td class="mono text-bright">4</td><td>Shower (recessed), urinal, washer standpipe, pet wash floor drain</td></tr>
+          <tr><td>Closet Flange (PVC)</td><td class="mono">4"×3"</td><td class="mono text-bright">2</td><td>Bath 1 WC, Bath 2 WC</td></tr>
+          <tr><td>Floor Drain with Strainer</td><td class="mono">2"</td><td class="mono text-bright">1</td><td>Garage pet wash station</td></tr>
+          <tr><td>Shower Drain (recessed)</td><td class="mono">2"</td><td class="mono text-bright">1</td><td>Bath 1 shower</td></tr>
+          <tr><td>Tub Waste + Overflow Kit</td><td class="mono">1-1/2"</td><td class="mono text-bright">1</td><td>Bath 2 bathtub</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="panel-w-accessories">
+    <div class="card">
+      <table>
+        <thead><tr><th>Item</th><th>Qty</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>PVC Solvent Cement + Primer (purple)</td><td class="mono text-bright">1 ea</td><td>Oatey or equiv. — use for ALL PVC DWV joints</td></tr>
+          <tr><td>Cleanout Adapter + Plug (4")</td><td class="mono text-bright">2</td><td>CO-1 (two-way at foundation), CO-5 (terminal)</td></tr>
+          <tr><td>Cleanout Adapter + Plug (3")</td><td class="mono text-bright">2</td><td>CO-2 (Bath 2 branch), CO-3 (Bath 1 branch)</td></tr>
+          <tr><td>Cleanout Adapter + Plug (2")</td><td class="mono text-bright">1</td><td>CO-4 (Kitchen branch)</td></tr>
+          <tr><td>Two-Way Cleanout Fitting (4")</td><td class="mono text-bright">1</td><td>CO-1 at west foundation exit (under kitchen) — access from both directions</td></tr>
+          <tr><td>Clevis Pipe Hangers</td><td class="mono text-bright">~20</td><td>Every 4' on horizontal crawl space runs (IPC Table 308.5)</td></tr>
+          <tr><td>Pipe Strap / Clamps</td><td class="mono text-bright">~10</td><td>Vertical runs in wall cavities</td></tr>
+          <tr><td>Dishwasher Air Gap Fitting</td><td class="mono text-bright">1</td><td>Countertop-mounted or high-loop bracket</td></tr>
+          <tr><td>Fire-Stop Caulk</td><td class="mono text-bright">As needed</td><td>All penetrations through fire-rated assemblies</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ════ W-CODE ════ -->
+<section class="section" id="w-code">
+  <div class="section-header">
+    <span class="section-number">W16</span>
+    <h2 class="section-title">Code Requirements & Installation Notes</h2>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><span class="dot dot-accent"></span>IPC Code Requirements (Mesa County)</div>
+      <p style="font-size:13px"><strong class="text-bright">Pipe Material:</strong> PVC Schedule 40 DWV accepted for above-ground and underground (within building). Use approved solvent cement + purple primer.</p>
+      <p style="font-size:13px;margin-top:8px"><strong class="text-bright">Slope:</strong> 1/4" per foot for pipes ≤3". 1/8" per foot minimum for 4" and larger.</p>
+      <p style="font-size:13px;margin-top:8px"><strong class="text-bright">Cleanouts:</strong> Required at base of each stack, every 100' on horizontal runs, every change of direction >45°, and at building drain exit.</p>
+      <p style="font-size:13px;margin-top:8px"><strong class="text-bright">Vents:</strong> Minimum one full-size vent through roof (3" min for this system). AAVs per IPC §918 — must be accessible, above flood level rim, within developed length limits.</p>
+      <p style="font-size:13px;margin-top:8px"><strong class="text-bright">Traps:</strong> P-traps on all fixtures except water closets (integral trap). No S-traps, drum traps, or double-trapping.</p>
+      <p style="font-size:13px;margin-top:8px"><strong class="text-bright">Testing:</strong> DWV system must pass water test or air test per IPC §312. Water test: fill system to flood level and hold 15 minutes. Air test: 5 psi for 15 minutes with no drop.</p>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="dot dot-yellow"></span>Installation Best Practices</div>
+      <p style="font-size:13px"><strong class="text-bright">Solvent welding:</strong> Dry-fit all assemblies first. Apply purple primer, then cement. Quarter-turn twist on insertion. Hold 30 seconds. Allow full cure (2 hours at 60–100°F) before pressure testing.</p>
+      <p style="font-size:13px;margin-top:8px"><strong class="text-bright">Crawl space hangers:</strong> Use clevis hangers at 4' max intervals. Ensure consistent slope — use a level and spacer blocks. Don't rely on friction to hold pipe against joists.</p>
+      <p style="font-size:13px;margin-top:8px"><strong class="text-bright">Direction changes:</strong> Always use long-sweep 90° elbows on horizontal drain runs. Short-radius 90s are only allowed on vent pipes. For horizontal-to-horizontal, use wyes + 1/8 bends, never sanitary tees.</p>
+      <p style="font-size:13px;margin-top:8px"><strong class="text-bright">Stack termination:</strong> Vent stacks through roof must terminate 6" minimum above the roof surface, 10' from any openable window/door, and be protected with a proper roof flashing boot.</p>
+      <p style="font-size:13px;margin-top:8px"><strong class="text-bright">Noise:</strong> Wrap all drain risers passing through bedroom walls with pipe insulation or mass-loaded vinyl to reduce drain noise. Consider cast iron for the 3" stack in the M.Bath wall if noise is a priority.</p>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:20px;padding:24px;border:1px solid var(--border-accent);text-align:center">
+    <p style="font-size:12px;color:var(--text-muted);margin:0">
+      <strong class="text-bright">Lovette Residence</strong> — 829 Erika Road, Grand Junction, CO 81504<br>
+      Commission #2601 · February 2026 · NOT FOR CONSTRUCTION<br>
+      DWV design per International Plumbing Code (IPC) as adopted by Mesa County.<br>
+      Verify all sizing with local inspector before purchasing materials.
+    </p>
+  </div>
+</section>
+
+</div><!-- /content-waste -->
+
 </main>
 
 <!-- ═══ Scroll-to-top ═══ -->
 <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
 
 <script>
-// ── Tab switching ──
+
+// ── Master Tab Switching (Water / Waste) ──
+function switchMasterTab(tabName) {
+  // Toggle tab buttons
+  document.querySelectorAll('.master-tab').forEach(t => t.classList.remove('active'));
+  document.querySelector(`.master-tab[data-master="${tabName}"]`).classList.add('active');
+
+  // Toggle content
+  document.querySelectorAll('.master-tab-content').forEach(c => c.classList.remove('active'));
+  document.getElementById('content-' + tabName).classList.add('active');
+
+  // Toggle sidebars
+  document.getElementById('sidebar-water').style.display = tabName === 'water' ? '' : 'none';
+  document.getElementById('sidebar-waste').style.display = tabName === 'waste' ? '' : 'none';
+
+  // Re-observe sections for nav tracking
+  observer.disconnect();
+  const activeSections = document.querySelectorAll('#content-' + tabName + ' .section');
+  activeSections.forEach(s => observer.observe(s));
+
+  // Reset nav links for new tab
+  const activeSidebar = document.getElementById('sidebar-' + tabName);
+  activeSidebar.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const firstLink = activeSidebar.querySelector('.nav-link');
+  if (firstLink) firstLink.classList.add('active');
+
+  // Scroll to top
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// ── Tab switching (BOM tabs within sections) ──
 document.querySelectorAll('.tab').forEach(tab => {
   tab.addEventListener('click', () => {
     const group = tab.closest('.section');
@@ -1865,7 +2832,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 
 // ── Active nav link tracking ──
 const sections = document.querySelectorAll('.section');
-const navLinks = document.querySelectorAll('.nav-link');
+let navLinks = document.querySelectorAll('#sidebar-water .nav-link, #sidebar-waste .nav-link');
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
