@@ -102,7 +102,7 @@ body::before {
   top: var(--header-h);
   left: 0;
   width: var(--nav-width);
-  bottom: 0;
+  height: calc(100vh - var(--header-h));
   background: var(--bg-card);
   border-right: 1px solid var(--border);
   overflow-y: auto;
@@ -166,7 +166,6 @@ body::before {
 /* ── Main Content ── */
 .main {
   margin-left: var(--nav-width);
-  margin-top: var(--header-h);
   padding: 40px 48px 80px;
   max-width: 1100px;
 }
@@ -174,7 +173,6 @@ body::before {
 /* ── Sections ── */
 .section {
   margin-bottom: 56px;
-  scroll-margin-top: calc(var(--header-h) + 24px);
 }
 
 .section-header {
@@ -370,6 +368,7 @@ td.size-pipe {
 .schematic pre .hl-label { color: var(--green); }
 .schematic pre .hl-accent { color: var(--accent); }
 .schematic pre .hl-dim { color: var(--text-muted); }
+.schematic pre .hl-green { color: var(--green); }
 
 /* ── Room cards ── */
 .room-card {
@@ -544,7 +543,7 @@ td.size-pipe {
   border-bottom: 1px solid rgba(30, 42, 58, 0.4);
 }
 
-.bypass-cell.header {
+.bypass-cell.bypass-header {
   font-family: 'IBM Plex Mono', monospace;
   font-size: 10px;
   letter-spacing: 1px;
@@ -760,6 +759,7 @@ hr.section-rule {
   color: var(--text-bright);
   background: var(--bg-card);
   border-color: var(--border-accent);
+  border-bottom: 2px solid var(--accent);
 }
 
 .master-tab .tab-icon {
@@ -774,13 +774,14 @@ hr.section-rule {
 
 /* Offset for second fixed bar */
 .sidebar { top: calc(var(--header-h) + 48px); height: calc(100vh - var(--header-h) - 48px); }
-.main { padding-top: calc(var(--header-h) + 48px + 32px); }
+.main { margin-top: calc(var(--header-h) + 48px); }
+.section { scroll-margin-top: calc(var(--header-h) + 48px + 24px); }
 
 /* ── DWV-specific color classes ── */
-.pipe-4 { background: #a855f7; color: #fff; }
-.pipe-3 { background: #6366f1; color: #fff; }
-.pipe-2 { background: #f59e0b; color: #000; }
-.pipe-15 { background: #10b981; color: #000; }
+.pipe-4 { background: rgba(168, 85, 247, 0.15); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.3); }
+.pipe-3 { background: rgba(99, 102, 241, 0.15); color: #818cf8; border: 1px solid rgba(99, 102, 241, 0.3); }
+.pipe-2 { background: rgba(245, 158, 11, 0.12); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+.pipe-15 { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.25); }
 .vent-color { color: #94a3b8; }
 .drain-color { color: #f59e0b; }
 .dfu-badge {
@@ -992,11 +993,11 @@ hr.section-rule {
   <div class="card">
     <div class="card-header"><span class="dot dot-yellow"></span>Bypass Operation Modes</div>
     <div class="bypass-grid">
-      <div class="bypass-cell header">Mode</div>
-      <div class="bypass-cell header">V1 (Inlet)</div>
-      <div class="bypass-cell header">V2 (Outlet)</div>
-      <div class="bypass-cell header">V3 (Bypass)</div>
-      <div class="bypass-cell header">Result</div>
+      <div class="bypass-cell bypass-header">Mode</div>
+      <div class="bypass-cell bypass-header">V1 (Inlet)</div>
+      <div class="bypass-cell bypass-header">V2 (Outlet)</div>
+      <div class="bypass-cell bypass-header">V3 (Bypass)</div>
+      <div class="bypass-cell bypass-header">Result</div>
 
       <div class="bypass-cell"><strong class="text-bright">Normal</strong></div>
       <div class="bypass-cell"><span class="v-open">OPEN</span></div>
@@ -2839,20 +2840,23 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ── Active nav link tracking ──
-const sections = document.querySelectorAll('.section');
 let navLinks = document.querySelectorAll('#sidebar-water .nav-link, #sidebar-waste .nav-link');
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      navLinks.forEach(link => link.classList.remove('active'));
-      const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      // Only update nav links in the active sidebar
+      const activeTab = document.querySelector('.master-tab.active').dataset.master;
+      const sidebar = document.getElementById('sidebar-' + activeTab);
+      sidebar.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+      const activeLink = sidebar.querySelector(`.nav-link[href="#${entry.target.id}"]`);
       if (activeLink) activeLink.classList.add('active');
     }
   });
-}, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+}, { rootMargin: '-120px 0px -60% 0px', threshold: 0 });
 
-sections.forEach(s => observer.observe(s));
+// Initially observe only water tab sections
+document.querySelectorAll('#content-water .section').forEach(s => observer.observe(s));
 
 // ── Scroll-to-top visibility ──
 const scrollBtn = document.getElementById('scrollTop');
