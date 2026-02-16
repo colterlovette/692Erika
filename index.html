@@ -799,8 +799,8 @@ hr.section-rule {
 
 <!-- ═══════════════════════ HEADER ═══════════════════════ -->
 <header class="header">
-  <div class="header-logo">
-    UPONOR LOGIC <span>/ Plumbing Design</span>
+  <div class="header-logo" id="headerLogo">
+    UPONOR LOGIC <span>/ Water Supply</span>
   </div>
   <div class="header-meta">
     <span>Lovette Residence — 829 Erika Rd, Grand Junction CO</span>
@@ -2795,6 +2795,14 @@ function switchMasterTab(tabName) {
   // Toggle tab buttons
   document.querySelectorAll('.master-tab').forEach(t => t.classList.remove('active'));
   document.querySelector(`.master-tab[data-master="${tabName}"]`).classList.add('active');
+
+  // Update header logo
+  const logo = document.getElementById('headerLogo');
+  if (tabName === 'water') {
+    logo.innerHTML = 'UPONOR LOGIC <span>/ Water Supply</span>';
+  } else {
+    logo.innerHTML = 'PVC SCHEDULE 40 DWV <span>/ Waste &amp; Vent</span>';
+  }
 
   // Toggle content
   document.querySelectorAll('.master-tab-content').forEach(c => c.classList.remove('active'));
