@@ -1,0 +1,1899 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lovette Residence — Uponor Logic Plumbing Design</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;500;600;700&family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e14;
+  --bg-card: #111821;
+  --bg-card-hover: #161e29;
+  --border: #1e2a3a;
+  --border-accent: #2a4a6b;
+  --text: #c5cdd8;
+  --text-muted: #6b7a8d;
+  --text-bright: #e8edf3;
+  --accent: #3b9eff;
+  --accent-dim: #1a5ea0;
+  --hot: #e85d4a;
+  --hot-dim: #8b3528;
+  --cold: #4a9de8;
+  --cold-dim: #28638b;
+  --green: #4ae88a;
+  --green-dim: #1a6b3a;
+  --yellow: #e8c94a;
+  --yellow-dim: #8b7a28;
+  --purple: #9a6aed;
+  --nav-width: 260px;
+  --header-h: 64px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'IBM Plex Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── Noise overlay ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ── Header ── */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-h);
+  background: rgba(10, 14, 20, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 24px;
+  z-index: 100;
+}
+
+.header-logo {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.header-logo span { color: var(--text-muted); font-weight: 400; }
+
+.header-meta {
+  margin-left: auto;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  display: flex;
+  gap: 20px;
+}
+
+.header-meta .tag {
+  padding: 3px 10px;
+  background: var(--border);
+  border-radius: 3px;
+  color: var(--text);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* ── Sidebar ── */
+.sidebar {
+  position: fixed;
+  top: var(--header-h);
+  left: 0;
+  width: var(--nav-width);
+  bottom: 0;
+  background: var(--bg-card);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 20px 0;
+  z-index: 50;
+}
+
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+.nav-group { margin-bottom: 8px; }
+
+.nav-group-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 12px 20px 6px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 20px;
+  color: var(--text);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 400;
+  transition: all 0.15s;
+  border-left: 2px solid transparent;
+}
+
+.nav-link:hover {
+  background: var(--bg-card-hover);
+  color: var(--text-bright);
+  border-left-color: var(--border-accent);
+}
+
+.nav-link.active {
+  background: rgba(59, 158, 255, 0.06);
+  color: var(--accent);
+  border-left-color: var(--accent);
+  font-weight: 500;
+}
+
+.nav-icon {
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.nav-link.active .nav-icon { opacity: 1; }
+
+/* ── Main Content ── */
+.main {
+  margin-left: var(--nav-width);
+  margin-top: var(--header-h);
+  padding: 40px 48px 80px;
+  max-width: 1100px;
+}
+
+/* ── Sections ── */
+.section {
+  margin-bottom: 56px;
+  scroll-margin-top: calc(var(--header-h) + 24px);
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-number {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 1px;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-bright);
+  letter-spacing: -0.3px;
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.card-header {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-header .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.dot-hot { background: var(--hot); }
+.dot-cold { background: var(--cold); }
+.dot-green { background: var(--green); }
+.dot-yellow { background: var(--yellow); }
+.dot-accent { background: var(--accent); }
+.dot-purple { background: var(--purple); }
+
+/* ── Tables ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 500;
+}
+
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid rgba(30, 42, 58, 0.5);
+  color: var(--text);
+  vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+
+tr:hover td { background: rgba(59, 158, 255, 0.02); }
+
+td.mono {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+}
+
+td.size-pipe {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  font-size: 13px;
+}
+
+.pipe-badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 3px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.pipe-1 { background: rgba(154, 106, 237, 0.15); color: var(--purple); border: 1px solid rgba(154, 106, 237, 0.3); }
+.pipe-34 { background: rgba(59, 158, 255, 0.1); color: var(--accent); border: 1px solid rgba(59, 158, 255, 0.25); }
+.pipe-34-hot { background: rgba(232, 93, 74, 0.1); color: var(--hot); border: 1px solid rgba(232, 93, 74, 0.25); }
+.pipe-12 { background: rgba(74, 157, 232, 0.1); color: var(--cold); border: 1px solid rgba(74, 157, 232, 0.25); }
+.pipe-12-hot { background: rgba(232, 140, 74, 0.1); color: #e88c4a; border: 1px solid rgba(232, 140, 74, 0.25); }
+.pipe-38 { background: rgba(74, 232, 138, 0.08); color: var(--green); border: 1px solid rgba(74, 232, 138, 0.2); }
+
+.total-row td {
+  font-weight: 600;
+  border-top: 2px solid var(--border-accent);
+  color: var(--text-bright);
+  padding-top: 14px;
+}
+
+/* ── Grid layout ── */
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+/* ── Stat boxes ── */
+.stat-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 20px;
+  text-align: center;
+}
+
+.stat-value {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--text-bright);
+  margin-bottom: 4px;
+}
+
+.stat-value .unit {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ── Schematic / code blocks ── */
+.schematic {
+  background: #080c10;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 24px;
+  overflow-x: auto;
+  margin: 16px 0;
+}
+
+.schematic pre {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--text);
+  white-space: pre;
+  margin: 0;
+}
+
+.schematic pre .hl-cold { color: var(--cold); }
+.schematic pre .hl-hot { color: var(--hot); }
+.schematic pre .hl-valve { color: var(--yellow); }
+.schematic pre .hl-label { color: var(--green); }
+.schematic pre .hl-accent { color: var(--accent); }
+.schematic pre .hl-dim { color: var(--text-muted); }
+
+/* ── Room cards ── */
+.room-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.room-card-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.room-card-header:hover { background: var(--bg-card-hover); }
+
+.room-name {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--text-bright);
+  flex: 1;
+}
+
+.room-fixtures {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.room-card-body { padding: 20px 24px; }
+
+.fixture-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.fixture-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  padding: 6px 10px;
+  background: rgba(30, 42, 58, 0.3);
+  border-radius: 4px;
+}
+
+.fixture-icon { font-size: 14px; flex-shrink: 0; }
+
+.fixture-pipes {
+  margin-left: auto;
+  display: flex;
+  gap: 4px;
+}
+
+.fixture-pipes .fp {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  padding: 1px 5px;
+  border-radius: 2px;
+}
+
+.fp-h { background: rgba(232, 93, 74, 0.15); color: var(--hot); }
+.fp-c { background: rgba(74, 157, 232, 0.15); color: var(--cold); }
+
+.room-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  padding: 10px 14px;
+  background: rgba(59, 158, 255, 0.04);
+  border-left: 2px solid var(--accent-dim);
+  border-radius: 0 4px 4px 0;
+  margin-top: 12px;
+  line-height: 1.5;
+}
+
+.room-fittings {
+  margin-top: 14px;
+  font-size: 12px;
+}
+
+.room-fittings summary {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  padding: 6px 0;
+}
+
+.room-fittings summary:hover { color: var(--accent); }
+
+.fitting-item {
+  padding: 4px 0;
+  color: var(--text);
+  font-size: 12px;
+}
+
+.fitting-item code {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  background: rgba(30, 42, 58, 0.5);
+  padding: 1px 5px;
+  border-radius: 2px;
+  color: var(--accent);
+}
+
+/* ── Valve schedule ── */
+.valve-row {
+  display: grid;
+  grid-template-columns: 80px 200px 60px 60px 1fr;
+  gap: 0;
+  align-items: center;
+  padding: 8px 14px;
+  border-bottom: 1px solid rgba(30, 42, 58, 0.4);
+  font-size: 13px;
+  transition: background 0.1s;
+}
+
+.valve-row:hover { background: rgba(59, 158, 255, 0.03); }
+
+.valve-row.header-row {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 14px;
+}
+
+.valve-row.header-row:hover { background: transparent; }
+
+.valve-id {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  color: var(--yellow);
+  font-size: 12px;
+}
+
+.valve-label { color: var(--text-bright); font-weight: 500; }
+
+.valve-side {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+}
+
+.side-cold { color: var(--cold); }
+.side-hot { color: var(--hot); }
+.side-return { color: var(--green); }
+
+.valve-controls { color: var(--text-muted); font-size: 12px; }
+
+/* ── Bypass table ── */
+.bypass-grid {
+  display: grid;
+  grid-template-columns: 100px repeat(3, 80px) 1fr;
+  gap: 0;
+  font-size: 13px;
+}
+
+.bypass-cell {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(30, 42, 58, 0.4);
+}
+
+.bypass-cell.header {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  border-bottom: 1px solid var(--border);
+}
+
+.v-open {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  color: var(--green);
+  font-size: 12px;
+}
+
+.v-closed {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 600;
+  color: var(--hot);
+  font-size: 12px;
+}
+
+/* ── Progress bars for pipe quantities ── */
+.pipe-bar-row {
+  display: grid;
+  grid-template-columns: 120px 1fr 70px;
+  gap: 12px;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.pipe-bar-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+}
+
+.pipe-bar-track {
+  height: 20px;
+  background: rgba(30, 42, 58, 0.4);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.pipe-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.pipe-bar-value {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-bright);
+  text-align: right;
+}
+
+/* ── Tabs ── */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 10px 20px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  background: none;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+
+.tab:hover { color: var(--text); }
+
+.tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* ── Misc ── */
+p { margin-bottom: 12px; font-size: 14px; line-height: 1.7; }
+
+.text-muted { color: var(--text-muted); }
+.text-accent { color: var(--accent); }
+.text-hot { color: var(--hot); }
+.text-cold { color: var(--cold); }
+.text-green { color: var(--green); }
+.text-yellow { color: var(--yellow); }
+.text-bright { color: var(--text-bright); font-weight: 500; }
+
+.callout {
+  padding: 16px 20px;
+  background: rgba(59, 158, 255, 0.04);
+  border-left: 3px solid var(--accent-dim);
+  border-radius: 0 6px 6px 0;
+  margin: 16px 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.callout-warn {
+  border-left-color: var(--yellow-dim);
+  background: rgba(232, 201, 74, 0.04);
+}
+
+.callout strong { color: var(--text-bright); }
+
+.tag-inline {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  padding: 1px 6px;
+  background: var(--border);
+  border-radius: 2px;
+  color: var(--text);
+  letter-spacing: 0.5px;
+  vertical-align: middle;
+}
+
+hr.section-rule {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 32px 0;
+}
+
+/* ── Mobile ── */
+@media (max-width: 900px) {
+  .sidebar { display: none; }
+  .main { margin-left: 0; padding: 24px 16px 60px; }
+  .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  .fixture-list { grid-template-columns: 1fr; }
+  .valve-row { grid-template-columns: 60px 1fr 50px 50px; }
+  .valve-controls { display: none; }
+}
+
+/* ── Scroll indicator ── */
+.scroll-top {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: 50;
+  font-size: 18px;
+}
+
+.scroll-top.visible { opacity: 1; }
+.scroll-top:hover { color: var(--accent); border-color: var(--accent-dim); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════ HEADER ═══════════════════════ -->
+<header class="header">
+  <div class="header-logo">
+    UPONOR LOGIC <span>/ Plumbing Design</span>
+  </div>
+  <div class="header-meta">
+    <span>Lovette Residence — 829 Erika Rd, Grand Junction CO</span>
+    <span class="tag">Comm #2601</span>
+    <span class="tag">Feb 2026</span>
+  </div>
+</header>
+
+<!-- ═══════════════════════ SIDEBAR ═══════════════════════ -->
+<nav class="sidebar" id="sidebar">
+  <div class="nav-group">
+    <div class="nav-group-label">Overview</div>
+    <a href="#overview" class="nav-link active"><span class="nav-icon">◈</span> System Summary</a>
+    <a href="#goals" class="nav-link"><span class="nav-icon">◎</span> Design Goals</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Infrastructure</div>
+    <a href="#treatment" class="nav-link"><span class="nav-icon">◇</span> Water Treatment</a>
+    <a href="#valvepanel" class="nav-link"><span class="nav-icon">◆</span> Zone Valve Panel</a>
+    <a href="#recirc" class="nav-link"><span class="nav-icon">↻</span> Recirculation</a>
+    <a href="#schematic" class="nav-link"><span class="nav-icon">⊞</span> System Schematic</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Zones</div>
+    <a href="#kitchen" class="nav-link"><span class="nav-icon">▪</span> Kitchen</a>
+    <a href="#bath1" class="nav-link"><span class="nav-icon">▪</span> Bathroom 1</a>
+    <a href="#bath2" class="nav-link"><span class="nav-icon">▪</span> Bathroom 2 (Primary)</a>
+    <a href="#laundry" class="nav-link"><span class="nav-icon">▪</span> Laundry</a>
+    <a href="#garage" class="nav-link"><span class="nav-icon">▪</span> Garage</a>
+    <a href="#outdoor" class="nav-link"><span class="nav-icon">▪</span> Outdoor Spigots</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Materials</div>
+    <a href="#piperuns" class="nav-link"><span class="nav-icon">═</span> Pipe Runs & Lengths</a>
+    <a href="#pipetotals" class="nav-link"><span class="nav-icon">▰</span> Pipe Totals</a>
+    <a href="#fittings" class="nav-link"><span class="nav-icon">⊕</span> Fittings & BOM</a>
+    <a href="#valveschedule" class="nav-link"><span class="nav-icon">⊘</span> Valve Schedule</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Reference</div>
+    <a href="#pressure" class="nav-link"><span class="nav-icon">↕</span> Pressure Analysis</a>
+    <a href="#installation" class="nav-link"><span class="nav-icon">⚙</span> Installation Notes</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ MAIN CONTENT ═══════════════════════ -->
+<main class="main">
+
+<!-- ════ OVERVIEW ════ -->
+<section class="section" id="overview">
+  <div class="section-header">
+    <span class="section-number">01</span>
+    <h2 class="section-title">System Summary</h2>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:20px">
+    <div class="stat-box">
+      <div class="stat-value">413 <span class="unit">ft</span></div>
+      <div class="stat-label">Total Pipe</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">19</div>
+      <div class="stat-label">Ball Valves</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">6</div>
+      <div class="stat-label">Zones Served</div>
+    </div>
+  </div>
+
+  <div class="grid-3">
+    <div class="stat-box">
+      <div class="stat-value" style="font-size:24px">PEX-A</div>
+      <div class="stat-label">Uponor AquaPEX</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value" style="font-size:24px">ProPEX</div>
+      <div class="stat-label">Expansion Fittings</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value" style="font-size:24px">Logic</div>
+      <div class="stat-label">Crawl Space Split Layout</div>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top:20px">
+    1" treated cold trunk at garage valve panel → dedicated 3/4" zone branches drop into <strong>crawl space</strong> → shortest path to below fixture groups → <strong>multiport tees in crawl space</strong> split to individual 1/2" and 3/8" lines → straight up through subfloor to each fixture.
+  </div>
+</section>
+
+<!-- ════ DESIGN GOALS ════ -->
+<section class="section" id="goals">
+  <div class="section-header">
+    <span class="section-number">02</span>
+    <h2 class="section-title">Design Goals</h2>
+  </div>
+  <div class="card">
+    <table>
+      <tr><td style="width:24px;vertical-align:middle;color:var(--green)">✓</td><td>Minimize pressure fluctuations during simultaneous fixture use</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>Fast bathtub fill times (3/4" PEX-A all the way to tub valve) and strong shower pressure</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>Zone isolation via ball valves on garage wall panel — no manifold</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>All Uponor AquaPEX PEX-A with ProPEX expansion fittings</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>Uponor Logic multiport tees in crawl space — split below fixtures, individual lines up through subfloor</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>Water treatment (softener + carbon filtration) with 3-valve bypass for service</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>Untreated raw water to outdoor spigots only</td></tr>
+      <tr><td style="color:var(--green)">✓</td><td>Hot water recirculation loop with dedicated 1/2" return from kitchen sink</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ════ WATER TREATMENT ════ -->
+<section class="section" id="treatment">
+  <div class="section-header">
+    <span class="section-number">03</span>
+    <h2 class="section-title">Water Treatment & 3-Valve Bypass</h2>
+  </div>
+
+  <p>Sediment pre-filter → water softener → carbon block filter, with 3-valve bypass for service isolation.</p>
+
+  <div class="schematic">
+<pre>
+<span class="hl-dim">Street Main (1")</span>
+    │
+    ├── <span class="hl-cold">3/4"</span> branch ──► <span class="hl-label">Outdoor Spigots</span> <span class="hl-dim">(UNTREATED)</span>
+    │
+    └── <span class="hl-accent">1"</span> ──┬──<span class="hl-valve">[V1: TREATMENT INLET]</span>──► Sediment Pre-Filter (20μ)
+             │                                       │
+             │                                  Water Softener
+             │                                       │
+             │                                Carbon Block (5μ)
+             │                                       │
+             │                              <span class="hl-valve">[V2: TREATMENT OUTLET]</span>──┐
+             │                                                       │
+             └──<span class="hl-hot">[V3: BYPASS — normally CLOSED]</span>──────────────────┤
+                                                                     │
+                                                        <span class="hl-accent">1" Treated Cold Trunk</span>
+                                                        <span class="hl-dim">(to Zone Valve Panel)</span>
+</pre>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-yellow"></span>Bypass Operation Modes</div>
+    <div class="bypass-grid">
+      <div class="bypass-cell header">Mode</div>
+      <div class="bypass-cell header">V1 (Inlet)</div>
+      <div class="bypass-cell header">V2 (Outlet)</div>
+      <div class="bypass-cell header">V3 (Bypass)</div>
+      <div class="bypass-cell header">Result</div>
+
+      <div class="bypass-cell"><strong class="text-bright">Normal</strong></div>
+      <div class="bypass-cell"><span class="v-open">OPEN</span></div>
+      <div class="bypass-cell"><span class="v-open">OPEN</span></div>
+      <div class="bypass-cell"><span class="v-closed">CLOSED</span></div>
+      <div class="bypass-cell">Water flows through treatment</div>
+
+      <div class="bypass-cell"><strong class="text-bright">Bypass</strong></div>
+      <div class="bypass-cell"><span class="v-closed">CLOSED</span></div>
+      <div class="bypass-cell"><span class="v-closed">CLOSED</span></div>
+      <div class="bypass-cell"><span class="v-open">OPEN</span></div>
+      <div class="bypass-cell">Untreated water to house</div>
+
+      <div class="bypass-cell"><strong class="text-bright">Isolated</strong></div>
+      <div class="bypass-cell"><span class="v-closed">CLOSED</span></div>
+      <div class="bypass-cell"><span class="v-closed">CLOSED</span></div>
+      <div class="bypass-cell"><span class="v-closed">CLOSED</span></div>
+      <div class="bypass-cell">Treatment isolated, no house water</div>
+    </div>
+  </div>
+
+  <div class="callout callout-warn">
+    <strong>V3 (Bypass)</strong> — label with <strong style="color:var(--hot)">red tag</strong> "BYPASS — NORMALLY CLOSED." All three valves 1" ProPEX brass ball valves. Add a drain valve downstream of V1 for equipment service.
+  </div>
+</section>
+
+<!-- ════ ZONE VALVE PANEL ════ -->
+<section class="section" id="valvepanel">
+  <div class="section-header">
+    <span class="section-number">04</span>
+    <h2 class="section-title">Zone Valve Panel — Garage Wall</h2>
+  </div>
+
+  <p>ProPEX brass ball valves on a 4' × 4' plywood backer, <strong class="text-bright">garage north wall, 3' right of the interior entry door</strong>. Nearly directly below M. Bath, adjacent to rim joist penetration.</p>
+
+  <div class="callout">
+    <strong>Crawl Space Routing:</strong> Zone branches drop ~4' down garage wall → through rim joist → horizontal through crawl to below fixture group → <strong>multiport tees mounted in crawl</strong> (hung from joists or on blocking). Individual lines run straight up through subfloor to fixtures. All splitting points remain accessible.
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><span class="dot dot-cold"></span>Cold Side</div>
+      <div class="schematic" style="margin:0">
+<pre>
+<span class="hl-accent">1" Treated Cold Trunk</span> <span class="hl-dim">(horizontal)</span>
+│
+├─ Tee ─ <span class="hl-valve">[3/4" BV]</span> ─ <span class="hl-cold">3/4"</span> ──► <span class="hl-label">GARAGE</span>
+├─ Tee ─ <span class="hl-valve">[3/4" BV]</span> ─ <span class="hl-cold">3/4"</span> ──► <span class="hl-label">KITCHEN</span>
+├─ Tee ─ <span class="hl-valve">[3/4" BV]</span> ─ <span class="hl-cold">3/4"</span> ──► <span class="hl-label">BATH 1</span>
+├─ Tee ─ <span class="hl-valve">[3/4" BV]</span> ─ <span class="hl-cold">3/4"</span> ──► <span class="hl-label">BATH 2</span>
+├─ Tee ─ <span class="hl-valve">[3/4" BV]</span> ─ <span class="hl-cold">3/4"</span> ──► <span class="hl-label">LAUNDRY</span>
+└─ End ─ <span class="hl-valve">[3/4" BV]</span> ─ <span class="hl-cold">3/4"</span> ──► <span class="hl-label">TANKLESS WH</span>
+</pre>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><span class="dot dot-hot"></span>Hot Side</div>
+      <div class="schematic" style="margin:0">
+<pre>
+<span class="hl-hot">3/4" Hot Trunk</span> <span class="hl-dim">from Tankless</span>
+│
+<span class="hl-valve">[V-MH: Main Hot Shutoff]</span>
+│
+├─ Tee ─ <span class="hl-valve">[3/4" BV]</span> ─ <span class="hl-hot">3/4"</span> ──► <span class="hl-label">GARAGE</span>
+├─ Tee ─ <span class="hl-valve">[1/2" BV]</span> ─ <span class="hl-hot">1/2"</span> ──► <span class="hl-label">KITCHEN</span>
+├─ Tee ─ <span class="hl-valve">[1/2" BV]</span> ─ <span class="hl-hot">1/2"</span> ──► <span class="hl-label">BATH 1</span>
+├─ Tee ─ <span class="hl-valve">[3/4" BV]</span> ─ <span class="hl-hot">3/4"</span> ──► <span class="hl-label">BATH 2</span>
+└─ End ─ <span class="hl-valve">[1/2" BV]</span> ─ <span class="hl-hot">1/2"</span> ──► <span class="hl-label">LAUNDRY</span>
+
+<span class="hl-dim">1/2" Recirc Return (from Kitchen):</span>
+──► <span class="hl-valve">[1/2" BV]</span> ─ <span class="hl-valve">[3/4"FIP adapt.]</span> ─ <span class="hl-valve">[AP17920 Taco pump]</span> ──► <span class="hl-dim">WH</span>
+</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ RECIRCULATION ════ -->
+<section class="section" id="recirc">
+  <div class="section-header">
+    <span class="section-number">05</span>
+    <h2 class="section-title">Hot Water Recirculation</h2>
+  </div>
+
+  <p>Dedicated 1/2" PEX-A return from kitchen sink (farthest hot fixture) back to Rheem ECOH200 in garage via crawl space.</p>
+
+  <div class="card">
+      <div class="card-header"><span class="dot dot-hot"></span>Rheem ECOH200DVELN-3 — Specifications</div>
+      <table>
+        <tr><td class="text-bright" style="width:200px">Model</td><td class="mono">ECOH200DVELN-3 (Performance Platinum)</td></tr>
+        <tr><td class="text-bright">Max Flow Rate</td><td class="mono">9.5 GPM</td></tr>
+        <tr><td class="text-bright">Efficiency</td><td class="mono">0.93 UEF — Super High Efficiency Condensing</td></tr>
+        <tr><td class="text-bright">BTU Input</td><td class="mono">199,900 BTU/h (Natural Gas)</td></tr>
+        <tr><td class="text-bright">Water Connections</td><td class="mono"><span class="pipe-badge pipe-34-hot">3/4" NPT</span> inlet and outlet — matches design perfectly</td></tr>
+        <tr><td class="text-bright">Gas Connection</td><td class="mono">1/2" — verify sizing with gas supplier for run length</td></tr>
+        <tr><td class="text-bright">Venting</td><td class="mono">2" or 3" PVC (condensing)</td></tr>
+        <tr><td class="text-bright">Max Water Temp</td><td class="mono">140°F</td></tr>
+        <tr><td class="text-bright">Smart Features</td><td>Built-in EcoNet® Wi-Fi — control temp, recirc schedules, monitor usage from phone</td></tr>
+        <tr><td class="text-bright">Safety</td><td>LeakGuard® leak detection, Hot-Start Programming™ (prevents cold-water bursts)</td></tr>
+        <tr><td class="text-bright">Installation</td><td>Indoor/outdoor (outdoor conversion kit ECOH-X sold separately)</td></tr>
+      </table>
+    </div>
+
+  <div class="schematic">
+<pre>
+<span class="hl-dim">                  ┌─────────── GARAGE ─────────────────┐</span>
+<span class="hl-dim">                  │                                     │</span>
+<span class="hl-dim">                  │</span>   <span class="hl-cold">3/4" Cold</span> ──► <span class="hl-accent">[RHEEM ECOH200]</span> ──► <span class="hl-hot">3/4" Hot</span>
+<span class="hl-dim">                  │</span>       ▲              ▲                │
+<span class="hl-dim">                  │</span>  <span class="hl-valve">[Taco 0015 Pump</span>  <span class="hl-valve"> built-in check]</span>    │
+<span class="hl-dim">                  │</span>  <span class="hl-valve"> via AP17920 kit]</span>     │                │
+<span class="hl-dim">                  │</span>       │    <span class="hl-green">1/2" Recirc Return</span>         │
+<span class="hl-dim">                  │</span>       │         ▲                     │
+<span class="hl-dim">                  └───────│─────────│─────────────────────│──┘</span>
+<span class="hl-dim">                          │         │                     │</span>
+<span class="hl-dim">                  ┌───────│─── KITCHEN ──────────────────│──┐</span>
+<span class="hl-dim">                  │</span>       │                               │
+<span class="hl-dim">                  │</span>       │    <span class="hl-hot">1/2" Hot Supply</span> ◄──────────┘
+<span class="hl-dim">                  │</span>       │       │
+<span class="hl-dim">                  │</span>       │   <span class="hl-valve">[Tee under sink]</span>
+<span class="hl-dim">                  │</span>       │       │          │
+<span class="hl-dim">                  │</span>       │       ▼          │
+<span class="hl-dim">                  │</span>       │   <span class="hl-label">Sink Hot</span>    <span class="hl-green">1/2" Return</span>
+<span class="hl-dim">                  │</span>       └──────────────────┘
+<span class="hl-dim">                  └────────────────────────────────────────┘</span>
+</pre>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-accent"></span>Rheem AP17920 Timer-Based Recirculation Pump Kit</div>
+    <table>
+      <tr><td class="text-bright" style="width:200px">Pump</td><td>Taco 0015 — bronze body, potable-water rated, <strong class="text-bright">built-in check valve</strong> (no separate check valve needed)</td></tr>
+      <tr><td class="text-bright">Flange Connections</td><td class="mono"><span class="pipe-badge pipe-34-hot">3/4" FNPT</span> stainless steel flanges with gaskets</td></tr>
+      <tr><td class="text-bright">Power Connection</td><td>Molex connector — plugs directly into the Rheem ECOH200 water heater (no external wiring)</td></tr>
+      <tr><td class="text-bright">Timer Control</td><td>Controlled by the water heater's on-board timer + <strong class="text-bright">EcoNet® app</strong> — set recirc schedules from your phone (e.g., 6–8 AM + 5–9 PM)</td></tr>
+      <tr><td class="text-bright">Max Pipe Length</td><td class="mono">400 ft (3/4" copper equiv.) · 75 ft (1/2" copper equiv.)</td></tr>
+      <tr><td class="text-bright">Your Recirc Run</td><td class="mono"><span style="color:var(--green);font-weight:600">31 ft of 1/2" PEX-A — well within the 75 ft limit ✓</span></td></tr>
+    </table>
+  </div>
+
+  <div class="callout" style="margin-top:16px">
+    AP17920 connects via Molex — no external wiring, timer, or aquastat needed. Taco 0015 has <strong>built-in check valve</strong> — no separate check valve. Only additional fitting: 3/4" FIP × 1/2" ProPEX adapter at pump inlet.
+  </div>
+
+  <div class="callout callout-warn" style="margin-top:12px">
+    <strong>Verify:</strong> AP17920 lists RTG/RTGH series. ECOH200 is the newer platform — confirm Molex connector in ECOH200 install manual or call Rheem (866-720-2076) before plumbing the return.
+  </div>
+</section>
+
+<!-- ════ SYSTEM SCHEMATIC ════ -->
+<section class="section" id="schematic">
+  <div class="section-header">
+    <span class="section-number">06</span>
+    <h2 class="section-title">Full System Schematic</h2>
+  </div>
+
+  <div class="schematic">
+<pre>
+<span class="hl-dim">                       STREET MAIN</span> <span class="hl-accent">(1")</span>
+<span class="hl-dim">                            │</span>
+<span class="hl-dim">                       </span><span class="hl-valve">[Main Shutoff]</span>
+<span class="hl-dim">                            │</span>
+<span class="hl-dim">                    ┌───────┴──────────┐</span>
+<span class="hl-dim">                    │                  │</span>
+<span class="hl-dim">               </span><span class="hl-cold">3/4" Outdoor</span>      <span class="hl-accent">1" to Treatment</span>
+<span class="hl-dim">                    │                  │</span>
+<span class="hl-dim">              </span><span class="hl-valve">[Ball Valve]</span><span class="hl-dim">      ┌────┴──────────────┐</span>
+<span class="hl-dim">                    │           │                    │</span>
+<span class="hl-dim">             ┌──────┼──────┐   </span><span class="hl-valve">[V1]</span>──►Filter──►Soft──►Carbon──<span class="hl-valve">[V2]</span><span class="hl-dim">──┐</span>
+<span class="hl-dim">             │      │      │    │                               │</span>
+<span class="hl-dim">          Spig1  Spig2  Spig3  </span><span class="hl-hot">[V3: BYPASS]</span><span class="hl-dim">─────────────────────┤</span>
+<span class="hl-dim">          </span><span class="hl-cold">1/2"   1/2"   1/2"</span>                                     │
+<span class="hl-dim">                                               </span><span class="hl-accent">1" TREATED COLD TRUNK</span>
+<span class="hl-dim">                                                        │</span>
+<span class="hl-dim">        ┌────────┐                                 </span><span class="hl-valve">[Main Cold Shutoff]</span>
+<span class="hl-dim">        │</span><span class="hl-label">GARAGE</span><span class="hl-dim">  │                                      │</span>
+<span class="hl-dim">        │ </span><span class="hl-cold">3/4"</span><span class="hl-dim">   │       COLD ZONE VALVES                │</span>
+<span class="hl-dim">        │ ┌►Util │       ├─</span><span class="hl-valve">[V]</span>─<span class="hl-cold">3/4"</span>──► <span class="hl-label">KITCHEN</span>
+<span class="hl-dim">        │ │ Sink │       ├─</span><span class="hl-valve">[V]</span>─<span class="hl-cold">3/4"</span>──► <span class="hl-label">BATH 1</span>
+<span class="hl-dim">        │ └►Pet  │       ├─</span><span class="hl-valve">[V]</span>─<span class="hl-cold">3/4"</span>──► <span class="hl-label">BATH 2</span>
+<span class="hl-dim">        │   Wash │       ├─</span><span class="hl-valve">[V]</span>─<span class="hl-cold">3/4"</span>──► <span class="hl-label">LAUNDRY</span>
+<span class="hl-dim">        └────────┘       └─</span><span class="hl-valve">[V]</span>─<span class="hl-cold">3/4"</span>──► <span class="hl-label">TANKLESS WH</span> ◄── <span class="hl-green">1/2" RECIRC</span>
+<span class="hl-dim">                                        │</span>
+<span class="hl-dim">                                 </span><span class="hl-accent">[RHEEM ECOH200 TANKLESS]</span>
+<span class="hl-dim">                                 </span><span class="hl-dim">9.5 GPM · 3/4" connections</span>
+<span class="hl-dim">                                        │</span>
+<span class="hl-dim">                                 </span><span class="hl-hot">3/4" HOT TRUNK</span>
+<span class="hl-dim">                                        │</span>
+<span class="hl-dim">                                 </span><span class="hl-valve">[V-MH: Main Hot Shutoff]</span>
+<span class="hl-dim">                                        │</span>
+<span class="hl-dim">                          HOT ZONE VALVES │</span>
+<span class="hl-dim">                          ├─</span><span class="hl-valve">[V]</span>─<span class="hl-hot">3/4"</span>──► <span class="hl-label">GARAGE</span>
+<span class="hl-dim">                          ├─</span><span class="hl-valve">[V]</span>─<span class="hl-hot">1/2"</span>──► <span class="hl-label">KITCHEN</span> ─── <span class="hl-green">1/2" return</span>
+<span class="hl-dim">                          ├─</span><span class="hl-valve">[V]</span>─<span class="hl-hot">1/2"</span>──► <span class="hl-label">BATH 1</span>
+<span class="hl-dim">                          ├─</span><span class="hl-valve">[V]</span>─<span class="hl-hot">3/4"</span>──► <span class="hl-label">BATH 2</span>
+<span class="hl-dim">                          └─</span><span class="hl-valve">[V]</span>─<span class="hl-hot">1/2"</span>──► <span class="hl-label">LAUNDRY</span>
+</pre>
+  </div>
+</section>
+
+<!-- ════ KITCHEN ════ -->
+<section class="section" id="kitchen">
+  <div class="section-header">
+    <span class="section-number">07</span>
+    <h2 class="section-title">Kitchen</h2>
+  </div>
+
+  <div class="room-card">
+    <div class="room-card-header">
+      <span class="room-name">Kitchen — 11'-0" × 24'-0"</span>
+      <span class="room-fixtures">4 fixtures • Cold + Hot + Recirc Return</span>
+    </div>
+    <div class="room-card-body">
+      <div class="fixture-list">
+        <div class="fixture-item">
+          <span class="fixture-icon">🚰</span> Kitchen Sink
+          <span class="fixture-pipes"><span class="fp fp-c">1/2"C</span><span class="fp fp-h">1/2"H</span></span>
+        </div>
+        <div class="fixture-item">
+          <span class="fixture-icon">🍽</span> Dishwasher (Bosch 300)
+          <span class="fixture-pipes"><span class="fp fp-h">3/8"H</span></span>
+        </div>
+        <div class="fixture-item">
+          <span class="fixture-icon">🧊</span> Fridge / Ice Maker
+          <span class="fixture-pipes"><span class="fp fp-c">3/8"C</span></span>
+        </div>
+        <div class="fixture-item">
+          <span class="fixture-icon">↻</span> Recirc Return
+          <span class="fixture-pipes"><span class="fp fp-h">1/2"R</span></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Cold:</strong> Reducing tee (3/4"×1/2"×1/2") in crawl — one 1/2" up to sink, one reduced to 3/8" for fridge. No multiport tee needed on cold (only 2 fixtures). <strong>Hot:</strong> 1/2" tee in crawl → individual lines up to sink and dishwasher (reduce to 3/8" at Bosch 300 — hot-only, single inlet). <strong>Recirc:</strong> Tee off hot under sink → down through subfloor → crawl → AP17920 pump.
+      </div>
+
+      <div class="room-fittings">
+        <details>
+          <summary>▸ Recommended Fittings</summary>
+          <div class="fitting-item">1× ProPEX Reducing Tee, 3/4" × 1/2" × 1/2" (cold side — sink + fridge) — crawl space</div>
+          <div class="fitting-item">1× ProPEX Tee, 1/2" × 1/2" × 1/2" (hot side — sink + dishwasher + recirc)</div>
+          <div class="fitting-item">1× ProPEX Reducing Coupling, 1/2" → 3/8" (fridge cold)</div>
+          <div class="fitting-item">1× ProPEX Reducing Coupling, 1/2" → 3/8" (dishwasher hot — Bosch 300 single inlet)</div>
+          <div class="fitting-item">Angle stops at each fixture connection</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ BATHROOM 1 ════ -->
+<section class="section" id="bath1">
+  <div class="section-header">
+    <span class="section-number">08</span>
+    <h2 class="section-title">Bathroom 1</h2>
+  </div>
+
+  <div class="room-card">
+    <div class="room-card-header">
+      <span class="room-name">Bathroom 1 — 5'-6" × 8'-7"</span>
+      <span class="room-fixtures">4 fixtures • Cold + Hot</span>
+    </div>
+    <div class="room-card-body">
+      <div class="fixture-list">
+        <div class="fixture-item">
+          <span class="fixture-icon">🚿</span> Shower
+          <span class="fixture-pipes"><span class="fp fp-c">1/2"C</span><span class="fp fp-h">1/2"H</span></span>
+        </div>
+        <div class="fixture-item">
+          <span class="fixture-icon">🚰</span> Lavatory Sink
+          <span class="fixture-pipes"><span class="fp fp-c">1/2"C</span><span class="fp fp-h">1/2"H</span></span>
+        </div>
+        <div class="fixture-item">
+          <span class="fixture-icon">🚽</span> Toilet
+          <span class="fixture-pipes"><span class="fp fp-c">3/8"C</span></span>
+        </div>
+        <div class="fixture-item">
+          <span class="fixture-icon">🚾</span> Urinal
+          <span class="fixture-pipes"><span class="fp fp-c">3/8"C</span></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Cold:</strong> Multiport tee (3/4"×3/4", 4 outlets) in crawl below Bath 1. Individual 1/2" lines up to shower and sink. Reduce to 3/8" at toilet and urinal. Water hammer arrestor on urinal (quick-close flush valve). <strong>Hot:</strong> 1/2" tee in crawl → lines up to shower and sink.
+      </div>
+
+      <div class="room-fittings">
+        <details>
+          <summary>▸ Recommended Fittings</summary>
+          <div class="fitting-item">1× EP Flow-through Multi-port Tee, 4 outlets, 3/4" × 3/4" — mounted in crawl space</div>
+          <div class="fitting-item">1× ProPEX Tee, 1/2" × 1/2" × 1/2" (hot side)</div>
+          <div class="fitting-item">2× ProPEX Reducing Coupling, 1/2" → 3/8" (toilet + urinal)</div>
+          <div class="fitting-item">1× Water hammer arrestor (urinal flush valve)</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ BATHROOM 2 (PRIMARY) ════ -->
+<section class="section" id="bath2">
+  <div class="section-header">
+    <span class="section-number">09</span>
+    <h2 class="section-title">Bathroom 2 — Primary Bath</h2>
+  </div>
+
+  <div class="room-card">
+    <div class="room-card-header">
+      <span class="room-name">M. Bath — 5'-8" × 10'-1"</span>
+      <span class="room-fixtures">4 fixtures • Cold + Hot • 3/4" to Tub</span>
+    </div>
+    <div class="room-card-body">
+      <div class="fixture-list">
+        <div class="fixture-item">
+          <span class="fixture-icon">🛁</span> Bathtub / Shower
+          <span class="fixture-pipes"><span class="fp fp-c">3/4"C</span><span class="fp fp-h">3/4"H</span></span>
+        </div>
+        <div class="fixture-item">
+          <span class="fixture-icon">🚰</span> Lavatory Sink 1
+          <span class="fixture-pipes"><span class="fp fp-c">1/2"C</span><span class="fp fp-h">1/2"H</span></span>
+        </div>
+        <div class="fixture-item">
+          <span class="fixture-icon">🚰</span> Lavatory Sink 2
+          <span class="fixture-pipes"><span class="fp fp-c">1/2"C</span><span class="fp fp-h">1/2"H</span></span>
+        </div>
+        <div class="fixture-item">
+          <span class="fixture-icon">🚽</span> Toilet
+          <span class="fixture-pipes"><span class="fp fp-c">3/8"C</span></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Highest-demand zone — shortest interior run at 12'.</strong> 3/4" PEX-A all the way to tub/shower valve (H+C). Tees in crawl split to individual lines up through subfloor: 3/4" to tub (E wall), 1/2" to each lav (S wall), 3/8" to toilet. ~60-gal tub fills in 10–12 min. Use thermostatic or pressure-balance valve.
+      </div>
+
+      <div class="callout callout-warn">
+        Panel is nearly beneath M. Bath south wall. 4' down garage wall → 7' east through crawl → tees mounted below M. Bath floor.
+      </div>
+
+      <div class="room-fittings">
+        <details>
+          <summary>▸ Recommended Fittings</summary>
+          <div class="fitting-item">1× EP Flow-through Multi-port Tee, 3 outlets, 1" × 3/4" <code>Q2231057</code> (cold side) — crawl space</div>
+          <div class="fitting-item">1× EP Flow-through Multi-port Tee, 2 outlets, 3/4" × 3/4" <code>Q2227557</code> (hot side) — crawl space</div>
+          <div class="fitting-item">1× ProPEX Reducing Coupling, 1/2" → 3/8" (toilet)</div>
+          <div class="fitting-item">1× Water hammer arrestor (tub fill valve)</div>
+          <div class="fitting-item">1× Thermostatic or pressure-balance tub/shower valve</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ LAUNDRY ════ -->
+<section class="section" id="laundry">
+  <div class="section-header">
+    <span class="section-number">10</span>
+    <h2 class="section-title">Laundry</h2>
+  </div>
+
+  <div class="room-card">
+    <div class="room-card-header">
+      <span class="room-name">Laundry Closet — within Kitchen area (south wall)</span>
+      <span class="room-fixtures">2 fixtures • Cold + Hot</span>
+    </div>
+    <div class="room-card-body">
+      <div class="fixture-list">
+        <div class="fixture-item">
+          <span class="fixture-icon">👕</span> Washing Machine
+          <span class="fixture-pipes"><span class="fp fp-c">1/2"C</span><span class="fp fp-h">1/2"H</span></span>
+        </div>
+        <div class="fixture-item">
+          <span class="fixture-icon">♨️</span> Steam Dryer
+          <span class="fixture-pipes"><span class="fp fp-c">3/8"C</span></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        Washer/dryer on kitchen south/west wall near mud room entry. ~22' from panel via crawl. Recessed washing machine outlet box with integrated valves and arrestors. Steam dryer: 1/2" supply reduced to 3/8" at appliance.
+      </div>
+
+      <div class="room-fittings">
+        <details>
+          <summary>▸ Recommended Fittings</summary>
+          <div class="fitting-item">1× ProPEX Tee, 3/4" × 1/2" × 1/2" (cold: washer + dryer)</div>
+          <div class="fitting-item">1× ProPEX Reducing Coupling, 1/2" → 3/8" (dryer steam)</div>
+          <div class="fitting-item">1× Washing machine outlet box with valves + arrestors</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ GARAGE ════ -->
+<section class="section" id="garage">
+  <div class="section-header">
+    <span class="section-number">11</span>
+    <h2 class="section-title">Garage</h2>
+  </div>
+
+  <div class="room-card">
+    <div class="room-card-header">
+      <span class="room-name">Garage — 21'-8" × 21'-9"</span>
+      <span class="room-fixtures">2 fixtures • Cold + Hot</span>
+    </div>
+    <div class="room-card-body">
+      <div class="fixture-list">
+        <div class="fixture-item">
+          <span class="fixture-icon">🐕</span> Pet Washing Station
+          <span class="fixture-pipes"><span class="fp fp-c">1/2"C</span><span class="fp fp-h">1/2"H</span></span>
+        </div>
+        <div class="fixture-item">
+          <span class="fixture-icon">🔧</span> Utility Sink
+          <span class="fixture-pipes"><span class="fp fp-c">1/2"C</span><span class="fp fp-h">1/2"H</span></span>
+        </div>
+      </div>
+
+      <div class="callout">
+        Fixtures on same wall as valve panel — no crawl space routing. Mixing valve at pet wash for temp control.
+      </div>
+
+      <div class="room-fittings">
+        <details>
+          <summary>▸ Recommended Fittings</summary>
+          <div class="fitting-item">1× ProPEX Tee, 3/4" × 1/2" × 1/2" (cold side)</div>
+          <div class="fitting-item">1× ProPEX Tee, 3/4" × 1/2" × 1/2" (hot side)</div>
+          <div class="fitting-item">1× Thermostatic mixing valve (pet wash)</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ OUTDOOR ════ -->
+<section class="section" id="outdoor">
+  <div class="section-header">
+    <span class="section-number">12</span>
+    <h2 class="section-title">Outdoor Spigots</h2>
+  </div>
+
+  <div class="room-card">
+    <div class="room-card-header">
+      <span class="room-name">3 Frost-Free Sillcocks — Untreated Water</span>
+      <span class="room-fixtures">Cold only • Before treatment</span>
+    </div>
+    <div class="room-card-body">
+      <div class="fixture-list">
+        <div class="fixture-item">
+          <span class="fixture-icon">🔵</span> Spigot 1 — Garage South
+          <span class="fixture-pipes"><span class="fp fp-c">1/2"C</span></span>
+        </div>
+        <div class="fixture-item">
+          <span class="fixture-icon">🔵</span> Spigot 2 — Front / West
+          <span class="fixture-pipes"><span class="fp fp-c">1/2"C</span></span>
+        </div>
+        <div class="fixture-item">
+          <span class="fixture-icon">🔵</span> Spigot 3 — Patio / North (French Doors)
+          <span class="fixture-pipes"><span class="fp fp-c">1/2"C</span></span>
+        </div>
+      </div>
+      <div class="callout callout-warn">
+        Frost-free sillcocks. Fed from 3/4" untreated trunk before treatment train. Single 3/4" isolation valve (V-OUT) controls all three.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ PIPE RUNS & LENGTHS ════ -->
+<section class="section" id="piperuns">
+  <div class="section-header">
+    <span class="section-number">13</span>
+    <h2 class="section-title">Pipe Runs & Calculated Lengths</h2>
+  </div>
+
+  <p>Calculated from A-100 floor plan (3/8" = 1'-0"). Valve panel on garage north wall, 3' right of entry door.</p>
+
+  <div class="callout" style="margin-bottom:20px">
+    <strong>Routing:</strong> <span class="pipe-badge pipe-34" style="margin:0 4px">ZONE BRANCH</span> <strong>~4' down</strong> garage wall → through <strong>rim joist</strong> → horizontal through crawl → <strong>multiport tee in crawl</strong> → individual lines <strong>~1' up</strong> through subfloor to fixtures. Crawl distances include 15% routing factor for piers/ducts/obstacles.
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-cold"></span>Cold Zone Branch Runs (Valve Panel → Crawl Space Multiport Tee)</div>
+    <table>
+      <thead>
+        <tr><th>Zone</th><th>Pipe Size</th><th>Route Description</th><th>Down</th><th>Crawl</th><th>Up</th><th>Total</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-bright">Garage</td>
+          <td><span class="pipe-badge pipe-34">3/4"</span></td>
+          <td>Along garage wall to fixtures (no crawl space)</td>
+          <td class="mono">—</td><td class="mono">12'</td><td class="mono">—</td><td class="mono text-bright">12'</td>
+        </tr>
+        <tr>
+          <td class="text-bright">Kitchen</td>
+          <td><span class="pipe-badge pipe-34">3/4"</span></td>
+          <td>Down wall → crawl under mud room, foyer, hall → up below kitchen sink (N wall)</td>
+          <td class="mono">4'</td><td class="mono">26'</td><td class="mono">1'</td><td class="mono text-bright">31'</td>
+        </tr>
+        <tr>
+          <td class="text-bright">Bathroom 1</td>
+          <td><span class="pipe-badge pipe-34">3/4"</span></td>
+          <td>Down wall → crawl under mud room, foyer → up below Bath 1 wet wall</td>
+          <td class="mono">4'</td><td class="mono">16'</td><td class="mono">1'</td><td class="mono text-bright">21'</td>
+        </tr>
+        <tr>
+          <td class="text-bright">Bathroom 2</td>
+          <td><span class="pipe-badge pipe-34">3/4"</span></td>
+          <td>Down wall → crawl ~7' east → up directly into M. Bath (shortest zone!)</td>
+          <td class="mono">4'</td><td class="mono">7'</td><td class="mono">1'</td><td class="mono text-bright">12'</td>
+        </tr>
+        <tr>
+          <td class="text-bright">Laundry</td>
+          <td><span class="pipe-badge pipe-34">3/4"</span></td>
+          <td>Down wall → crawl under mud room → NW to below washer (kitchen S wall)</td>
+          <td class="mono">4'</td><td class="mono">17'</td><td class="mono">1'</td><td class="mono text-bright">22'</td>
+        </tr>
+        <tr>
+          <td class="text-bright">Tankless WH</td>
+          <td><span class="pipe-badge pipe-34">3/4"</span></td>
+          <td>Along garage wall to water heater (no crawl space)</td>
+          <td class="mono">—</td><td class="mono">5'</td><td class="mono">—</td><td class="mono text-bright">5'</td>
+        </tr>
+        <tr>
+          <td class="text-bright">Outdoor Trunk</td>
+          <td><span class="pipe-badge pipe-34">3/4"</span></td>
+          <td>Along garage exterior wall to farthest spigot (no crawl space)</td>
+          <td class="mono">—</td><td class="mono">30'</td><td class="mono">—</td><td class="mono text-bright">30'</td>
+        </tr>
+        <tr>
+          <td class="text-bright">Bath 2 Tub (3/4")</td>
+          <td><span class="pipe-badge pipe-34">3/4"</span></td>
+          <td>From crawl space tee — 3/4" flow-through rises up through subfloor to tub valve (E wall)</td>
+          <td class="mono">—</td><td class="mono">5'</td><td class="mono">—</td><td class="mono text-bright">5'</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-hot"></span>Hot Zone Branch Runs (Valve Panel → Room)</div>
+    <table>
+      <thead>
+        <tr><th>Zone</th><th>Pipe Size</th><th>Route Description</th><th>Total</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="text-bright">Hot Trunk (panel)</td>
+          <td><span class="pipe-badge pipe-34-hot">3/4"</span></td>
+          <td>Along valve panel board</td>
+          <td class="mono text-bright">4'</td>
+        </tr>
+        <tr>
+          <td class="text-bright">Garage</td>
+          <td><span class="pipe-badge pipe-34-hot">3/4"</span></td>
+          <td>Along garage wall to fixtures (no crawl space)</td>
+          <td class="mono text-bright">12'</td>
+        </tr>
+        <tr>
+          <td class="text-bright">Bathroom 2 + Tub</td>
+          <td><span class="pipe-badge pipe-34-hot">3/4"</span></td>
+          <td>Down wall → 7' crawl E → up into M. Bath → 3/4" continues to tub valve</td>
+          <td class="mono text-bright">17'</td>
+        </tr>
+        <tr>
+          <td class="text-bright">Kitchen</td>
+          <td><span class="pipe-badge pipe-12-hot">1/2"</span></td>
+          <td>Same crawl space route as cold kitchen branch</td>
+          <td class="mono text-bright">31'</td>
+        </tr>
+        <tr>
+          <td class="text-bright">Bathroom 1</td>
+          <td><span class="pipe-badge pipe-12-hot">1/2"</span></td>
+          <td>Same crawl space route as cold bath 1 branch</td>
+          <td class="mono text-bright">21'</td>
+        </tr>
+        <tr>
+          <td class="text-bright">Laundry</td>
+          <td><span class="pipe-badge pipe-12-hot">1/2"</span></td>
+          <td>Same crawl space route as cold laundry branch</td>
+          <td class="mono text-bright">22'</td>
+        </tr>
+        <tr>
+          <td class="text-bright">Recirc Return</td>
+          <td><span class="pipe-badge pipe-12-hot">1/2"</span></td>
+          <td>Kitchen sink → down through subfloor → crawl return to garage → up to WH</td>
+          <td class="mono text-bright">31'</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-green"></span>Fixture Drop Runs (Crawl Space Tee → Up Through Subfloor → Fixture)</div>
+    <table>
+      <thead>
+        <tr><th>Room</th><th>Fixture</th><th>Size</th><th>H/C</th><th>Length</th></tr>
+      </thead>
+      <tbody>
+        <tr><td rowspan="3" class="text-bright" style="vertical-align:middle">Kitchen</td>
+            <td>Sink</td><td class="mono">1/2"</td><td>C+H</td><td class="mono">5' ea</td></tr>
+        <tr><td>Dishwasher (Bosch 300)</td><td class="mono">3/8"</td><td>H only</td><td class="mono">3'</td></tr>
+        <tr><td>Fridge / Ice Maker</td><td class="mono">3/8"</td><td>C</td><td class="mono">4'</td></tr>
+
+        <tr><td rowspan="4" class="text-bright" style="vertical-align:middle">Bath 1</td>
+            <td>Sink</td><td class="mono">1/2"</td><td>C+H</td><td class="mono">4' ea</td></tr>
+        <tr><td>Shower</td><td class="mono">1/2"</td><td>C+H</td><td class="mono">6' ea</td></tr>
+        <tr><td>Toilet</td><td class="mono">3/8"</td><td>C</td><td class="mono">4'</td></tr>
+        <tr><td>Urinal</td><td class="mono">3/8"</td><td>C</td><td class="mono">4'</td></tr>
+
+        <tr><td rowspan="4" class="text-bright" style="vertical-align:middle">Bath 2</td>
+            <td>Sink 1</td><td class="mono">1/2"</td><td>C+H</td><td class="mono">4' ea</td></tr>
+        <tr><td>Sink 2</td><td class="mono">1/2"</td><td>C+H</td><td class="mono">4' ea</td></tr>
+        <tr><td>Tub/Shower</td><td class="mono">3/4"</td><td>C+H</td><td class="mono">5' ea</td></tr>
+        <tr><td>Toilet</td><td class="mono">3/8"</td><td>C</td><td class="mono">4'</td></tr>
+
+        <tr><td rowspan="2" class="text-bright" style="vertical-align:middle">Laundry</td>
+            <td>Washer</td><td class="mono">1/2"</td><td>C+H</td><td class="mono">4' ea</td></tr>
+        <tr><td>Dryer (steam)</td><td class="mono">3/8"</td><td>C</td><td class="mono">3'</td></tr>
+
+        <tr><td rowspan="2" class="text-bright" style="vertical-align:middle">Garage</td>
+            <td>Utility Sink</td><td class="mono">1/2"</td><td>C+H</td><td class="mono">5' ea</td></tr>
+        <tr><td>Pet Wash</td><td class="mono">1/2"</td><td>C+H</td><td class="mono">5' ea</td></tr>
+
+        <tr><td class="text-bright" style="vertical-align:middle">Outdoor</td>
+            <td>3× Spigot drops</td><td class="mono">1/2"</td><td>C</td><td class="mono">5' ea</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ PIPE TOTALS ════ -->
+<section class="section" id="pipetotals">
+  <div class="section-header">
+    <span class="section-number">14</span>
+    <h2 class="section-title">Pipe Totals by Size</h2>
+  </div>
+
+  <div class="card" style="padding:32px">
+    <div class="pipe-bar-row">
+      <div class="pipe-bar-label" style="color:var(--purple)">1" White</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:6%;background:var(--purple)"></div></div>
+      <div class="pipe-bar-value">26 ft</div>
+    </div>
+    <div class="pipe-bar-row">
+      <div class="pipe-bar-label" style="color:var(--cold)">3/4" Blue</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:60%;background:var(--cold)"></div></div>
+      <div class="pipe-bar-value">138 ft</div>
+    </div>
+    <div class="pipe-bar-row">
+      <div class="pipe-bar-label" style="color:var(--hot)">3/4" Red</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:14.5%;background:var(--hot)"></div></div>
+      <div class="pipe-bar-value">33 ft</div>
+    </div>
+    <div class="pipe-bar-row">
+      <div class="pipe-bar-label" style="color:#5bb8e8">1/2" Blue</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:22%;background:#5bb8e8"></div></div>
+      <div class="pipe-bar-value">52 ft</div>
+    </div>
+    <div class="pipe-bar-row">
+      <div class="pipe-bar-label" style="color:#e88c4a">1/2" Red</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:61%;background:#e88c4a"></div></div>
+      <div class="pipe-bar-value">142 ft</div>
+    </div>
+    <div class="pipe-bar-row">
+      <div class="pipe-bar-label" style="color:var(--green)">3/8" Blue</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:9%;background:var(--green)"></div></div>
+      <div class="pipe-bar-value">22 ft</div>
+    </div>
+    <div class="pipe-bar-row" style="padding-top:16px;border-top:2px solid var(--border-accent);margin-top:8px">
+      <div class="pipe-bar-label text-bright" style="font-weight:700">TOTAL</div>
+      <div></div>
+      <div class="pipe-bar-value" style="font-size:18px;color:var(--accent)">413 ft</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-accent"></span>Detailed Breakdown</div>
+    <table>
+      <thead>
+        <tr><th>Size</th><th>Color</th><th>Use</th><th>Footage</th><th>Buy (w/ 15%)</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="pipe-badge pipe-1">1"</span></td>
+          <td>White</td>
+          <td>Main trunk, bypass piping, post-treatment trunk (all in garage)</td>
+          <td class="mono">26'</td>
+          <td class="mono text-bright">30'</td>
+        </tr>
+        <tr>
+          <td><span class="pipe-badge pipe-34">3/4"</span></td>
+          <td>Blue</td>
+          <td>Cold zone branches (crawl space), outdoor trunk, bath 2 tub cold</td>
+          <td class="mono">138'</td>
+          <td class="mono text-bright">160'</td>
+        </tr>
+        <tr>
+          <td><span class="pipe-badge pipe-34-hot">3/4"</span></td>
+          <td>Red</td>
+          <td>Hot trunk, garage hot, bath 2 hot + tub</td>
+          <td class="mono">33'</td>
+          <td class="mono text-bright">40'</td>
+        </tr>
+        <tr>
+          <td><span class="pipe-badge pipe-12">1/2"</span></td>
+          <td>Blue</td>
+          <td>Cold fixture drops (crawl space tee → up through subfloor → fixture), spigot drops</td>
+          <td class="mono">52'</td>
+          <td class="mono text-bright">60'</td>
+        </tr>
+        <tr>
+          <td><span class="pipe-badge pipe-12-hot">1/2"</span></td>
+          <td>Red</td>
+          <td>Hot zone branches (crawl space: kitchen/bath1/laundry), fixture drops, recirc return</td>
+          <td class="mono">142'</td>
+          <td class="mono text-bright">165'</td>
+        </tr>
+        <tr>
+          <td><span class="pipe-badge pipe-38">3/8"</span></td>
+          <td>Blue</td>
+          <td>Toilets, urinal, ice maker, dishwasher hot (Bosch 300 hot-only), dryer steam</td>
+          <td class="mono">22'</td>
+          <td class="mono text-bright">25'</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="3" style="text-align:right"><strong>Total Calculated / Recommended Purchase</strong></td>
+          <td class="mono">413'</td>
+          <td class="mono" style="color:var(--accent);font-size:15px">480'</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="callout callout-warn">
+    <strong>Buy column</strong> adds ~15% for waste, mis-cuts, and crawl space routing adjustments. PEX-A comes in 100' or 300' coils — round up accordingly.
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-yellow"></span>ProPEX Expansion Rings — Buy Quantities</div>
+    <table>
+      <thead><tr><th>Size</th><th>Est. Connections</th><th>Buy Qty (w/ spares)</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">3/8"</td><td class="mono">12</td><td class="mono text-bright">18</td></tr>
+        <tr><td class="mono">1/2"</td><td class="mono">50</td><td class="mono text-bright">65</td></tr>
+        <tr><td class="mono">3/4"</td><td class="mono">32</td><td class="mono text-bright">40</td></tr>
+        <tr><td class="mono">1"</td><td class="mono">29</td><td class="mono text-bright">35</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ FITTINGS BOM ════ -->
+<section class="section" id="fittings">
+  <div class="section-header">
+    <span class="section-number">15</span>
+    <h2 class="section-title">Fittings & Bill of Materials</h2>
+  </div>
+
+  <div class="tabs" id="bomTabs">
+    <button class="tab active" data-tab="valves">Valves</button>
+    <button class="tab" data-tab="tees">Tees & Multiports</button>
+    <button class="tab" data-tab="couplings">Couplings & Elbows</button>
+    <button class="tab" data-tab="accessories">Accessories</button>
+  </div>
+
+  <div class="tab-panel active" id="panel-valves">
+    <div class="card">
+      <table>
+        <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th>Location</th></tr></thead>
+        <tbody>
+          <tr><td>ProPEX Brass Ball Valve</td><td class="mono">1"</td><td class="mono text-bright">5</td><td>Main shutoff, V1 inlet, V2 outlet, V3 bypass, post-treatment shutoff</td></tr>
+          <tr><td>ProPEX Brass Ball Valve</td><td class="mono">3/4"</td><td class="mono text-bright">10</td><td>6 cold zones + 3 hot (main hot shutoff, garage, bath 2) + 1 outdoor</td></tr>
+          <tr><td>ProPEX Brass Ball Valve</td><td class="mono">1/2"</td><td class="mono text-bright">4</td><td>3 hot zones (kitchen, bath 1, laundry) + recirc isolation</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="panel-tees">
+    <div class="card">
+      <table>
+        <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th>Location</th></tr></thead>
+        <tbody>
+          <tr><td>EP Flow-through Multiport Tee, 2 outlet</td><td class="mono">3/4"×3/4"</td><td class="mono text-bright">1</td><td>Crawl space: Bath 2 hot</td></tr>
+          <tr><td>EP Flow-through Multiport Tee, 3 outlet</td><td class="mono">1"×3/4"</td><td class="mono text-bright">1</td><td>Crawl space: Bathroom 2 cold</td></tr>
+          <tr><td>EP Flow-through Multiport Tee, 4 outlet</td><td class="mono">3/4"×3/4"</td><td class="mono text-bright">1</td><td>Crawl space: Bathroom 1 cold</td></tr>
+          <tr><td>Reducing Tee</td><td class="mono">1"×1"×3/4"</td><td class="mono text-bright">6</td><td>Cold trunk zone takeoffs</td></tr>
+          <tr><td>Tee (bypass loop)</td><td class="mono">1"×1"×1"</td><td class="mono text-bright">2</td><td>Bypass split (inlet) + merge (outlet)</td></tr>
+          <tr><td>Tee</td><td class="mono">3/4"×3/4"×3/4"</td><td class="mono text-bright">2</td><td>Hot trunk: garage + bath 2 (3/4" takeoffs)</td></tr>
+          <tr><td>Reducing Tee</td><td class="mono">3/4"×3/4"×1/2"</td><td class="mono text-bright">4</td><td>Hot trunk: kitchen + bath 1. Outdoor trunk: spigot 1 + spigot 2</td></tr>
+          <tr><td>Reducing Tee</td><td class="mono">3/4"×1/2"×1/2"</td><td class="mono text-bright">4</td><td>Kitchen cold (crawl), laundry cold (crawl), garage cold + hot (on-wall)</td></tr>
+          <tr><td>Tee</td><td class="mono">1/2"×1/2"×1/2"</td><td class="mono text-bright">3</td><td>Kitchen hot crawl (sink+DW), kitchen under-sink (faucet+recirc), bath 1 hot crawl (shower+sink)</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="panel-couplings">
+    <div class="card">
+      <table>
+        <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th>Location</th></tr></thead>
+        <tbody>
+          <tr><td>ProPEX Reducing Coupling</td><td class="mono">3/4"→1/2"</td><td class="mono text-bright">2</td><td>End-of-trunk transitions: hot trunk → laundry, outdoor trunk → spigot 3</td></tr>
+          <tr><td>ProPEX Reducing Coupling</td><td class="mono">1/2"→3/8"</td><td class="mono text-bright">6</td><td>Toilets (2), urinal, ice maker, dishwasher hot, dryer steam</td></tr>
+          <tr><td>ProPEX Drop-Ear Elbow (brass)</td><td class="mono">1/2"</td><td class="mono text-bright">~14</td><td>Stub-outs: kitchen sink (2), bath 1 sink+shower (4), bath 2 sinks (4), garage fixtures (4)</td></tr>
+          <tr><td>ProPEX Drop-Ear Elbow (brass)</td><td class="mono">3/4"</td><td class="mono text-bright">2</td><td>Tub valve stub-outs</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="tab-panel" id="panel-accessories">
+    <div class="card">
+      <table>
+        <thead><tr><th>Item</th><th>Qty</th><th>Location</th></tr></thead>
+        <tbody>
+          <tr><td>Water Hammer Arrestor</td><td class="mono text-bright">4</td><td>Washing machine, dishwasher, urinal, tub fill</td></tr>
+          <tr><td>Pressure-Balance / Thermostatic Tub-Shower Valve</td><td class="mono text-bright">2</td><td>Bath 1 shower, Bath 2 tub/shower</td></tr>
+          <tr><td>Frost-Free Sillcock, 1/2" MIP</td><td class="mono text-bright">3</td><td>Outdoor spigots</td></tr>
+          <tr><td>Washing Machine Outlet Box (w/ valves + arrestors)</td><td class="mono text-bright">1</td><td>Laundry</td></tr>
+          <tr><td>Rheem AP17920 Timer-Based Recirc Pump Kit</td><td class="mono text-bright">1</td><td>Includes Taco 0015 pump w/ internal check valve, SS flanges, Molex connector</td></tr>
+          <tr><td>ProPEX × 3/4" FIP Adapter</td><td class="mono text-bright">1</td><td>Transition from 1/2" PEX-A return line to pump kit's 3/4" FNPT flange</td></tr>
+          <tr><td>Drain Valve, 1/2" Boiler Drain</td><td class="mono text-bright">1</td><td>Below treatment inlet valve</td></tr>
+          <tr><td>Pressure Gauge</td><td class="mono text-bright">1</td><td>Main supply entry</td></tr>
+          <tr><td>Pipe Support Clamps (CTS)</td><td class="mono text-bright">As needed</td><td>Every 32" horiz., 5' vertical</td></tr>
+          <tr><td>Nail Plate Protectors</td><td class="mono text-bright">As needed</td><td>Every stud/joist penetration</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ════ VALVE SCHEDULE ════ -->
+<section class="section" id="valveschedule">
+  <div class="section-header">
+    <span class="section-number">16</span>
+    <h2 class="section-title">Valve & Label Schedule</h2>
+  </div>
+
+  <p style="margin-bottom:16px">4' × 4' plywood backer, garage north wall, 3' right of entry door. Engraved brass tags or laminated labels.</p>
+
+  <div class="card" style="padding:0;overflow:hidden">
+    <div class="valve-row header-row">
+      <span>Valve #</span><span>Label</span><span>Size</span><span>Side</span><span>Controls</span>
+    </div>
+    <div class="valve-row"><span class="valve-id">V-MS</span><span class="valve-label">MAIN SUPPLY SHUTOFF</span><span class="mono">1"</span><span class="valve-side side-cold">Cold</span><span class="valve-controls">Everything downstream</span></div>
+    <div class="valve-row"><span class="valve-id">V-OUT</span><span class="valve-label">OUTDOOR SPIGOTS</span><span class="mono">3/4"</span><span class="valve-side side-cold">Cold</span><span class="valve-controls">3 frost-free sillcocks (untreated)</span></div>
+    <div class="valve-row"><span class="valve-id">V-T1</span><span class="valve-label">TREATMENT INLET</span><span class="mono">1"</span><span class="valve-side side-cold">Cold</span><span class="valve-controls">Inlet to softener/filter train</span></div>
+    <div class="valve-row"><span class="valve-id">V-T2</span><span class="valve-label">TREATMENT OUTLET</span><span class="mono">1"</span><span class="valve-side side-cold">Cold</span><span class="valve-controls">Outlet from softener/filter train</span></div>
+    <div class="valve-row" style="background:rgba(232,93,74,0.04)"><span class="valve-id" style="color:var(--hot)">V-BP</span><span class="valve-label" style="color:var(--hot)">BYPASS (NORMALLY CLOSED)</span><span class="mono">1"</span><span class="valve-side side-cold">Cold</span><span class="valve-controls" style="color:var(--hot)">⚠ Bypasses treatment — TAG RED</span></div>
+    <div class="valve-row"><span class="valve-id">V-MC</span><span class="valve-label">MAIN COLD SHUTOFF</span><span class="mono">1"</span><span class="valve-side side-cold">Cold</span><span class="valve-controls">All treated cold water</span></div>
+    <div class="valve-row"><span class="valve-id">V-C1</span><span class="valve-label">GARAGE COLD</span><span class="mono">3/4"</span><span class="valve-side side-cold">Cold</span><span class="valve-controls">Utility sink, pet wash</span></div>
+    <div class="valve-row"><span class="valve-id">V-C2</span><span class="valve-label">KITCHEN COLD</span><span class="mono">3/4"</span><span class="valve-side side-cold">Cold</span><span class="valve-controls">Sink, fridge</span></div>
+    <div class="valve-row"><span class="valve-id">V-C3</span><span class="valve-label">BATH 1 COLD</span><span class="mono">3/4"</span><span class="valve-side side-cold">Cold</span><span class="valve-controls">Sink, toilet, shower, urinal</span></div>
+    <div class="valve-row"><span class="valve-id">V-C4</span><span class="valve-label">BATH 2 COLD</span><span class="mono">3/4"</span><span class="valve-side side-cold">Cold</span><span class="valve-controls">Double sinks, toilet, tub/shower</span></div>
+    <div class="valve-row"><span class="valve-id">V-C5</span><span class="valve-label">LAUNDRY COLD</span><span class="mono">3/4"</span><span class="valve-side side-cold">Cold</span><span class="valve-controls">Washer, steam dryer</span></div>
+    <div class="valve-row"><span class="valve-id">V-C6</span><span class="valve-label">TANKLESS FEED</span><span class="mono">3/4"</span><span class="valve-side side-cold">Cold</span><span class="valve-controls">Tankless WH cold inlet</span></div>
+    <div class="valve-row"><span class="valve-id">V-MH</span><span class="valve-label">MAIN HOT SHUTOFF</span><span class="mono">3/4"</span><span class="valve-side side-hot">Hot</span><span class="valve-controls">All hot water</span></div>
+    <div class="valve-row"><span class="valve-id">V-H1</span><span class="valve-label">GARAGE HOT</span><span class="mono">3/4"</span><span class="valve-side side-hot">Hot</span><span class="valve-controls">Utility sink, pet wash</span></div>
+    <div class="valve-row"><span class="valve-id">V-H2</span><span class="valve-label">KITCHEN HOT</span><span class="mono">1/2"</span><span class="valve-side side-hot">Hot</span><span class="valve-controls">Sink, dishwasher</span></div>
+    <div class="valve-row"><span class="valve-id">V-H3</span><span class="valve-label">BATH 1 HOT</span><span class="mono">1/2"</span><span class="valve-side side-hot">Hot</span><span class="valve-controls">Sink, shower</span></div>
+    <div class="valve-row"><span class="valve-id">V-H4</span><span class="valve-label">BATH 2 HOT</span><span class="mono">3/4"</span><span class="valve-side side-hot">Hot</span><span class="valve-controls">Double sinks, tub/shower</span></div>
+    <div class="valve-row"><span class="valve-id">V-H5</span><span class="valve-label">LAUNDRY HOT</span><span class="mono">1/2"</span><span class="valve-side side-hot">Hot</span><span class="valve-controls">Washer</span></div>
+    <div class="valve-row"><span class="valve-id">V-RC</span><span class="valve-label">RECIRC RETURN</span><span class="mono">1/2"</span><span class="valve-side side-return">Return</span><span class="valve-controls">Kitchen recirc return isolation</span></div>
+  </div>
+</section>
+
+<!-- ════ PRESSURE ANALYSIS ════ -->
+<section class="section" id="pressure">
+  <div class="section-header">
+    <span class="section-number">17</span>
+    <h2 class="section-title">Pressure Drop Analysis</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-accent"></span>PEX-A Flow Capacity Reference (Uponor AquaPEX)</div>
+    <table>
+      <thead><tr><th>Pipe Size</th><th>Inside Dia.</th><th>Max GPM @ 8 fps</th><th>Typical Use</th></tr></thead>
+      <tbody>
+        <tr><td><span class="pipe-badge pipe-38">3/8"</span></td><td class="mono">0.350"</td><td class="mono">~1.5 GPM</td><td>Toilets, ice makers, bidets</td></tr>
+        <tr><td><span class="pipe-badge pipe-12">1/2"</span></td><td class="mono">0.475"</td><td class="mono">~3.0 GPM</td><td>Sinks, showers, individual fixtures</td></tr>
+        <tr><td><span class="pipe-badge pipe-34">3/4"</span></td><td class="mono">0.671"</td><td class="mono">~6.0 GPM</td><td>Zone trunks, tub fills, multi-fixture groups</td></tr>
+        <tr><td><span class="pipe-badge pipe-1">1"</span></td><td class="mono">0.862"</td><td class="mono">~10.0 GPM</td><td>Main trunks, high-demand backbones</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-yellow"></span>Worst-Case Simultaneous Use</div>
+    <table>
+      <thead><tr><th>Fixture</th><th>Flow Rate</th><th>Pipe Size</th><th>Zone</th></tr></thead>
+      <tbody>
+        <tr><td>Bathtub filling</td><td class="mono">4–6 GPM</td><td class="mono">3/4"</td><td>Bath 2</td></tr>
+        <tr><td>Shower running</td><td class="mono">2.0 GPM</td><td class="mono">1/2"</td><td>Bath 1</td></tr>
+        <tr><td>Washing machine</td><td class="mono">2.0 GPM</td><td class="mono">1/2"</td><td>Laundry</td></tr>
+        <tr><td>Kitchen sink</td><td class="mono">1.5 GPM</td><td class="mono">1/2"</td><td>Kitchen</td></tr>
+        <tr class="total-row">
+          <td><strong>Total demand</strong></td><td class="mono" style="color:var(--accent)"><strong>~11.5 GPM</strong></td><td></td><td></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="callout" style="margin-top:16px">
+      1" cold trunk handles ~10 GPM. <strong class="text-bright">Rheem ECOH200 maxes at 9.5 GPM</strong> — heater is the bottleneck before piping, as intended. Remaining cold-only demand (toilets, fridge) flows independently from 1" trunk without touching the heater.
+    </div>
+
+    <div class="callout callout-warn" style="margin-top:12px">
+      <strong>Grand Junction ground water ~47–52°F.</strong> At 120°F set point with 52°F inlet (68°F rise), Rheem ECOH200 delivers approximately <strong class="text-bright">5.5–6.0 GPM</strong> actual hot water per Rheem flow rate curves. Supports 2 showers + 1 additional fixture simultaneously. Tub fill gets ~5.5 GPM hot blending with cold.
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="card">
+      <div class="card-header"><span class="dot dot-green"></span>Pressure Mitigation Strategies</div>
+      <p style="font-size:13px"><strong class="text-bright">1" Main Trunk</strong> — pressure reservoir, ~10 GPM capacity.</p>
+      <p style="font-size:13px"><strong class="text-bright">Dedicated 3/4" Zone Branches</strong> — rooms on separate branches. Cross-zone interaction only at oversized 1" trunk.</p>
+      <p style="font-size:13px"><strong class="text-bright">Last-Fixture-Largest</strong> — highest-demand fixtures (tub, shower) at end of each branch receive full remaining diameter.</p>
+      <p style="font-size:13px"><strong class="text-bright">Short Fixture Runs</strong> — tees in crawl directly below fixtures. 1/2" and 3/8" runs are just vertical subfloor penetrations.</p>
+    </div>
+    <div class="card">
+      <div class="card-header"><span class="dot dot-yellow"></span>Supply Pressure Recommendations</div>
+      <p style="font-size:13px"><strong class="text-bright">&gt;80 psi:</strong> Add PRV.</p>
+      <p style="font-size:13px"><strong class="text-bright">60–80 psi:</strong> Ideal.</p>
+      <p style="font-size:13px"><strong class="text-bright">50–60 psi:</strong> Acceptable. Minor drops under worst-case.</p>
+      <p style="font-size:13px"><strong class="text-bright">&lt;50 psi:</strong> Booster pump or upsize trunk to 1-1/4".</p>
+      <p style="font-size:13px;color:var(--text-muted)">Install pressure gauge at main supply entry.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ INSTALLATION NOTES ════ -->
+<section class="section" id="installation">
+  <div class="section-header">
+    <span class="section-number">18</span>
+    <h2 class="section-title">Installation Notes</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-accent"></span>ProPEX Expansion Connections</div>
+    <p style="font-size:13px">Milwaukee M12 or M18 ProPEX expansion tool. Cold weather: PEX-A contracts slower below 40°F — warm pipe end with heat gun. Min 2× pipe diameter between fittings.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-accent"></span>Zone Valve Panel Mounting</div>
+    <p style="font-size:13px">3/4" plywood backer (4'×4') on <strong>garage north wall, 3' right of entry door</strong>. CTS clamps every 12" on horizontal trunk runs. Engraved brass tags or laminated labels on all valves. 6–8" straight pipe before/after each ball valve. Drain valve at lowest point.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-accent"></span>Crawl Space Routing & Tee Mounting</div>
+    <p style="font-size:13px">Zone branches drop down garage wall → through rim joist → horizontal to below fixture group → <strong>multiport tee in crawl</strong> (hung from joists or on blocking) → individual lines straight up through subfloor. CTS hangers every 32" on horizontal runs. Keep pipe ≥1" from joist bottoms. Insulate all hot lines and recirc return in crawl. Maintain clearances from ducts.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-yellow"></span>Code Considerations — Mesa County</div>
+    <p style="font-size:13px">PEX-A accepted under IPC/IRC (Mesa County). Nail plates where pipe is within 1-1/4" of stud face. Pressure test 1.5× working pressure. Rheem ECOH200: seismic strapping, T&P discharge, 2" or 3" PVC condensing vent — verify clearances per Rheem install manual. Drop-ear elbows on all stub-outs secured to blocking.</p>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-green"></span>Insulation Requirements</div>
+    <p style="font-size:13px">R-3 minimum foam insulation on all hot lines per CO energy code — <strong>critical in crawl space</strong>. Insulate recirc return. Insulate all cold lines in crawl (freeze protection). Cold lines in conditioned interior walls: not required.</p>
+  </div>
+
+  <div style="margin-top:32px;padding:20px;border:1px dashed var(--border-accent);border-radius:6px;text-align:center;">
+    <p style="font-size:12px;color:var(--text-muted);margin:0">
+      <strong class="text-bright">Lovette Residence</strong> — 829 Erika Road, Grand Junction, CO 81504<br>
+      Commission #2601 · February 2026 · NOT FOR CONSTRUCTION<br>
+      Verify all sizing against local code requirements and actual supply pressure before purchasing.<br>
+      Uponor Pipe Sizing Calculator: <span class="text-accent">tools.uponorpro.com/calculator/</span>
+    </p>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══ Scroll-to-top ═══ -->
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ── Tab switching ──
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const group = tab.closest('.section');
+    group.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    group.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+  });
+});
+
+// ── Active nav link tracking ──
+const sections = document.querySelectorAll('.section');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => link.classList.remove('active'));
+      const activeLink = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (activeLink) activeLink.classList.add('active');
+    }
+  });
+}, { rootMargin: '-80px 0px -60% 0px', threshold: 0 });
+
+sections.forEach(s => observer.observe(s));
+
+// ── Scroll-to-top visibility ──
+const scrollBtn = document.getElementById('scrollTop');
+window.addEventListener('scroll', () => {
+  scrollBtn.classList.toggle('visible', window.scrollY > 400);
+});
+
+// ── Details toggle ──
+document.querySelectorAll('.room-fittings details summary').forEach(s => {
+  s.addEventListener('click', () => {
+    const d = s.parentElement;
+    const arrow = d.open ? '▸' : '▾';
+    s.textContent = s.textContent.replace(/[▸▾]/, arrow);
+  });
+});
+</script>
+
+</body>
+</html>
