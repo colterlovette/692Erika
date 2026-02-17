@@ -818,6 +818,9 @@ hr.section-rule {
   <button class="master-tab" data-master="waste" onclick="switchMasterTab('waste')">
     <span class="tab-icon tab-icon-waste">🔽</span> Waste &amp; Vent
   </button>
+  <button class="master-tab" data-master="shop" onclick="switchMasterTab('shop')">
+    <span class="tab-icon tab-icon-shop">🛒</span> Shopping List
+  </button>
 </div>
 
 
@@ -893,7 +896,36 @@ hr.section-rule {
   </div>
 </nav>
 
-<!-- ═══════════════════════ MAIN CONTENT ═══════════════════════ -->
+<!-- ═══════════════════════ SIDEBAR — SHOPPING LIST ═══════════════════════ -->
+<nav class="sidebar" id="sidebar-shop" style="display:none">
+  <div class="nav-group">
+    <div class="nav-group-label">Overview</div>
+    <a href="#s-overview" class="nav-link active"><span class="nav-icon">◈</span> Shopping Summary</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Pipe</div>
+    <a href="#s-pex" class="nav-link"><span class="nav-icon">═</span> PEX-A Pipe</a>
+    <a href="#s-pvc" class="nav-link"><span class="nav-icon">═</span> PVC DWV Pipe</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">PEX Fittings</div>
+    <a href="#s-valves" class="nav-link"><span class="nav-icon">⊘</span> Valves</a>
+    <a href="#s-tees" class="nav-link"><span class="nav-icon">⊕</span> Tees & Multiports</a>
+    <a href="#s-couplings" class="nav-link"><span class="nav-icon">⊕</span> Couplings & Elbows</a>
+    <a href="#s-rings" class="nav-link"><span class="nav-icon">◎</span> Expansion Rings</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">PVC Fittings</div>
+    <a href="#s-drain-fittings" class="nav-link"><span class="nav-icon">⊕</span> Drain Fittings</a>
+    <a href="#s-vent-fittings" class="nav-link"><span class="nav-icon">⊕</span> Vent & AAVs</a>
+    <a href="#s-traps" class="nav-link"><span class="nav-icon">⊕</span> Traps & Drains</a>
+  </div>
+  <div class="nav-group">
+    <div class="nav-group-label">Equipment</div>
+    <a href="#s-fixtures" class="nav-link"><span class="nav-icon">◆</span> Fixtures & Trim</a>
+    <a href="#s-accessories" class="nav-link"><span class="nav-icon">◇</span> Accessories & Hardware</a>
+  </div>
+</nav>
 <main class="main">
 
 <div class="master-tab-content active" id="content-water">
@@ -907,7 +939,7 @@ hr.section-rule {
 
   <div class="grid-3" style="margin-bottom:20px">
     <div class="stat-box">
-      <div class="stat-value">413 <span class="unit">ft</span></div>
+      <div class="stat-value">472 <span class="unit">ft</span></div>
       <div class="stat-label">Total Pipe</div>
     </div>
     <div class="stat-box">
@@ -1135,7 +1167,7 @@ hr.section-rule {
       <tr><td class="text-bright">Power Connection</td><td>Molex connector — plugs directly into the Rheem ECOH200 water heater (no external wiring)</td></tr>
       <tr><td class="text-bright">Timer Control</td><td>Controlled by the water heater's on-board timer + <strong class="text-bright">EcoNet® app</strong> — set recirc schedules from your phone (e.g., 6–8 AM + 5–9 PM)</td></tr>
       <tr><td class="text-bright">Max Pipe Length</td><td class="mono">400 ft (3/4" copper equiv.) · 75 ft (1/2" copper equiv.)</td></tr>
-      <tr><td class="text-bright">Your Recirc Run</td><td class="mono"><span style="color:var(--green);font-weight:600">31 ft of 1/2" PEX-A — well within the 75 ft limit ✓</span></td></tr>
+      <tr><td class="text-bright">Your Recirc Run</td><td class="mono"><span style="color:var(--green);font-weight:600">55 ft of 1/2" PEX-A — within the 75 ft limit ✓</span></td></tr>
     </table>
   </div>
 
@@ -1377,7 +1409,7 @@ hr.section-rule {
       </div>
 
       <div class="callout">
-        Washer/dryer on kitchen south/west wall near mud room entry. ~22' from panel via crawl. Recessed washing machine outlet box with integrated valves and arrestors. Steam dryer: 1/2" supply reduced to 3/8" at appliance.
+        Washer/dryer in kitchen area. ~22' from panel via crawl (5' S + 12' E through crawl space). Recessed washing machine outlet box with integrated valves and arrestors. Steam dryer: 1/2" supply reduced to 3/8" at appliance.
       </div>
 
       <div class="room-fittings">
@@ -1476,7 +1508,7 @@ hr.section-rule {
   <p>Calculated from A-100 floor plan (3/8" = 1'-0"). Valve panel on garage north wall, 3' right of entry door.</p>
 
   <div class="callout" style="margin-bottom:20px">
-    <strong>Routing:</strong> <span class="pipe-badge pipe-34" style="margin:0 4px">ZONE BRANCH</span> <strong>~4' down</strong> garage wall → through <strong>rim joist</strong> → horizontal through crawl → <strong>multiport tee in crawl</strong> → individual lines <strong>~1' up</strong> through subfloor to fixtures. Crawl distances include 15% routing factor for piers/ducts/obstacles.
+    <strong>Routing:</strong> <span class="pipe-badge pipe-34" style="margin:0 4px">ZONE BRANCH</span> <strong>~4' down</strong> garage wall → through <strong>rim joist</strong> → horizontal through crawl → <strong>multiport tee in crawl</strong> → individual lines <strong>~1' up</strong> through subfloor to fixtures. Crawl distances measured in the field from rim joist entry to fixture locations.
   </div>
 
   <div class="card">
@@ -1490,30 +1522,30 @@ hr.section-rule {
           <td class="text-bright">Garage</td>
           <td><span class="pipe-badge pipe-34">3/4"</span></td>
           <td>Along garage wall to fixtures (no crawl space)</td>
-          <td class="mono">—</td><td class="mono">12'</td><td class="mono">—</td><td class="mono text-bright">12'</td>
+          <td class="mono">—</td><td class="mono">10'</td><td class="mono">—</td><td class="mono text-bright">10'</td>
         </tr>
         <tr>
           <td class="text-bright">Kitchen</td>
           <td><span class="pipe-badge pipe-34">3/4"</span></td>
-          <td>Down wall → crawl under mud room, foyer, hall → up below kitchen sink (N wall)</td>
-          <td class="mono">4'</td><td class="mono">26'</td><td class="mono">1'</td><td class="mono text-bright">31'</td>
+          <td>Down wall → crawl 20' N + 30' E to below kitchen sink / island — longest zone</td>
+          <td class="mono">4'</td><td class="mono">50'</td><td class="mono">1'</td><td class="mono text-bright">55'</td>
         </tr>
         <tr>
           <td class="text-bright">Bathroom 1</td>
           <td><span class="pipe-badge pipe-34">3/4"</span></td>
-          <td>Down wall → crawl under mud room, foyer → up below Bath 1 wet wall</td>
-          <td class="mono">4'</td><td class="mono">16'</td><td class="mono">1'</td><td class="mono text-bright">21'</td>
+          <td>Down wall → crawl 8' E + 4' N → up below Bath 1 wet wall</td>
+          <td class="mono">4'</td><td class="mono">12'</td><td class="mono">1'</td><td class="mono text-bright">17'</td>
         </tr>
         <tr>
           <td class="text-bright">Bathroom 2</td>
           <td><span class="pipe-badge pipe-34">3/4"</span></td>
-          <td>Down wall → crawl ~7' east → up directly into M. Bath (shortest zone!)</td>
-          <td class="mono">4'</td><td class="mono">7'</td><td class="mono">1'</td><td class="mono text-bright">12'</td>
+          <td>Down wall → crawl 6' S + 6' E → up into M. Bath wet wall</td>
+          <td class="mono">4'</td><td class="mono">12'</td><td class="mono">1'</td><td class="mono text-bright">17'</td>
         </tr>
         <tr>
           <td class="text-bright">Laundry</td>
           <td><span class="pipe-badge pipe-34">3/4"</span></td>
-          <td>Down wall → crawl under mud room → NW to below washer (kitchen S wall)</td>
+          <td>Down wall → crawl 5' S + 12' E → up below washer</td>
           <td class="mono">4'</td><td class="mono">17'</td><td class="mono">1'</td><td class="mono text-bright">22'</td>
         </tr>
         <tr>
@@ -1526,13 +1558,13 @@ hr.section-rule {
           <td class="text-bright">Outdoor Trunk</td>
           <td><span class="pipe-badge pipe-34">3/4"</span></td>
           <td>Along garage exterior wall to farthest spigot (no crawl space)</td>
-          <td class="mono">—</td><td class="mono">30'</td><td class="mono">—</td><td class="mono text-bright">30'</td>
+          <td class="mono">—</td><td class="mono">25'</td><td class="mono">—</td><td class="mono text-bright">25'</td>
         </tr>
         <tr>
           <td class="text-bright">Bath 2 Tub (3/4")</td>
           <td><span class="pipe-badge pipe-34">3/4"</span></td>
-          <td>From crawl space tee — 3/4" flow-through rises up through subfloor to tub valve (E wall)</td>
-          <td class="mono">—</td><td class="mono">5'</td><td class="mono">—</td><td class="mono text-bright">5'</td>
+          <td>From crawl space tee — 3/4" flow-through rises up through subfloor to tub valve</td>
+          <td class="mono">—</td><td class="mono">4'</td><td class="mono">—</td><td class="mono text-bright">4'</td>
         </tr>
       </tbody>
     </table>
@@ -1555,37 +1587,37 @@ hr.section-rule {
           <td class="text-bright">Garage</td>
           <td><span class="pipe-badge pipe-34-hot">3/4"</span></td>
           <td>Along garage wall to fixtures (no crawl space)</td>
-          <td class="mono text-bright">12'</td>
+          <td class="mono text-bright">10'</td>
         </tr>
         <tr>
           <td class="text-bright">Bathroom 2 + Tub</td>
           <td><span class="pipe-badge pipe-34-hot">3/4"</span></td>
-          <td>Down wall → 7' crawl E → up into M. Bath → 3/4" continues to tub valve</td>
+          <td>Down wall → 12' crawl (6' S + 6' E) → up into M. Bath → 3/4" continues to tub valve</td>
           <td class="mono text-bright">17'</td>
         </tr>
         <tr>
           <td class="text-bright">Kitchen</td>
           <td><span class="pipe-badge pipe-12-hot">1/2"</span></td>
-          <td>Same crawl space route as cold kitchen branch</td>
-          <td class="mono text-bright">31'</td>
+          <td>Same crawl space route as cold kitchen branch (20' N + 30' E)</td>
+          <td class="mono text-bright">55'</td>
         </tr>
         <tr>
           <td class="text-bright">Bathroom 1</td>
           <td><span class="pipe-badge pipe-12-hot">1/2"</span></td>
-          <td>Same crawl space route as cold bath 1 branch</td>
-          <td class="mono text-bright">21'</td>
+          <td>Same crawl space route as cold bath 1 branch (8' E + 4' N)</td>
+          <td class="mono text-bright">17'</td>
         </tr>
         <tr>
           <td class="text-bright">Laundry</td>
           <td><span class="pipe-badge pipe-12-hot">1/2"</span></td>
-          <td>Same crawl space route as cold laundry branch</td>
+          <td>Same crawl space route as cold laundry branch (5' S + 12' E)</td>
           <td class="mono text-bright">22'</td>
         </tr>
         <tr>
           <td class="text-bright">Recirc Return</td>
           <td><span class="pipe-badge pipe-12-hot">1/2"</span></td>
-          <td>Kitchen sink → down through subfloor → crawl return to garage → up to WH</td>
-          <td class="mono text-bright">31'</td>
+          <td>Kitchen sink → 1' down through subfloor → 50' crawl return to garage → 4' up to WH</td>
+          <td class="mono text-bright">55'</td>
         </tr>
       </tbody>
     </table>
@@ -1640,38 +1672,38 @@ hr.section-rule {
   <div class="card" style="padding:32px">
     <div class="pipe-bar-row">
       <div class="pipe-bar-label" style="color:var(--purple)">1" White</div>
-      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:6%;background:var(--purple)"></div></div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:14%;background:var(--purple)"></div></div>
       <div class="pipe-bar-value">26 ft</div>
     </div>
     <div class="pipe-bar-row">
       <div class="pipe-bar-label" style="color:var(--cold)">3/4" Blue</div>
-      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:60%;background:var(--cold)"></div></div>
-      <div class="pipe-bar-value">138 ft</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:83%;background:var(--cold)"></div></div>
+      <div class="pipe-bar-value">155 ft</div>
     </div>
     <div class="pipe-bar-row">
       <div class="pipe-bar-label" style="color:var(--hot)">3/4" Red</div>
-      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:14.5%;background:var(--hot)"></div></div>
-      <div class="pipe-bar-value">33 ft</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:17%;background:var(--hot)"></div></div>
+      <div class="pipe-bar-value">31 ft</div>
     </div>
     <div class="pipe-bar-row">
       <div class="pipe-bar-label" style="color:#5bb8e8">1/2" Blue</div>
-      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:22%;background:#5bb8e8"></div></div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:28%;background:#5bb8e8"></div></div>
       <div class="pipe-bar-value">52 ft</div>
     </div>
     <div class="pipe-bar-row">
       <div class="pipe-bar-label" style="color:#e88c4a">1/2" Red</div>
-      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:61%;background:#e88c4a"></div></div>
-      <div class="pipe-bar-value">142 ft</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:100%;background:#e88c4a"></div></div>
+      <div class="pipe-bar-value">186 ft</div>
     </div>
     <div class="pipe-bar-row">
       <div class="pipe-bar-label" style="color:var(--green)">3/8" Blue</div>
-      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:9%;background:var(--green)"></div></div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:12%;background:var(--green)"></div></div>
       <div class="pipe-bar-value">22 ft</div>
     </div>
     <div class="pipe-bar-row" style="padding-top:16px;border-top:2px solid var(--border-accent);margin-top:8px">
       <div class="pipe-bar-label text-bright" style="font-weight:700">TOTAL</div>
       <div></div>
-      <div class="pipe-bar-value" style="font-size:18px;color:var(--accent)">413 ft</div>
+      <div class="pipe-bar-value" style="font-size:18px;color:var(--accent)">472 ft</div>
     </div>
   </div>
 
@@ -1693,15 +1725,15 @@ hr.section-rule {
           <td><span class="pipe-badge pipe-34">3/4"</span></td>
           <td>Blue</td>
           <td>Cold zone branches (crawl space), outdoor trunk, bath 2 tub cold</td>
-          <td class="mono">138'</td>
-          <td class="mono text-bright">160'</td>
+          <td class="mono">155'</td>
+          <td class="mono text-bright">180'</td>
         </tr>
         <tr>
           <td><span class="pipe-badge pipe-34-hot">3/4"</span></td>
           <td>Red</td>
           <td>Hot trunk, garage hot, bath 2 hot + tub</td>
-          <td class="mono">33'</td>
-          <td class="mono text-bright">40'</td>
+          <td class="mono">31'</td>
+          <td class="mono text-bright">36'</td>
         </tr>
         <tr>
           <td><span class="pipe-badge pipe-12">1/2"</span></td>
@@ -1714,8 +1746,8 @@ hr.section-rule {
           <td><span class="pipe-badge pipe-12-hot">1/2"</span></td>
           <td>Red</td>
           <td>Hot zone branches (crawl space: kitchen/bath1/laundry), fixture drops, recirc return</td>
-          <td class="mono">142'</td>
-          <td class="mono text-bright">165'</td>
+          <td class="mono">186'</td>
+          <td class="mono text-bright">215'</td>
         </tr>
         <tr>
           <td><span class="pipe-badge pipe-38">3/8"</span></td>
@@ -1726,8 +1758,8 @@ hr.section-rule {
         </tr>
         <tr class="total-row">
           <td colspan="3" style="text-align:right"><strong>Total Calculated / Recommended Purchase</strong></td>
-          <td class="mono">413'</td>
-          <td class="mono" style="color:var(--accent);font-size:15px">480'</td>
+          <td class="mono">472'</td>
+          <td class="mono" style="color:var(--accent);font-size:15px">546'</td>
         </tr>
       </tbody>
     </table>
@@ -1988,7 +2020,7 @@ hr.section-rule {
       <div class="stat-label">Total Drain Fixture Units</div>
     </div>
     <div class="stat-box">
-      <div class="stat-value">~190 <span class="unit">ft</span></div>
+      <div class="stat-value">~200 <span class="unit">ft</span></div>
       <div class="stat-label">Total DWV Pipe (buy)</div>
     </div>
     <div class="stat-box">
@@ -2013,7 +2045,7 @@ hr.section-rule {
   </div>
 
   <div class="callout" style="margin-top:20px">
-    4" PVC building drain exits through <strong>west foundation wall underneath the kitchen</strong> → runs east through crawl space collecting 3" and 2" branches → serves all fixture groups. Two 2" stacks (Bath 1 + Bath 2) vent through roof — sized per IPC §903.1.1 (min. half building drain diameter). Kitchen, laundry, and garage use <strong>AAVs</strong> (Air Admittance Valves) per IPC §918.
+    4" PVC building drain connects to sewer through <strong>crawl space floor, tight against the north foundation wall — 15' west of the NE corner of the house</strong>. Drain runs south through crawl space collecting 3" and 2" branches from all fixture groups. Two 2" stacks (Bath 1 + Bath 2) vent through roof — sized per IPC §903.1.1 (min. half building drain diameter). Kitchen, laundry, and garage use <strong>AAVs</strong> (Air Admittance Valves) per IPC §918.
   </div>
 </section>
 
@@ -2162,27 +2194,25 @@ hr.section-rule {
     <h2 class="section-title">Building Drain — Crawl Space Routing</h2>
   </div>
 
-  <p>4" PVC Schedule 40 building drain exits through the <strong>west foundation wall underneath the kitchen</strong>. From the sewer connection, the drain runs east through the crawl space, collecting branches as it extends deeper into the house toward the bathrooms.</p>
+  <p>4" PVC Schedule 40 building drain connects to sewer through the <strong>crawl space floor, tight against the north foundation wall — 15' west of the NE corner</strong>. From the sewer connection, the drain runs south through the crawl space, collecting branches as it extends deeper toward the bathrooms and garage.</p>
 
   <div class="schematic">
 <pre>
-<span class="hl-dim">       WEST (Kitchen / Sewer Exit)                       EAST (Bathrooms)</span>
-<span class="hl-dim">              │                                               │</span>
-<span class="hl-dim"> TO SEWER ◄───┤</span>
+<span class="hl-dim">       NORTH (Sewer Exit — against N foundation wall)           </span>
+<span class="hl-dim">              │                                               </span>
+<span class="hl-dim"> TO SEWER ◄───┤</span> <span class="hl-valve">[2-way CO]</span><span class="hl-dim">  at sewer connection</span>
 <span class="hl-dim">              │</span>
-<span class="hl-accent">    4" BUILDING DRAIN</span> <span class="hl-dim">─────────────────────────────────────────►</span>
+<span class="hl-accent">    4" BUILDING DRAIN</span> <span class="hl-dim">runs SOUTH ─────────────────────────────►</span>
 <span class="hl-dim">              │</span>
-<span class="hl-dim">         </span><span class="hl-valve">[2-way CO]</span><span class="hl-dim">  at foundation exit</span>
+<span class="hl-dim">   ~10' S ────┤ </span><span class="drain-color">Kitchen 2" branch</span><span class="hl-dim"> (~10' W — sink + DW indirect)</span>
 <span class="hl-dim">              │</span>
-<span class="hl-dim">    ~3' ──────┤ </span><span class="drain-color">Kitchen 2" branch</span><span class="hl-dim"> (sink + DW indirect) — closest to exit</span>
-<span class="hl-dim">              │</span>
-<span class="hl-dim">    ~8' ──────┤ </span><span class="drain-color">Laundry 2" branch</span><span class="hl-dim"> (washer standpipe — kitchen S wall)</span>
-<span class="hl-dim">              │</span>
-<span class="hl-dim">   ~11' ──────┤ </span><span class="drain-color">Garage 2" branch</span><span class="hl-dim"> (utility sink + pet wash — through rim joist)</span>
+<span class="hl-dim">   ~22' S ────┤ </span><span class="drain-color">Bath 1  3" branch</span><span class="hl-dim"> (~6' W — WC, shower, lav, urinal)</span>
 <span class="hl-dim">              │                              </span><span class="hl-valve">[CO]</span>
-<span class="hl-dim">   ~14' ──────┤ </span><span class="drain-color">Bath 2 (M.Bath) 3" branch</span><span class="hl-dim"> (WC, tub, 2 lavs)</span>
+<span class="hl-dim">   ~30' S ────┤ </span><span class="drain-color">Laundry 2" branch</span><span class="hl-dim"> (~4' W — washer standpipe)</span>
+<span class="hl-dim">              │</span>
+<span class="hl-dim">   ~30' S ────┤ </span><span class="drain-color">Bath 2 (M.Bath) 3" branch</span><span class="hl-dim"> (~10' W — WC, tub, 2 lavs)</span>
 <span class="hl-dim">              │                              </span><span class="hl-valve">[CO]</span>
-<span class="hl-dim">   ~26' ──────┤ </span><span class="drain-color">Bath 1  3" branch</span><span class="hl-dim"> (WC, shower, lav, urinal) — farthest</span>
+<span class="hl-dim">   ~30' S ────┤ </span><span class="drain-color">Garage 2" branch</span><span class="hl-dim"> (~15' W — utility sink + pet wash, thru rim joist)</span>
 <span class="hl-dim">              │                              </span><span class="hl-valve">[CO]</span>
 <span class="hl-dim">         END ─┘ </span><span class="hl-valve">[CO]</span><span class="hl-dim"> terminal cleanout</span>
 </pre>
@@ -2198,7 +2228,7 @@ hr.section-rule {
         <tr><td class="text-bright">1-1/2" Fixture Drains</td><td class="mono">1/4" per foot minimum</td></tr>
       </table>
       <div class="callout" style="margin-top:12px">
-        <strong>Elevation drop:</strong> 28' of 4" building drain at 1/8"/ft = <strong class="text-bright">3.5"</strong> total drop. Easily accommodated in crawl space. Hang from joists with proper-slope pipe hangers.
+        <strong>Elevation drop:</strong> 32' of 4" building drain at 1/8"/ft = <strong class="text-bright">4"</strong> total drop. Easily accommodated in crawl space. Hang from joists with proper-slope pipe hangers.
       </div>
     </div>
     <div class="card">
@@ -2286,7 +2316,7 @@ hr.section-rule {
     <table>
       <thead><tr><th>#</th><th>Location</th><th>Size</th><th>Type</th></tr></thead>
       <tbody>
-        <tr><td class="mono text-bright">CO-1</td><td>Building drain exit — west foundation wall under kitchen</td><td class="mono">4"</td><td>Two-way cleanout (access from both directions)</td></tr>
+        <tr><td class="mono text-bright">CO-1</td><td>Sewer connection — against north foundation wall in crawl space</td><td class="mono">4"</td><td>Two-way cleanout (access from both directions)</td></tr>
         <tr><td class="mono text-bright">CO-2</td><td>Bath 2 branch — at 3"×4" wye connection in crawl</td><td class="mono">3"</td><td>Standard cleanout plug on wye</td></tr>
         <tr><td class="mono text-bright">CO-3</td><td>Bath 1 branch — at 3"×4" wye connection in crawl</td><td class="mono">3"</td><td>Standard cleanout plug on wye</td></tr>
         <tr><td class="mono text-bright">CO-4</td><td>Kitchen branch — at 2"×4" wye connection in crawl</td><td class="mono">2"</td><td>Standard cleanout plug on wye</td></tr>
@@ -2316,7 +2346,7 @@ hr.section-rule {
         <div class="fixture-item"><span class="fixture-icon">🍽</span> Dishwasher (Bosch 300) <span class="dfu-badge">2 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--border);color:var(--text-muted)">indirect</span></span></div>
       </div>
       <div class="callout">
-        <strong>Drain:</strong> 1-1/2" P-trap under kitchen sink → 1-1/2" drain arm (max 6' to vent) → drops through subfloor → 2" horizontal in crawl (~4' — <strong>closest fixture to sewer exit</strong>) → connects to 4" building drain via 2"×4" wye. <strong>Dishwasher:</strong> drain hose connects to sink tailpiece or disposer inlet via <strong>high-loop</strong> (minimum — fasten hose to underside of counter) or <strong>air gap</strong> fitting (preferred). <strong>Vent:</strong> AAV under sink, 4" above trap weir, accessible inside cabinet.
+        <strong>Drain:</strong> 1-1/2" P-trap under kitchen sink → 1-1/2" drain arm (max 6' to vent) → drops through subfloor → 2" horizontal in crawl (~10' S + ~10' W from sewer exit) → connects to 4" building drain via 2"×4" wye. <strong>Dishwasher:</strong> drain hose connects to sink tailpiece or disposer inlet via <strong>high-loop</strong> (minimum — fasten hose to underside of counter) or <strong>air gap</strong> fitting (preferred). <strong>Vent:</strong> AAV under sink, 4" above trap weir, accessible inside cabinet.
       </div>
       <div class="room-fittings">
         <details>
@@ -2415,7 +2445,7 @@ hr.section-rule {
         <div class="fixture-item"><span class="fixture-icon">🛁</span> Bathtub / Shower <span class="dfu-badge">2 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--yellow-dim);color:var(--yellow)">1-1/2" trap</span></span></div>
       </div>
       <div class="callout">
-        <strong>Stack A (Primary Vent):</strong> This is the main building vent. Double lavs drain into a shared 1-1/2" horizontal run → connects to 3" stack as wet vent for WC. WC connects via 3" sanitary tee. Tub (1-1/2" P-trap) connects to 3" branch below floor in crawl. 2" vent rises from top of stack through M.Bath wall → attic → roof as <strong>2" VTR</strong>. Shortest run to building drain exit (~14' in crawl). 2" PVC (2.375" OD) fits easily in 2×4 framing.
+        <strong>Stack A (Primary Vent):</strong> This is the main building vent. Double lavs drain into a shared 1-1/2" horizontal run → connects to 3" stack as wet vent for WC. WC connects via 3" sanitary tee. Tub (1-1/2" P-trap) connects to 3" branch below floor in crawl. 2" vent rises from top of stack through M.Bath wall → attic → roof as <strong>2" VTR</strong>. Branch runs ~10' W in crawl to building drain. 2" PVC (2.375" OD) fits easily in 2×4 framing.
       </div>
       <div class="schematic" style="margin-top:12px">
 <pre>
@@ -2433,7 +2463,7 @@ hr.section-rule {
 <span class="hl-dim">         │</span>
 <span class="hl-dim">    ─────┤ </span><span class="hl-label">Tub</span><span class="hl-dim"> 1-1/2" trap → 1-1/2" → 3" branch</span>
 <span class="hl-dim">         │</span>
-<span class="hl-dim">    </span><span class="drain-color">3" BRANCH</span><span class="hl-dim"> (in crawl, ~8' to bldg drain)</span>
+<span class="hl-dim">    </span><span class="drain-color">3" BRANCH</span><span class="hl-dim"> (in crawl, ~7' to bldg drain)</span>
 <span class="hl-dim">         │</span>
 <span class="hl-dim">    ─────┴──► </span><span class="hl-accent">4" Building Drain</span><span class="hl-dim"> via wye + 1/8 bend</span>
 </pre>
@@ -2473,7 +2503,7 @@ hr.section-rule {
         <div class="fixture-item"><span class="fixture-icon">👕</span> Clothes Washer <span class="dfu-badge">2 DFU</span> <span class="fixture-pipes"><span class="fp" style="background:var(--yellow-dim);color:var(--yellow)">2" standpipe</span></span></div>
       </div>
       <div class="callout">
-        <strong>Standpipe:</strong> 2" PVC standpipe, 18–30" above floor (per IPC §802.4), with 2" P-trap at base. Trap connects to 2" horizontal drain → drops through subfloor → 2" horizontal in crawl (~8') → connects to 4" building drain. <strong>Vent:</strong> AAV at top of standpipe (above flood level rim of washer). <strong>Dryer condensate:</strong> Steam dryer condensate line (1/2" soft tubing) drains into washer standpipe — negligible flow, no separate DFU.
+        <strong>Standpipe:</strong> 2" PVC standpipe, 18–30" above floor (per IPC §802.4), with 2" P-trap at base. Trap connects to 2" horizontal drain → drops through subfloor → 2" horizontal in crawl (~4' W) → connects to 4" building drain. <strong>Vent:</strong> AAV at top of standpipe (above flood level rim of washer). <strong>Dryer condensate:</strong> Steam dryer condensate line (1/2" soft tubing) drains into washer standpipe — negligible flow, no separate DFU.
       </div>
       <div class="room-fittings">
         <details>
@@ -2536,13 +2566,11 @@ hr.section-rule {
     <table>
       <thead><tr><th>Segment</th><th>Description</th><th>Length</th></tr></thead>
       <tbody>
-        <tr><td class="text-bright">Foundation exit → Kitchen branch</td><td>From west wall exit to kitchen wye (closest)</td><td class="mono">3'</td></tr>
-        <tr><td class="text-bright">Kitchen → Laundry branch</td><td>Continue east to laundry wye (kitchen S wall)</td><td class="mono">5'</td></tr>
-        <tr><td class="text-bright">Laundry → Garage branch</td><td>Continue east to garage wye (through rim joist)</td><td class="mono">3'</td></tr>
-        <tr><td class="text-bright">Garage → Bath 2 branch</td><td>Continue east to M.Bath wye</td><td class="mono">3'</td></tr>
-        <tr><td class="text-bright">Bath 2 → Bath 1 branch</td><td>Continue east under hall to Bath 1 wye (farthest)</td><td class="mono">12'</td></tr>
-        <tr><td class="text-bright">Bath 1 to terminal end</td><td>Past last connection + terminal CO</td><td class="mono">2'</td></tr>
-        <tr class="total-row"><td colspan="2" style="text-align:right"><strong>Total 4" Building Drain</strong></td><td class="mono text-bright">28'</td></tr>
+        <tr><td class="text-bright">Sewer exit → Kitchen branch</td><td>From north wall sewer connection, running south to kitchen wye</td><td class="mono">10'</td></tr>
+        <tr><td class="text-bright">Kitchen → Bath 1 branch</td><td>Continue south to Bath 1 wye</td><td class="mono">12'</td></tr>
+        <tr><td class="text-bright">Bath 1 → Laundry/Bath 2/Garage</td><td>Continue south — laundry, bath 2, and garage branches all connect at ~30' S</td><td class="mono">8'</td></tr>
+        <tr><td class="text-bright">Terminal end</td><td>Past last connection + terminal CO</td><td class="mono">2'</td></tr>
+        <tr class="total-row"><td colspan="2" style="text-align:right"><strong>Total 4" Building Drain</strong></td><td class="mono text-bright">32'</td></tr>
       </tbody>
     </table>
   </div>
@@ -2552,13 +2580,13 @@ hr.section-rule {
     <table>
       <thead><tr><th>Branch</th><th>Size</th><th>Route</th><th>Length</th></tr></thead>
       <tbody>
-        <tr><td class="text-bright">Bath 2</td><td><span class="pipe-badge pipe-3">3"</span></td><td>Stack base → horizontal collector (tub joins) → 4" wye</td><td class="mono">8'</td></tr>
-        <tr><td class="text-bright">Bath 1</td><td><span class="pipe-badge pipe-3">3"</span></td><td>Stack base → horizontal collector (shower + urinal join) → 4" wye</td><td class="mono">10'</td></tr>
-        <tr><td class="text-bright">Kitchen</td><td><span class="pipe-badge pipe-2">2"</span></td><td>Sink drop through subfloor → short horizontal in crawl → 4" wye (nearest to exit)</td><td class="mono">4'</td></tr>
-        <tr><td class="text-bright">Laundry</td><td><span class="pipe-badge pipe-2">2"</span></td><td>Standpipe drop → horizontal in crawl → 4" wye</td><td class="mono">8'</td></tr>
-        <tr><td class="text-bright">Garage</td><td><span class="pipe-badge pipe-2">2"</span></td><td>Combined sink + floor drain → through rim joist → 4" wye</td><td class="mono">6'</td></tr>
-        <tr><td class="text-bright">Shower (Bath 1)</td><td><span class="pipe-badge pipe-2">2"</span></td><td>2" trap drop → horizontal to 3" branch</td><td class="mono">5'</td></tr>
-        <tr><td class="text-bright">Urinal (Bath 1)</td><td><span class="pipe-badge pipe-2">2"</span></td><td>2" trap → horizontal to 3" branch</td><td class="mono">4'</td></tr>
+        <tr><td class="text-bright">Bath 2</td><td><span class="pipe-badge pipe-3">3"</span></td><td>Stack base → horizontal collector (tub joins) → runs ~10' W to 4" wye</td><td class="mono">10'</td></tr>
+        <tr><td class="text-bright">Bath 1</td><td><span class="pipe-badge pipe-3">3"</span></td><td>Stack base → horizontal collector (shower + urinal join) → runs ~6' W to 4" wye</td><td class="mono">6'</td></tr>
+        <tr><td class="text-bright">Kitchen</td><td><span class="pipe-badge pipe-2">2"</span></td><td>Sink drop through subfloor → ~10' W horizontal → 4" wye</td><td class="mono">10'</td></tr>
+        <tr><td class="text-bright">Laundry</td><td><span class="pipe-badge pipe-2">2"</span></td><td>Standpipe drop → ~4' W horizontal → 4" wye</td><td class="mono">4'</td></tr>
+        <tr><td class="text-bright">Garage</td><td><span class="pipe-badge pipe-2">2"</span></td><td>Combined sink + floor drain → ~15' W through rim joist → 4" wye</td><td class="mono">15'</td></tr>
+        <tr><td class="text-bright">Shower (Bath 1)</td><td><span class="pipe-badge pipe-2">2"</span></td><td>2" trap drop → horizontal to 3" branch</td><td class="mono">4'</td></tr>
+        <tr><td class="text-bright">Urinal (Bath 1)</td><td><span class="pipe-badge pipe-2">2"</span></td><td>2" trap → horizontal to 3" branch</td><td class="mono">3'</td></tr>
       </tbody>
     </table>
   </div>
@@ -2605,33 +2633,33 @@ hr.section-rule {
   <div class="card" style="padding:32px">
     <div class="pipe-bar-row">
       <div class="pipe-bar-label" style="color:#a855f7">4" PVC</div>
-      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:26%;background:#a855f7"></div></div>
-      <div class="pipe-bar-value">28 ft</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:62%;background:#a855f7"></div></div>
+      <div class="pipe-bar-value">32 ft</div>
     </div>
     <div class="pipe-bar-row">
       <div class="pipe-bar-label" style="color:#6366f1">3" PVC</div>
-      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:23%;background:#6366f1"></div></div>
-      <div class="pipe-bar-value">24 ft</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:42%;background:#6366f1"></div></div>
+      <div class="pipe-bar-value">22 ft</div>
     </div>
     <div class="pipe-bar-row">
       <div class="pipe-bar-label" style="color:#f59e0b">2" PVC</div>
-      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:40%;background:#f59e0b"></div></div>
-      <div class="pipe-bar-value">43 ft</div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:100%;background:#f59e0b"></div></div>
+      <div class="pipe-bar-value">52 ft</div>
     </div>
     <div class="pipe-bar-row">
       <div class="pipe-bar-label" style="color:#10b981">1-1/2" PVC</div>
-      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:24%;background:#10b981"></div></div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:48%;background:#10b981"></div></div>
       <div class="pipe-bar-value">25 ft</div>
     </div>
     <div class="pipe-bar-row">
       <div class="pipe-bar-label" style="color:#64748b">2" Vent</div>
-      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:34%;background:#64748b"></div></div>
+      <div class="pipe-bar-track"><div class="pipe-bar-fill" style="width:71%;background:#64748b"></div></div>
       <div class="pipe-bar-value">37 ft</div>
     </div>
     <div class="pipe-bar-row" style="padding-top:16px;border-top:2px solid var(--border-accent);margin-top:8px">
       <div class="pipe-bar-label text-bright" style="font-weight:700">TOTAL</div>
       <div></div>
-      <div class="pipe-bar-value" style="font-size:18px;color:var(--accent)">157 ft</div>
+      <div class="pipe-bar-value" style="font-size:18px;color:var(--accent)">168 ft</div>
     </div>
   </div>
 
@@ -2640,12 +2668,12 @@ hr.section-rule {
     <table>
       <thead><tr><th>Size</th><th>Type</th><th>Calculated</th><th>Buy</th><th>Notes</th></tr></thead>
       <tbody>
-        <tr><td><span class="pipe-badge pipe-4">4"</span></td><td>DWV Drain</td><td class="mono">28'</td><td class="mono text-bright">35'</td><td>Building drain — comes in 10' sticks</td></tr>
-        <tr><td><span class="pipe-badge pipe-3">3"</span></td><td>DWV Drain</td><td class="mono">24'</td><td class="mono text-bright">30'</td><td>WC branches + stack bases — 10' sticks</td></tr>
-        <tr><td><span class="pipe-badge pipe-2">2"</span></td><td>DWV Drain</td><td class="mono">43'</td><td class="mono text-bright">50'</td><td>Branch drains, shower, urinal, standpipe</td></tr>
+        <tr><td><span class="pipe-badge pipe-4">4"</span></td><td>DWV Drain</td><td class="mono">32'</td><td class="mono text-bright">40'</td><td>Building drain — 4 sticks of 10'</td></tr>
+        <tr><td><span class="pipe-badge pipe-3">3"</span></td><td>DWV Drain</td><td class="mono">22'</td><td class="mono text-bright">30'</td><td>WC branches + stack bases — 3 sticks</td></tr>
+        <tr><td><span class="pipe-badge pipe-2">2"</span></td><td>DWV Drain</td><td class="mono">52'</td><td class="mono text-bright">60'</td><td>Branch drains, shower, urinal, standpipe</td></tr>
         <tr><td><span class="pipe-badge pipe-15">1-1/2"</span></td><td>DWV Drain</td><td class="mono">25'</td><td class="mono text-bright">30'</td><td>Lavs, sinks, tub fixture drains</td></tr>
-        <tr><td class="mono">2"</td><td>DWV Vent</td><td class="mono">37'</td><td class="mono text-bright">45'</td><td>Stack A + Stack B through roof + wet vent sections</td></tr>
-        <tr class="total-row"><td colspan="2" style="text-align:right"><strong>Total</strong></td><td class="mono">157'</td><td class="mono" style="color:var(--accent)"><strong>190'</strong></td><td></td></tr>
+        <tr><td class="mono">2"</td><td>DWV Vent</td><td class="mono">37'</td><td class="mono text-bright">40'</td><td>Stack A + Stack B through roof + wet vent sections</td></tr>
+        <tr class="total-row"><td colspan="2" style="text-align:right"><strong>Total</strong></td><td class="mono">168'</td><td class="mono" style="color:var(--accent)"><strong>200'</strong></td><td></td></tr>
       </tbody>
     </table>
   </div>
@@ -2729,7 +2757,7 @@ hr.section-rule {
           <tr><td>Cleanout Adapter + Plug (4")</td><td class="mono text-bright">2</td><td>CO-1 (two-way at foundation), CO-5 (terminal)</td></tr>
           <tr><td>Cleanout Adapter + Plug (3")</td><td class="mono text-bright">2</td><td>CO-2 (Bath 2 branch), CO-3 (Bath 1 branch)</td></tr>
           <tr><td>Cleanout Adapter + Plug (2")</td><td class="mono text-bright">1</td><td>CO-4 (Kitchen branch)</td></tr>
-          <tr><td>Two-Way Cleanout Fitting (4")</td><td class="mono text-bright">1</td><td>CO-1 at west foundation exit (under kitchen) — access from both directions</td></tr>
+          <tr><td>Two-Way Cleanout Fitting (4")</td><td class="mono text-bright">1</td><td>CO-1 at sewer connection (north foundation wall in crawl) — access from both directions</td></tr>
           <tr><td>Clevis Pipe Hangers</td><td class="mono text-bright">~20</td><td>Every 4' on horizontal crawl space runs (IPC Table 308.5)</td></tr>
           <tr><td>Pipe Strap / Clamps</td><td class="mono text-bright">~10</td><td>Vertical runs in wall cavities</td></tr>
           <tr><td>Dishwasher Air Gap Fitting</td><td class="mono text-bright">1</td><td>Countertop-mounted or high-loop bracket</td></tr>
@@ -2779,6 +2807,503 @@ hr.section-rule {
 
 </div><!-- /content-waste -->
 
+<!-- ═══════════════════════ SHOPPING LIST TAB ═══════════════════════ -->
+<div class="master-tab-content" id="content-shop">
+
+<!-- ════ S-OVERVIEW ════ -->
+<section class="section" id="s-overview">
+  <div class="section-header">
+    <span class="section-number">S1</span>
+    <h2 class="section-title">Shopping List — Complete Materials</h2>
+  </div>
+
+  <div class="callout" style="margin-bottom:20px">
+    Combined bill of materials for the entire plumbing project — water supply (PEX-A) and DWV (PVC). All quantities include the 15% waste/spare factor already applied. Prices are approximate based on current supply-house and Home Depot pricing (Feb 2026). Actual costs will vary by supplier and location.
+  </div>
+
+  <div style="background:linear-gradient(135deg,rgba(99,179,237,0.08),rgba(232,93,74,0.08));border:1px solid var(--border-accent);border-radius:8px;padding:24px;margin-bottom:24px;text-align:center">
+    <div style="font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--text-muted);margin-bottom:4px">Estimated Materials Budget</div>
+    <div style="font-size:42px;font-weight:700;color:var(--text-bright);line-height:1.1">$3,600</div>
+    <div style="font-size:13px;color:var(--text-muted);margin-top:6px">Rough-in materials only — does not include finish fixtures (faucets, toilets, sinks, tub)</div>
+  </div>
+
+  <div class="grid-3" style="margin-bottom:20px">
+    <div class="stat-box">
+      <div class="stat-value" style="color:var(--cold)">$1,730</div>
+      <div class="stat-label">Water Supply (PEX-A)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value" style="color:var(--hot)">$1,850</div>
+      <div class="stat-label">Waste &amp; Vent (PVC)</div>
+    </div>
+    <div class="stat-box">
+      <div class="stat-value">746 <span class="unit">ft</span></div>
+      <div class="stat-label">Total Pipe</div>
+    </div>
+  </div>
+
+  <div class="card" style="padding:0;overflow:hidden">
+    <table>
+      <thead><tr><th>Category</th><th style="text-align:right">Est. Cost</th><th style="text-align:right">% of Total</th></tr></thead>
+      <tbody>
+        <tr><td>PEX-A Pipe (6 coils)</td><td class="mono" style="text-align:right">$845</td><td class="mono" style="text-align:right;color:var(--text-muted)">24%</td></tr>
+        <tr><td>PEX Valves (19)</td><td class="mono" style="text-align:right">$309</td><td class="mono" style="text-align:right;color:var(--text-muted)">9%</td></tr>
+        <tr><td>PEX Tees &amp; Multiports</td><td class="mono" style="text-align:right">$308</td><td class="mono" style="text-align:right;color:var(--text-muted)">9%</td></tr>
+        <tr><td>PEX Couplings &amp; Elbows</td><td class="mono" style="text-align:right">$188</td><td class="mono" style="text-align:right;color:var(--text-muted)">5%</td></tr>
+        <tr><td>Expansion Rings (158)</td><td class="mono" style="text-align:right">$78</td><td class="mono" style="text-align:right;color:var(--text-muted)">2%</td></tr>
+        <tr style="border-top:1px solid var(--border)"><td>PVC Pipe (20 sticks)</td><td class="mono" style="text-align:right">$206</td><td class="mono" style="text-align:right;color:var(--text-muted)">6%</td></tr>
+        <tr><td>PVC Drain Fittings</td><td class="mono" style="text-align:right">$173</td><td class="mono" style="text-align:right;color:var(--text-muted)">5%</td></tr>
+        <tr><td>Vent Fittings &amp; AAVs</td><td class="mono" style="text-align:right">$84</td><td class="mono" style="text-align:right;color:var(--text-muted)">2%</td></tr>
+        <tr><td>Traps &amp; Drains</td><td class="mono" style="text-align:right">$197</td><td class="mono" style="text-align:right;color:var(--text-muted)">5%</td></tr>
+        <tr><td>Fixtures &amp; Equipment</td><td class="mono" style="text-align:right">$662</td><td class="mono" style="text-align:right;color:var(--text-muted)">18%</td></tr>
+        <tr><td>Accessories &amp; Hardware</td><td class="mono" style="text-align:right">$527</td><td class="mono" style="text-align:right;color:var(--text-muted)">15%</td></tr>
+        <tr class="total-row"><td><strong>TOTAL</strong></td><td class="mono" style="text-align:right;color:var(--accent)"><strong>$3,577</strong></td><td class="mono" style="text-align:right"><strong>100%</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ S-PEX ════ -->
+<section class="section" id="s-pex">
+  <div class="section-header">
+    <span class="section-number">S2</span>
+    <h2 class="section-title">PEX-A Pipe — Uponor AquaPEX</h2>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead><tr><th>Size</th><th>Color</th><th>Footage</th><th>Buy Qty</th><th>Coil Size</th><th>Coils</th><th style="text-align:right">Est. Cost</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="pipe-badge pipe-1">1"</span></td>
+          <td>White</td>
+          <td class="mono">26'</td>
+          <td class="mono text-bright">30'</td>
+          <td class="mono">100' coil</td>
+          <td class="mono text-bright">1</td>
+          <td class="mono" style="text-align:right">$175</td>
+        </tr>
+        <tr>
+          <td><span class="pipe-badge pipe-34">3/4"</span></td>
+          <td>Blue (Cold)</td>
+          <td class="mono">155'</td>
+          <td class="mono text-bright">180'</td>
+          <td class="mono">300' coil</td>
+          <td class="mono text-bright">1</td>
+          <td class="mono" style="text-align:right">$290</td>
+        </tr>
+        <tr>
+          <td><span class="pipe-badge pipe-34-hot">3/4"</span></td>
+          <td>Red (Hot)</td>
+          <td class="mono">31'</td>
+          <td class="mono text-bright">36'</td>
+          <td class="mono">100' coil</td>
+          <td class="mono text-bright">1</td>
+          <td class="mono" style="text-align:right">$95</td>
+        </tr>
+        <tr>
+          <td><span class="pipe-badge pipe-12">1/2"</span></td>
+          <td>Blue (Cold)</td>
+          <td class="mono">52'</td>
+          <td class="mono text-bright">60'</td>
+          <td class="mono">100' coil</td>
+          <td class="mono text-bright">1</td>
+          <td class="mono" style="text-align:right">$60</td>
+        </tr>
+        <tr>
+          <td><span class="pipe-badge pipe-12-hot">1/2"</span></td>
+          <td>Red (Hot)</td>
+          <td class="mono">186'</td>
+          <td class="mono text-bright">215'</td>
+          <td class="mono">300' coil</td>
+          <td class="mono text-bright">1</td>
+          <td class="mono" style="text-align:right">$180</td>
+        </tr>
+        <tr>
+          <td><span class="pipe-badge pipe-38">3/8"</span></td>
+          <td>Blue (Cold)</td>
+          <td class="mono">22'</td>
+          <td class="mono text-bright">25'</td>
+          <td class="mono">100' coil</td>
+          <td class="mono text-bright">1</td>
+          <td class="mono" style="text-align:right">$45</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="2" style="text-align:right"><strong>Total PEX-A</strong></td>
+          <td class="mono">472'</td>
+          <td class="mono" style="color:var(--accent)"><strong>546'</strong></td>
+          <td></td>
+          <td class="mono text-bright">6 coils</td>
+          <td class="mono" style="text-align:right;color:var(--accent)"><strong>$845</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout callout-warn" style="margin-top:12px">
+    Coil sizes shown are standard Uponor sizes. You'll have leftover from several coils — keep for repairs. 3/4" Blue is the biggest run (155' actual) so a single 300' coil covers it with room to spare.
+  </div>
+</section>
+
+<!-- ════ S-PVC ════ -->
+<section class="section" id="s-pvc">
+  <div class="section-header">
+    <span class="section-number">S3</span>
+    <h2 class="section-title">PVC DWV Pipe — Schedule 40</h2>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead><tr><th>Size</th><th>Use</th><th>Footage</th><th>Buy Qty</th><th>Sticks (10')</th><th style="text-align:right">Est. Cost</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><span class="pipe-badge pipe-4">4"</span></td>
+          <td>Building drain</td>
+          <td class="mono">32'</td>
+          <td class="mono text-bright">40'</td>
+          <td class="mono text-bright">4</td>
+          <td class="mono" style="text-align:right">$72</td>
+        </tr>
+        <tr>
+          <td><span class="pipe-badge pipe-3">3"</span></td>
+          <td>WC branches, stack bases</td>
+          <td class="mono">22'</td>
+          <td class="mono text-bright">30'</td>
+          <td class="mono text-bright">3</td>
+          <td class="mono" style="text-align:right">$36</td>
+        </tr>
+        <tr>
+          <td><span class="pipe-badge pipe-2">2"</span></td>
+          <td>Branch drains, shower, urinal, standpipe, vent stacks, wet vents</td>
+          <td class="mono">89'</td>
+          <td class="mono text-bright">100'</td>
+          <td class="mono text-bright">10</td>
+          <td class="mono" style="text-align:right">$80</td>
+        </tr>
+        <tr>
+          <td><span class="pipe-badge pipe-15">1-1/2"</span></td>
+          <td>Lavs, sinks, tub fixture drains</td>
+          <td class="mono">25'</td>
+          <td class="mono text-bright">30'</td>
+          <td class="mono text-bright">3</td>
+          <td class="mono" style="text-align:right">$18</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="2" style="text-align:right"><strong>Total PVC</strong></td>
+          <td class="mono">168'</td>
+          <td class="mono" style="color:var(--accent)"><strong>200'</strong></td>
+          <td class="mono text-bright">20 sticks</td>
+          <td class="mono" style="text-align:right;color:var(--accent)"><strong>$206</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ S-VALVES ════ -->
+<section class="section" id="s-valves">
+  <div class="section-header">
+    <span class="section-number">S4</span>
+    <h2 class="section-title">ProPEX Ball Valves</h2>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th>Unit</th><th style="text-align:right">Ext.</th><th>Where They Go</th></tr></thead>
+      <tbody>
+        <tr>
+          <td>Uponor ProPEX Brass Ball Valve, Full-Port</td>
+          <td class="mono">1"</td>
+          <td class="mono text-bright">5</td>
+          <td class="mono">$23</td>
+          <td class="mono" style="text-align:right">$115</td>
+          <td>V-MS, V-T1, V-T2, V-BP, V-MC</td>
+        </tr>
+        <tr>
+          <td>Uponor ProPEX Brass Ball Valve, Full-Port</td>
+          <td class="mono">3/4"</td>
+          <td class="mono text-bright">10</td>
+          <td class="mono">$15</td>
+          <td class="mono" style="text-align:right">$150</td>
+          <td>V-C1–C6, V-H1, V-H2, V-H3, V-OUT</td>
+        </tr>
+        <tr>
+          <td>Uponor ProPEX Brass Ball Valve, Full-Port</td>
+          <td class="mono">1/2"</td>
+          <td class="mono text-bright">4</td>
+          <td class="mono">$11</td>
+          <td class="mono" style="text-align:right">$44</td>
+          <td>V-H4, V-H5, V-H6, V-RC</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="2" style="text-align:right"><strong>Total Ball Valves</strong></td>
+          <td class="mono text-bright">19</td>
+          <td></td>
+          <td class="mono" style="text-align:right;color:var(--accent)"><strong>$309</strong></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ S-TEES ════ -->
+<section class="section" id="s-tees">
+  <div class="section-header">
+    <span class="section-number">S5</span>
+    <h2 class="section-title">ProPEX Tees & Multiport Tees</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-accent"></span>Multiport Tees (Crawl Space)</div>
+    <table>
+      <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th style="text-align:right">Est. Cost</th><th>Location</th></tr></thead>
+      <tbody>
+        <tr><td>EP Flow-Through Multiport Tee, 2-outlet</td><td class="mono">3/4" × 3/4"</td><td class="mono text-bright">1</td><td class="mono" style="text-align:right">$30</td><td>Bath 2 hot (crawl)</td></tr>
+        <tr><td>EP Flow-Through Multiport Tee, 3-outlet</td><td class="mono">1" × 3/4"</td><td class="mono text-bright">1</td><td class="mono" style="text-align:right">$45</td><td>Bath 2 cold (crawl)</td></tr>
+        <tr><td>EP Flow-Through Multiport Tee, 4-outlet</td><td class="mono">3/4" × 3/4"</td><td class="mono text-bright">1</td><td class="mono" style="text-align:right">$55</td><td>Bath 1 cold (crawl)</td></tr>
+        <tr class="total-row"><td colspan="2" style="text-align:right"><strong>Multiport Subtotal</strong></td><td class="mono text-bright">3</td><td class="mono" style="text-align:right;color:var(--accent)"><strong>$130</strong></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-header"><span class="dot dot-cold"></span>Standard ProPEX Tees</div>
+    <table>
+      <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th>Unit</th><th style="text-align:right">Ext.</th><th>Location</th></tr></thead>
+      <tbody>
+        <tr><td>ProPEX Tee</td><td class="mono">1" × 1" × 1"</td><td class="mono text-bright">2</td><td class="mono">$12</td><td class="mono" style="text-align:right">$24</td><td>Bypass split + merge</td></tr>
+        <tr><td>ProPEX Reducing Tee</td><td class="mono">1" × 1" × 3/4"</td><td class="mono text-bright">6</td><td class="mono">$10</td><td class="mono" style="text-align:right">$60</td><td>Cold trunk zone takeoffs</td></tr>
+        <tr><td>ProPEX Tee</td><td class="mono">3/4" × 3/4" × 3/4"</td><td class="mono text-bright">2</td><td class="mono">$8</td><td class="mono" style="text-align:right">$16</td><td>Hot trunk: garage + bath 2</td></tr>
+        <tr><td>ProPEX Reducing Tee</td><td class="mono">3/4" × 3/4" × 1/2"</td><td class="mono text-bright">4</td><td class="mono">$8</td><td class="mono" style="text-align:right">$32</td><td>Hot trunk + outdoor trunk</td></tr>
+        <tr><td>ProPEX Reducing Tee</td><td class="mono">3/4" × 1/2" × 1/2"</td><td class="mono text-bright">4</td><td class="mono">$7</td><td class="mono" style="text-align:right">$28</td><td>Kitchen, laundry, garage crawl</td></tr>
+        <tr><td>ProPEX Tee</td><td class="mono">1/2" × 1/2" × 1/2"</td><td class="mono text-bright">3</td><td class="mono">$6</td><td class="mono" style="text-align:right">$18</td><td>Kitchen hot, under-sink, bath 1 hot</td></tr>
+        <tr class="total-row"><td colspan="2" style="text-align:right"><strong>Standard Tees Subtotal</strong></td><td class="mono text-bright">21</td><td></td><td class="mono" style="text-align:right;color:var(--accent)"><strong>$178</strong></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ S-COUPLINGS ════ -->
+<section class="section" id="s-couplings">
+  <div class="section-header">
+    <span class="section-number">S6</span>
+    <h2 class="section-title">ProPEX Couplings, Elbows & Adapters</h2>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th>Unit</th><th style="text-align:right">Ext.</th><th>Location</th></tr></thead>
+      <tbody>
+        <tr><td>ProPEX Reducing Coupling</td><td class="mono">3/4" → 1/2"</td><td class="mono text-bright">2</td><td class="mono">$7</td><td class="mono" style="text-align:right">$14</td><td>Hot trunk → laundry, outdoor → spigot 3</td></tr>
+        <tr><td>ProPEX Reducing Coupling</td><td class="mono">1/2" → 3/8"</td><td class="mono text-bright">6</td><td class="mono">$5</td><td class="mono" style="text-align:right">$30</td><td>Toilets (2), urinal, ice maker, DW, dryer</td></tr>
+        <tr><td>ProPEX Drop-Ear Elbow (brass)</td><td class="mono">1/2"</td><td class="mono text-bright">14</td><td class="mono">$8</td><td class="mono" style="text-align:right">$112</td><td>Stub-outs: kitchen, bath 1, bath 2, garage</td></tr>
+        <tr><td>ProPEX Drop-Ear Elbow (brass)</td><td class="mono">3/4"</td><td class="mono text-bright">2</td><td class="mono">$10</td><td class="mono" style="text-align:right">$20</td><td>Tub valve stub-outs (Bath 2)</td></tr>
+        <tr><td>ProPEX × 3/4" FIP Adapter</td><td class="mono">1/2" PEX × 3/4" FIP</td><td class="mono text-bright">1</td><td class="mono">$12</td><td class="mono" style="text-align:right">$12</td><td>Recirc return → pump flange</td></tr>
+        <tr class="total-row"><td colspan="2" style="text-align:right"><strong>Total Couplings &amp; Elbows</strong></td><td class="mono text-bright">25</td><td></td><td class="mono" style="text-align:right;color:var(--accent)"><strong>$188</strong></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ S-RINGS ════ -->
+<section class="section" id="s-rings">
+  <div class="section-header">
+    <span class="section-number">S7</span>
+    <h2 class="section-title">ProPEX Expansion Rings</h2>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead><tr><th>Size</th><th>Est. Connections</th><th>Buy Qty</th><th>Unit</th><th style="text-align:right">Ext.</th></tr></thead>
+      <tbody>
+        <tr><td class="mono">3/8"</td><td class="mono">12</td><td class="mono text-bright">18</td><td class="mono">$0.40</td><td class="mono" style="text-align:right">$7</td></tr>
+        <tr><td class="mono">1/2"</td><td class="mono">50</td><td class="mono text-bright">65</td><td class="mono">$0.40</td><td class="mono" style="text-align:right">$26</td></tr>
+        <tr><td class="mono">3/4"</td><td class="mono">32</td><td class="mono text-bright">40</td><td class="mono">$0.50</td><td class="mono" style="text-align:right">$20</td></tr>
+        <tr><td class="mono">1"</td><td class="mono">29</td><td class="mono text-bright">35</td><td class="mono">$0.70</td><td class="mono" style="text-align:right">$25</td></tr>
+        <tr class="total-row"><td colspan="2" style="text-align:right"><strong>Total Rings</strong></td><td class="mono text-bright">158</td><td></td><td class="mono" style="text-align:right;color:var(--accent)"><strong>$78</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="callout" style="margin-top:12px">
+    Rings are sized to pipe. Buy quantities include ~30% spares — rings are cheap, running out mid-job is not.
+  </div>
+</section>
+
+<!-- ════ S-DRAIN-FITTINGS ════ -->
+<section class="section" id="s-drain-fittings">
+  <div class="section-header">
+    <span class="section-number">S8</span>
+    <h2 class="section-title">PVC DWV Drain Fittings</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-accent"></span>Wyes & Combo Fittings</div>
+    <table>
+      <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th>Unit</th><th style="text-align:right">Ext.</th><th>Location</th></tr></thead>
+      <tbody>
+        <tr><td>Combo Wye + 1/8 Bend</td><td class="mono">4" × 4" × 3"</td><td class="mono text-bright">2</td><td class="mono">$15</td><td class="mono" style="text-align:right">$30</td><td>Bath 1 + Bath 2 → drain</td></tr>
+        <tr><td>Wye, Reducing</td><td class="mono">4" × 4" × 2"</td><td class="mono text-bright">3</td><td class="mono">$10</td><td class="mono" style="text-align:right">$30</td><td>Kitchen, laundry, garage → drain</td></tr>
+        <tr><td>Sanitary Wye, Reducing</td><td class="mono">3" × 3" × 1-1/2"</td><td class="mono text-bright">1</td><td class="mono">$7</td><td class="mono" style="text-align:right">$7</td><td>Tub drain → Bath 2</td></tr>
+        <tr><td>Sanitary Wye, Reducing</td><td class="mono">2" × 2" × 1-1/2"</td><td class="mono text-bright">1</td><td class="mono">$5</td><td class="mono" style="text-align:right">$5</td><td>Garage utility sink</td></tr>
+        <tr><td>45° Wye</td><td class="mono">1-1/2"</td><td class="mono text-bright">1</td><td class="mono">$4</td><td class="mono" style="text-align:right">$4</td><td>Bath 2 double-lav junction</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-header"><span class="dot dot-cold"></span>Sanitary Tees</div>
+    <table>
+      <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th>Unit</th><th style="text-align:right">Ext.</th><th>Location</th></tr></thead>
+      <tbody>
+        <tr><td>Sanitary Tee</td><td class="mono">3" × 3" × 3"</td><td class="mono text-bright">2</td><td class="mono">$8</td><td class="mono" style="text-align:right">$16</td><td>WC connections (Bath 1 + 2)</td></tr>
+        <tr><td>Sanitary Tee, Reducing</td><td class="mono">3" × 3" × 2"</td><td class="mono text-bright">3</td><td class="mono">$7</td><td class="mono" style="text-align:right">$21</td><td>Wet vent, shower, urinal</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-header"><span class="dot dot-hot"></span>Elbows & Couplings</div>
+    <table>
+      <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th>Unit</th><th style="text-align:right">Ext.</th><th>Location</th></tr></thead>
+      <tbody>
+        <tr><td>Long-Sweep 90° Elbow</td><td class="mono">4"</td><td class="mono text-bright">2</td><td class="mono">$8</td><td class="mono" style="text-align:right">$16</td><td>Building drain direction changes</td></tr>
+        <tr><td>Long-Sweep 90° Elbow</td><td class="mono">3"</td><td class="mono text-bright">2</td><td class="mono">$5</td><td class="mono" style="text-align:right">$10</td><td>Stack bases (vert → horiz)</td></tr>
+        <tr><td>Long-Sweep 90° Elbow</td><td class="mono">2"</td><td class="mono text-bright">6</td><td class="mono">$3</td><td class="mono" style="text-align:right">$18</td><td>Branch changes, fixture drops</td></tr>
+        <tr><td>Long-Sweep 90° Elbow</td><td class="mono">1-1/2"</td><td class="mono text-bright">4</td><td class="mono">$2</td><td class="mono" style="text-align:right">$8</td><td>Lav/sink drain arms, tub waste</td></tr>
+        <tr><td>Reducer Coupling</td><td class="mono">3" × 1-1/2"</td><td class="mono text-bright">2</td><td class="mono">$4</td><td class="mono" style="text-align:right">$8</td><td>Lav wet-vent connections</td></tr>
+        <tr class="total-row"><td colspan="2" style="text-align:right"><strong>Section Total</strong></td><td></td><td></td><td class="mono" style="text-align:right;color:var(--accent)"><strong>$173</strong></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ S-VENT-FITTINGS ════ -->
+<section class="section" id="s-vent-fittings">
+  <div class="section-header">
+    <span class="section-number">S9</span>
+    <h2 class="section-title">Vent Fittings & AAVs</h2>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th>Unit</th><th style="text-align:right">Ext.</th><th>Location</th></tr></thead>
+      <tbody>
+        <tr><td>Sanitary Tee (vent takeoff)</td><td class="mono">3" × 3" × 2"</td><td class="mono text-bright">1</td><td class="mono">$7</td><td class="mono" style="text-align:right">$7</td><td>Stack A vent</td></tr>
+        <tr><td>Sanitary Tee (vent takeoff)</td><td class="mono">2" × 2" × 2"</td><td class="mono text-bright">1</td><td class="mono">$5</td><td class="mono" style="text-align:right">$5</td><td>Stack B vent</td></tr>
+        <tr><td>Roof Flashing Boot</td><td class="mono">2"</td><td class="mono text-bright">2</td><td class="mono">$12</td><td class="mono" style="text-align:right">$24</td><td>Stack A + B roof penetrations</td></tr>
+        <tr><td>AAV — Air Admittance Valve</td><td class="mono">1-1/2"</td><td class="mono text-bright">2</td><td class="mono">$15</td><td class="mono" style="text-align:right">$30</td><td>Kitchen sink, garage sink</td></tr>
+        <tr><td>AAV — Air Admittance Valve</td><td class="mono">2"</td><td class="mono text-bright">1</td><td class="mono">$18</td><td class="mono" style="text-align:right">$18</td><td>Laundry standpipe</td></tr>
+        <tr class="total-row"><td colspan="2" style="text-align:right"><strong>Total Vent Fittings</strong></td><td class="mono text-bright">7</td><td></td><td class="mono" style="text-align:right;color:var(--accent)"><strong>$84</strong></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ S-TRAPS ════ -->
+<section class="section" id="s-traps">
+  <div class="section-header">
+    <span class="section-number">S10</span>
+    <h2 class="section-title">Traps, Drains & Flanges</h2>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead><tr><th>Item</th><th>Size</th><th>Qty</th><th>Unit</th><th style="text-align:right">Ext.</th><th>Location</th></tr></thead>
+      <tbody>
+        <tr><td>P-Trap, Slip-Joint (PVC)</td><td class="mono">1-1/4"</td><td class="mono text-bright">3</td><td class="mono">$8</td><td class="mono" style="text-align:right">$24</td><td>Bath 1 lav, Bath 2 lav 1 + 2</td></tr>
+        <tr><td>P-Trap, Slip-Joint (PVC)</td><td class="mono">1-1/2"</td><td class="mono text-bright">3</td><td class="mono">$10</td><td class="mono" style="text-align:right">$30</td><td>Kitchen sink, garage sink, bathtub</td></tr>
+        <tr><td>P-Trap, Glue (PVC)</td><td class="mono">2"</td><td class="mono text-bright">4</td><td class="mono">$12</td><td class="mono" style="text-align:right">$48</td><td>Shower, urinal, standpipe, floor drain</td></tr>
+        <tr><td>Closet Flange (PVC)</td><td class="mono">4" × 3"</td><td class="mono text-bright">2</td><td class="mono">$10</td><td class="mono" style="text-align:right">$20</td><td>Bath 1 WC, Bath 2 WC</td></tr>
+        <tr><td>Floor Drain with Strainer</td><td class="mono">2"</td><td class="mono text-bright">1</td><td class="mono">$20</td><td class="mono" style="text-align:right">$20</td><td>Garage pet wash</td></tr>
+        <tr><td>Shower Drain, Recessed</td><td class="mono">2"</td><td class="mono text-bright">1</td><td class="mono">$25</td><td class="mono" style="text-align:right">$25</td><td>Bath 1 shower</td></tr>
+        <tr><td>Tub Waste + Overflow Kit</td><td class="mono">1-1/2"</td><td class="mono text-bright">1</td><td class="mono">$30</td><td class="mono" style="text-align:right">$30</td><td>Bath 2 bathtub</td></tr>
+        <tr class="total-row"><td colspan="2" style="text-align:right"><strong>Total Traps &amp; Drains</strong></td><td class="mono text-bright">15</td><td></td><td class="mono" style="text-align:right;color:var(--accent)"><strong>$197</strong></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ S-FIXTURES ════ -->
+<section class="section" id="s-fixtures">
+  <div class="section-header">
+    <span class="section-number">S11</span>
+    <h2 class="section-title">Fixtures & Trim</h2>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead><tr><th>Item</th><th>Qty</th><th>Unit</th><th style="text-align:right">Ext.</th><th>Details</th></tr></thead>
+      <tbody>
+        <tr><td>Pressure-Balance / Thermostatic Tub-Shower Valve</td><td class="mono text-bright">2</td><td class="mono">$100</td><td class="mono" style="text-align:right">$200</td><td>Bath 1 shower, Bath 2 tub/shower</td></tr>
+        <tr><td>Frost-Free Sillcock, 1/2" MIP</td><td class="mono text-bright">3</td><td class="mono">$30</td><td class="mono" style="text-align:right">$90</td><td>Garage south, front/west, patio/north</td></tr>
+        <tr><td>Washing Machine Outlet Box (w/ valves + arrestors)</td><td class="mono text-bright">1</td><td class="mono">$45</td><td class="mono" style="text-align:right">$45</td><td>Laundry — recessed in-wall box</td></tr>
+        <tr><td>Rheem AP17920 Timer-Based Recirc Pump Kit</td><td class="mono text-bright">1</td><td class="mono">$300</td><td class="mono" style="text-align:right">$300</td><td>Taco 0015 pump, flanges, connector</td></tr>
+        <tr><td>Dishwasher Air Gap Fitting (or high-loop bracket)</td><td class="mono text-bright">1</td><td class="mono">$12</td><td class="mono" style="text-align:right">$12</td><td>Kitchen — DW drain backflow prevention</td></tr>
+        <tr><td>Laundry Standpipe</td><td class="mono text-bright">1</td><td class="mono">$15</td><td class="mono" style="text-align:right">$15</td><td>2" PVC × 24"</td></tr>
+        <tr class="total-row"><td style="text-align:right"><strong>Total Fixtures &amp; Equipment</strong></td><td class="mono text-bright">9</td><td></td><td class="mono" style="text-align:right;color:var(--accent)"><strong>$662</strong></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ════ S-ACCESSORIES ════ -->
+<section class="section" id="s-accessories">
+  <div class="section-header">
+    <span class="section-number">S12</span>
+    <h2 class="section-title">Accessories & Hardware</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><span class="dot dot-accent"></span>Water Supply Accessories</div>
+    <table>
+      <thead><tr><th>Item</th><th>Qty</th><th style="text-align:right">Est. Cost</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>Water Hammer Arrestor</td><td class="mono text-bright">4</td><td class="mono" style="text-align:right">$60</td><td>Washing machine, dishwasher, urinal, tub fill</td></tr>
+        <tr><td>Drain Valve, 1/2" Boiler Drain</td><td class="mono text-bright">1</td><td class="mono" style="text-align:right">$12</td><td>Below treatment inlet valve on panel</td></tr>
+        <tr><td>Pressure Gauge, 0–200 psi</td><td class="mono text-bright">1</td><td class="mono" style="text-align:right">$15</td><td>Main supply entry</td></tr>
+        <tr><td>Pipe Support Clamps, CTS (assorted sizes)</td><td class="mono text-bright">~50</td><td class="mono" style="text-align:right">$40</td><td>Every 32" horizontal, 5' vertical</td></tr>
+        <tr><td>Nail Plate Protectors (16 ga. steel)</td><td class="mono text-bright">~24</td><td class="mono" style="text-align:right">$20</td><td>Every penetration within 1-1/4" of face</td></tr>
+        <tr><td>Pipe Insulation, R-3 Foam (3/4" ID)</td><td class="mono text-bright">~200'</td><td class="mono" style="text-align:right">$80</td><td>All hot lines + recirc in crawl</td></tr>
+        <tr><td>Pipe Insulation, R-3 Foam (1/2" ID)</td><td class="mono text-bright">~100'</td><td class="mono" style="text-align:right">$35</td><td>1/2" hot branches in crawl</td></tr>
+        <tr><td>Pipe Insulation, Foam (assorted)</td><td class="mono text-bright">~150'</td><td class="mono" style="text-align:right">$50</td><td>Cold lines in crawl (freeze protection)</td></tr>
+        <tr><td>Plywood Backer Board, 3/4" × 4' × 4'</td><td class="mono text-bright">1</td><td class="mono" style="text-align:right">$30</td><td>Valve panel mounting — garage north wall</td></tr>
+        <tr><td>Engraved Brass Tags or Laminated Labels</td><td class="mono text-bright">19</td><td class="mono" style="text-align:right">$40</td><td>One per valve — match valve schedule</td></tr>
+        <tr class="total-row"><td style="text-align:right"><strong>Water Accessories Subtotal</strong></td><td></td><td class="mono" style="text-align:right;color:var(--accent)"><strong>$382</strong></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="card" style="margin-top:16px">
+    <div class="card-header"><span class="dot dot-hot"></span>DWV Accessories</div>
+    <table>
+      <thead><tr><th>Item</th><th>Qty</th><th style="text-align:right">Est. Cost</th><th>Notes</th></tr></thead>
+      <tbody>
+        <tr><td>PVC Solvent Cement (clear or medium body)</td><td class="mono text-bright">1 can</td><td class="mono" style="text-align:right">$12</td><td>Oatey or equiv. — all PVC DWV joints</td></tr>
+        <tr><td>PVC Primer (purple)</td><td class="mono text-bright">1 can</td><td class="mono" style="text-align:right">$10</td><td>Required before cement on all joints</td></tr>
+        <tr><td>Cleanout Adapter + Plug, 4"</td><td class="mono text-bright">2</td><td class="mono" style="text-align:right">$16</td><td>CO-1 (sewer connection), CO-5 (terminal)</td></tr>
+        <tr><td>Cleanout Adapter + Plug, 3"</td><td class="mono text-bright">2</td><td class="mono" style="text-align:right">$12</td><td>CO-2 (Bath 2), CO-3 (Bath 1)</td></tr>
+        <tr><td>Cleanout Adapter + Plug, 2"</td><td class="mono text-bright">1</td><td class="mono" style="text-align:right">$5</td><td>CO-4 (Kitchen branch)</td></tr>
+        <tr><td>Two-Way Cleanout Fitting, 4"</td><td class="mono text-bright">1</td><td class="mono" style="text-align:right">$15</td><td>CO-1 at sewer (north foundation wall)</td></tr>
+        <tr><td>Clevis Pipe Hangers (assorted 2", 3", 4")</td><td class="mono text-bright">~25</td><td class="mono" style="text-align:right">$40</td><td>Every 4' on horizontal crawl runs</td></tr>
+        <tr><td>Pipe Strap / Clamps (assorted)</td><td class="mono text-bright">~15</td><td class="mono" style="text-align:right">$15</td><td>Vertical runs in wall cavities</td></tr>
+        <tr><td>Fire-Stop Caulk</td><td class="mono text-bright">2 tubes</td><td class="mono" style="text-align:right">$20</td><td>All fire-rated penetrations</td></tr>
+        <tr class="total-row"><td style="text-align:right"><strong>DWV Accessories Subtotal</strong></td><td></td><td class="mono" style="text-align:right;color:var(--accent)"><strong>$145</strong></td><td></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div style="margin-top:32px;padding:20px;border:1px dashed var(--border-accent);border-radius:6px;text-align:center;">
+    <p style="font-size:12px;color:var(--text-muted);margin:0">
+      <strong class="text-bright">Lovette Residence</strong> — 829 Erika Road, Grand Junction, CO 81504<br>
+      Commission #2601 · February 2026 · NOT FOR CONSTRUCTION<br>
+      Quantities include 15% waste factor. Verify all sizing against local code before purchasing.<br>
+      This list does not include fixtures (faucets, toilets, sinks, tub) — only rough-in plumbing materials.
+    </p>
+  </div>
+</section>
+
+</div><!-- /content-shop -->
+
 </main>
 
 <!-- ═══ Scroll-to-top ═══ -->
@@ -2796,8 +3321,10 @@ function switchMasterTab(tabName) {
   const logo = document.getElementById('headerLogo');
   if (tabName === 'water') {
     logo.innerHTML = 'UPONOR LOGIC <span>/ Water Supply</span>';
-  } else {
+  } else if (tabName === 'waste') {
     logo.innerHTML = 'PVC SCHEDULE 40 DWV <span>/ Waste &amp; Vent</span>';
+  } else {
+    logo.innerHTML = 'LOVETTE PLUMBING <span>/ Shopping List</span>';
   }
 
   // Toggle content
@@ -2807,6 +3334,7 @@ function switchMasterTab(tabName) {
   // Toggle sidebars
   document.getElementById('sidebar-water').style.display = tabName === 'water' ? '' : 'none';
   document.getElementById('sidebar-waste').style.display = tabName === 'waste' ? '' : 'none';
+  document.getElementById('sidebar-shop').style.display = tabName === 'shop' ? '' : 'none';
 
   // Re-observe sections for nav tracking
   observer.disconnect();
@@ -2835,7 +3363,7 @@ document.querySelectorAll('.tab').forEach(tab => {
 });
 
 // ── Active nav link tracking ──
-let navLinks = document.querySelectorAll('#sidebar-water .nav-link, #sidebar-waste .nav-link');
+let navLinks = document.querySelectorAll('#sidebar-water .nav-link, #sidebar-waste .nav-link, #sidebar-shop .nav-link');
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
